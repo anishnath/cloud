@@ -1,0 +1,394 @@
+package db;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.UUID;
+
+public class SQLLiteDBManager {
+
+	static String url = "jdbc:sqlite:/Users/aninath/Downloads/zerocloud/users.db";
+
+	 Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
+
+	public static void insertUser(Users user) throws ClassNotFoundException, SQLException {
+		
+		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
+		String sql = "INSERT INTO users (username,password) VALUES(?,?)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, user.getUsername());
+		pstmt.setString(2, user.getPassword());
+		pstmt.executeUpdate();
+		SQLLiteConnectionManager.getInstance().close();
+	}
+
+	public static boolean checkUser(Users user) throws ClassNotFoundException, SQLException {
+
+		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
+		String sql = "SELECT username FROM users WHERE username=?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, user.getUsername());
+		ResultSet rs = pstmt.executeQuery();
+
+		boolean isUserexists = false;
+		int count = 0;
+		while (rs.next()) {
+			String uName = rs.getString("username");
+			
+			System.out.println("uName = " + uName);
+			
+			if (uName!=null && uName.length()>0)
+			{
+				isUserexists =  true;
+			}
+		}
+		SQLLiteConnectionManager.getInstance().close();
+		return isUserexists;
+
+	}
+	
+	
+	public static boolean verifyLogin(Users user) throws ClassNotFoundException, SQLException {
+
+		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
+		String sql = "SELECT username FROM users WHERE username=? and password=?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, user.getUsername());
+		pstmt.setString(2, user.getPassword());
+		ResultSet rs = pstmt.executeQuery();
+
+		boolean isUserexists = false;
+		while (rs.next()) {
+			String uName = rs.getString("username");
+			if (uName!=null && uName.length()>0)
+			{
+				isUserexists =  true;
+			}
+				
+		}
+		SQLLiteConnectionManager.getInstance().close();
+		return isUserexists;
+
+	}
+
+	public static List<Users> ListUser(String user_name) throws SQLException {
+
+		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
+		String sql = "SELECT id,username,quota,Timestamp  FROM users WHERE username=?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, user_name);
+		ResultSet rs = pstmt.executeQuery();
+
+		List<Users> listUser = new ArrayList<>();
+		int count = 0;
+		while (rs.next()) {
+			Users user = new Users();
+			user.setId(rs.getString("id"));
+			user.setUsername(rs.getString("username"));
+			user.setQuota(rs.getInt("quota"));
+			
+			user.setTimestamp(rs.getString("Timestamp"));
+			listUser.add(user);
+		}
+		SQLLiteConnectionManager.getInstance().close();
+		return listUser;
+
+	}
+	
+	public static List<UsersData> ListUserData(String user_name) throws SQLException {
+
+		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
+		String sql = "SELECT id,username,docker_image,expose_port,expose_url,status,Timestamp,deployment_name,service_name,ingress_name,container_command,args,enviroment_vars  FROM users_data WHERE username=?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, user_name);
+		ResultSet rs = pstmt.executeQuery();
+
+		List<UsersData> listUser = new ArrayList<>();
+		int count = 0;
+		while (rs.next()) {
+			UsersData user = new UsersData();
+			
+			
+			user.setId(rs.getString("id"));
+			user.setUsername(rs.getString("username"));
+			user.setDocker_image(rs.getString("docker_image"));
+			user.setExpose_port(rs.getString("expose_port"));
+			user.setExpose_url(rs.getString("expose_url"));
+			user.setStatus(rs.getString("status"));
+			user.setTimestamp(rs.getString("Timestamp"));
+			user.setDeploymentName(rs.getString("deployment_name"));
+			user.setServiceName(rs.getString("service_name"));
+			user.setIngressName(rs.getString("ingress_name"));
+			user.setContainer_command(rs.getString("container_command"));
+			user.setArgs(rs.getString("args"));
+			user.setEnviroment_vars(rs.getString("enviroment_vars"));
+			listUser.add(user);
+		}
+		SQLLiteConnectionManager.getInstance().close();
+		return listUser;
+	}
+	
+	
+	public static UsersData GetUserData(String user_name) throws SQLException {
+
+		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
+		String sql = "SELECT id,username,docker_image,expose_port,expose_url,status,Timestamp,deployment_name,service_name,ingress_name,container_command,args,enviroment_vars  FROM users_data WHERE username=? and id = (select max(id) from users_data)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, user_name);
+		ResultSet rs = pstmt.executeQuery();
+
+		UsersData user = new UsersData();
+		int count = 0;
+		while (rs.next()) {
+			user.setId(rs.getString("id"));
+			user.setUsername(rs.getString("username"));
+			user.setDocker_image(rs.getString("docker_image"));
+			user.setExpose_port(rs.getString("expose_port"));
+			user.setExpose_url(rs.getString("expose_url"));
+			user.setStatus(rs.getString("status"));
+			user.setTimestamp(rs.getString("Timestamp"));
+			user.setDeploymentName(rs.getString("deployment_name"));
+			user.setServiceName(rs.getString("service_name"));
+			user.setIngressName(rs.getString("ingress_name"));
+			user.setContainer_command(rs.getString("container_command"));
+			user.setArgs(rs.getString("args"));
+			user.setEnviroment_vars(rs.getString("enviroment_vars"));
+			
+		}
+		SQLLiteConnectionManager.getInstance().close();
+		return user;
+	}
+	
+	
+	public static UsersData GetUserData2(String user_name,String id) throws SQLException {
+
+		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
+		String sql = "SELECT id,username,docker_image,expose_port,expose_url,status,Timestamp,deployment_name,service_name,ingress_name,container_command,args,enviroment_vars  FROM users_data WHERE username=? and id = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, user_name);
+		pstmt.setString(2, id);
+		ResultSet rs = pstmt.executeQuery();
+
+		UsersData user = new UsersData();
+		int count = 0;
+		while (rs.next()) {
+			user.setId(rs.getString("id"));
+			user.setUsername(rs.getString("username"));
+			user.setDocker_image(rs.getString("docker_image"));
+			user.setExpose_port(rs.getString("expose_port"));
+			user.setExpose_url(rs.getString("expose_url"));
+			user.setStatus(rs.getString("status"));
+			user.setTimestamp(rs.getString("Timestamp"));
+			user.setDeploymentName(rs.getString("deployment_name"));
+			user.setServiceName(rs.getString("service_name"));
+			user.setIngressName(rs.getString("ingress_name"));
+			user.setContainer_command(rs.getString("container_command"));
+			user.setArgs(rs.getString("args"));
+			user.setEnviroment_vars(rs.getString("enviroment_vars"));
+			
+		}
+		SQLLiteConnectionManager.getInstance().close();
+		return user;
+	}
+	
+	
+	
+	/**
+	 * 
+	 * @param username
+	 * @param expose_url
+	 * @param status is NOTDEPLOYED,DEPLOYED,TERMINATED
+	 * @throws SQLException
+	 */
+	public static void updateDeploymentStatus(String username, String id, String status) throws SQLException {
+		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
+		String sql = "UPDATE users_data SET status=? WHERE username=? and id =?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, status);
+		pstmt.setString(2, username);
+		pstmt.setString(3, id );
+		pstmt.executeUpdate();
+		SQLLiteConnectionManager.getInstance().close();
+		
+	}
+	
+	public static void updateDeploymentInfo(String deploymentName, String host, String username, String id, String status) throws SQLException {
+		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
+		String sql = "UPDATE users_data SET deployment_name=?, expose_url =? WHERE username=? and id =? and status =?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, deploymentName);
+		pstmt.setString(2, host);
+		pstmt.setString(3, username);
+		pstmt.setString(4, id);
+		pstmt.setString(5, status);
+		pstmt.executeUpdate();
+		SQLLiteConnectionManager.getInstance().close();
+		
+	}
+	
+	public static int checkQuota(String username) throws ClassNotFoundException, SQLException{
+		
+		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
+		String sql	=	"SELECT COUNT(*) FROM users_data WHERE username=? and status=?";
+		PreparedStatement pstmt	=	conn.prepareStatement(sql);
+		pstmt.setString(1, username);
+		pstmt.setString(2, "DEPLOYED");
+		ResultSet rs	=	pstmt.executeQuery();
+		
+		int count = 0;
+		while(rs.next()){
+			count++;
+		}
+		SQLLiteConnectionManager.getInstance().close();
+		return count;
+		
+	}
+
+	public static void inserUserData(UsersData userdata) throws SQLException {
+		
+		
+		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
+		String sql = "INSERT INTO users_data (username,docker_image,expose_port,expose_url,container_command,args,enviroment_vars) VALUES(?,?,?,?,?,?,?)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, userdata.getUsername());
+		pstmt.setString(2, userdata.getDocker_image());
+		pstmt.setString(3, userdata.getExpose_port());
+		pstmt.setString(4, userdata.getExpose_url());
+		pstmt.setString(5, userdata.getContainer_command());
+		pstmt.setString(6, userdata.getArgs());
+		pstmt.setString(7, userdata.getEnviroment_vars());
+		pstmt.executeUpdate();
+		SQLLiteConnectionManager.getInstance().close();
+	}
+	
+	
+	public static void purgeRecord(String id, String username) throws SQLException
+	{
+		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
+		String sql = "DELETE FROM users";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.executeUpdate();
+		
+		sql = "DELETE FROM users_data";
+		 pstmt = conn.prepareStatement(sql);
+		pstmt.executeUpdate();
+		SQLLiteConnectionManager.getInstance().close();
+		
+		
+		
+	}
+	
+	
+	
+	public static void truncateTable() throws SQLException
+	{
+		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
+		String sql = "DELETE FROM users";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.executeUpdate();
+		
+		sql = "DELETE FROM users_data";
+		 pstmt = conn.prepareStatement(sql);
+		pstmt.executeUpdate();
+		SQLLiteConnectionManager.getInstance().close();
+		
+		
+		
+	}
+
+	public static void main(String[] args) throws Exception {
+		
+		//truncateTable();
+
+		Users users = new Users();
+		users.setUsername("C");
+		users.setPassword("A");
+
+		insertUser(users);
+		
+		boolean count = checkUser(users);
+		
+		System.out.println("Count == " + count);
+		
+		users.setUsername("D");
+		
+        count = checkUser(users);
+		
+		System.out.println("Count == " + count);
+		
+		UsersData usersData =  new UsersData();
+		usersData.setUsername("A");
+		
+		usersData.setDocker_image("nginx:latest");
+		usersData.setExpose_port("80,443");
+		
+		String url = UUID.randomUUID().toString().substring(0,10);
+		usersData.setExpose_url(url);
+		
+		inserUserData(usersData);
+
+		List<Users> x = ListUser("A");
+
+		for (Iterator iterator = x.iterator(); iterator.hasNext();) {
+			Users user = (Users) iterator.next();
+			System.out.println(user);
+		}
+		
+		List<UsersData> usersdata = ListUserData("A");
+		
+		for (Iterator iterator = usersdata.iterator(); iterator.hasNext();) {
+			UsersData usersData2 = (UsersData) iterator.next();
+			System.out.println(usersData2);
+		}
+		
+
+		users.setUsername("B");
+		insertUser(users);
+		
+		
+
+		x = ListUser("B");
+
+		for (Iterator iterator = x.iterator(); iterator.hasNext();) {
+			Users user = (Users) iterator.next();
+			System.out.println(user);
+		}
+		
+		
+		usersData =  new UsersData();
+		usersData.setUsername("A");
+		usersData.setDocker_image("nginx:latest");
+		usersData.setExpose_port("80,443");
+		
+		String url1 = UUID.randomUUID().toString().substring(0,10);
+		usersData.setExpose_url(url1);
+		
+		inserUserData(usersData);
+		
+		
+		usersdata = ListUserData("A");
+		
+		for (Iterator iterator = usersdata.iterator(); iterator.hasNext();) {
+			UsersData usersData2 = (UsersData) iterator.next();
+			System.out.println(usersData2);
+		}
+		
+		
+		updateDeploymentStatus("A", url1, "TERMINATED");
+		
+		usersdata = ListUserData("A");
+		
+		for (Iterator iterator = usersdata.iterator(); iterator.hasNext();) {
+			UsersData usersData2 = (UsersData) iterator.next();
+			System.out.println(usersData2);
+		}
+		
+		System.out.println("Quota--" + checkQuota("A"));
+
+	}
+
+}
