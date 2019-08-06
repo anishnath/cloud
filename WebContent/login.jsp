@@ -8,6 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
+<%@ include file="analytics.jsp"%>
   <title>Login or Register</title>
   
   <link href="css/simple-sidebar.css" rel="stylesheet">

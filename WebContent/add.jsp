@@ -10,7 +10,7 @@
 <meta name="author" content="Anish Nath">
 <link href="css/simple-sidebar.css" rel="stylesheet">
 
-
+<%@ include file="analytics.jsp"%>
 <!-- Include one of jTable styles. -->
 
 

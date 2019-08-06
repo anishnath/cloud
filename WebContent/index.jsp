@@ -5,8 +5,10 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="description" content="Build and manage your Docker environments online">
+  <meta name="author" content="Anish Nath">
+  
+  <%@ include file="analytics.jsp"%>
 
   <title>Build and manage your Docker environments online</title>
 
