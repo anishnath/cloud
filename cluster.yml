@@ -13,10 +13,10 @@ spec:
         - name: zerocloud
           image: anishnath/0cloud0
           ports:
-			- containerPort: 8080
-	      envFrom:
-			- configMapRef:
-	          name: zerocloud-configmap
+           - containerPort: 8080
+          envFrom:
+           - configMapRef:
+              name: zerocloud-configmap
 ---
 apiVersion: v1
 kind: Service
