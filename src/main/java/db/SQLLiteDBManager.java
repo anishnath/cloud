@@ -11,7 +11,9 @@ import java.util.UUID;
 
 public class SQLLiteDBManager {
 
-	static String url = "jdbc:sqlite:/Users/aninath/Downloads/zerocloud/users.db";
+	
+	private static final String url = System.getenv("DBFILE");
+	//private final static String url = "jdbc:sqlite:/Users/aninath/Downloads/zerocloud/users.db";
 
 	 Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
 

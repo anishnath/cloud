@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 public class SQLLiteConnectionManager {
 	
-	private static final String dburl = "jdbc:sqlite:/opt/zerocloud/users.db";
+	private static final String dburl = System.getenv("DBFILE");
 	
 	private static SQLLiteConnectionManager instance;
     private Connection connection;
@@ -62,6 +62,9 @@ public class SQLLiteConnectionManager {
 	
     
     public static SQLLiteConnectionManager getInstance(String url) {
+    	
+    	System.out.println("URL --> " + url);
+    	
         if (instance == null) {
             instance = new SQLLiteConnectionManager(url);
         } else

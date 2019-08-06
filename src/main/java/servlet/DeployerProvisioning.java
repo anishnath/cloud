@@ -12,7 +12,9 @@ import k8.K8Deployer;
 public class DeployerProvisioning implements DeployerListner {
 	
 	
-	private static String namespace = "thisisatest1";
+//	private static String namespace = "thisisatest1";
+	
+	private static final String namespace = System.getenv("NAMESPACE");
 
 
 	
