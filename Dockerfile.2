@@ -1,5 +1,5 @@
-ARG BASE_IMAGE=alpine
-ARG ALPINE_VERSION=3.10
+ARG BASE_IMAGE=anishnath/tomcat
+ARG ALPINE_VERSION=9
 FROM ${BASE_IMAGE}:${ALPINE_VERSION}
 LABEL org.label-schema.schema-version="1.0.0-demo" \
     maintainer="anish2good@yahoo.co.in" \
@@ -22,16 +22,14 @@ ENV NAMESPACE=cloud \
     CATALINA_HOME=/opt/tomcat \
     CATALINA_OUT=/dev/null
 
-RUN apk add --update curl openjdk8 && \
-    curl -jksSL -o /tmp/apache-tomcat.tar.gz http://archive.apache.org/dist/tomcat/tomcat-${TOMCAT_MAJOR}/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
-    gunzip /tmp/apache-tomcat.tar.gz && \
-    tar -C /opt -xf /tmp/apache-tomcat.tar && \
-    ln -s /opt/apache-tomcat-${TOMCAT_VERSION} ${TOMCAT_HOME} && \
+RUN apk add --update  && \
+    mkdir -p /opt/zerocloud/ && \
     rm -rf ${TOMCAT_HOME}/webapps/* && \
     apk del curl && \
     rm -rf /tmp/* /var/cache/apk/*
 
 COPY target/ROOT.war ${TOMCAT_HOME}/webapps/
+
 
 
 
