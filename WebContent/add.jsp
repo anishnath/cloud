@@ -539,7 +539,7 @@ div.jtable-busy-message {
             fields : {
                 id : {
                     title : 'id',
-                    width : '30%',
+                    width : '10%',
                     key : true,
                     list : true,
                     edit : false,
@@ -552,7 +552,7 @@ div.jtable-busy-message {
                 },
                 expose_port : {
                     title : 'Container Port',
-                    width : '40%',
+                    width : '10%',
                     input: function (data) {
                         if (data.record) {
                             return '<input type="text" name="expose_port" style="width:200px" value="' + data.record.expose_port + '" />';
@@ -576,7 +576,7 @@ div.jtable-busy-message {
                 },
                 args : {
                     title : 'ARGS(Comma Seperated)',
-                    width : '20%',
+                    width : '10%',
                     input: function (data) {
                         if (data.record) {
                             return '<textarea name="args">'+ data.record.args +'</textarea>';
@@ -600,14 +600,21 @@ div.jtable-busy-message {
                 },
                 expose_url : {
                     title : 'Exposed URL',
-                    width : '70%',
+                    width : '30%',
+                    list : true,
+                    edit : false,
+                    create : false
+                },
+                Timestamp : {
+                    title : 'Time Stamp',
+                    width : '20%',
                     list : true,
                     edit : false,
                     create : false
                 },
                 status : {
                     title : 'STATUS',
-                    width : '20%',
+                    width : '10%',
                     list : true,
                     edit : false,
                     create : false
@@ -710,6 +717,13 @@ div.jtable-busy-message {
                               
       
        <div id="dockerContainer"></div>
+       
+       <hr>
+       <p> When you add a new deployment please refresh the page to get into the DEPLOYED STATE. This state refer your HTTP application is ready to serve the traffic </p>
+       <p>
+       <img class="img-fluid rounded" height="800" src="images/deploy.png"  alt="Referefce ">
+       </img>
+       </p>>
        
        <div>
        

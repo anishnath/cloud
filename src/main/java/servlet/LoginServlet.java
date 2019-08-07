@@ -74,9 +74,7 @@ public class LoginServlet extends HttpServlet {
         Users users = new Users();
         users.setPassword(password);
         users.setUsername(user_name);;
-        
-        System.out.println(users.getPassword());
-        System.out.println(users.getUsername());
+
         
         try {
 			boolean count = SQLLiteDBManager.verifyLogin(users);

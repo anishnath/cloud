@@ -5,9 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
+import java.sql.Timestamp;
 
 public class SQLLiteDBManager {
 
@@ -101,12 +103,54 @@ public class SQLLiteDBManager {
 
 	}
 	
+	
+	public static List<UsersData> getPurgeRecord() throws SQLException {
+		
+		System.out.println("Inside Get Purged Record--");
+
+		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
+		String sql = "SELECT id,username,docker_image,expose_port,expose_url,status,Timestamp,deployment_name,service_name,ingress_name,container_command,args,enviroment_vars  FROM users_data WHERE username not in (?) and status in (?) LIMIT 100 ";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, "system@localhost.com");
+		pstmt.setString(2, "DEPLOYED");
+		ResultSet rs = pstmt.executeQuery();
+		
+		System.out.println(sql);
+
+		List<UsersData> listUser = new ArrayList<>();
+		int count = 0;
+		while (rs.next()) {
+			UsersData user = new UsersData();
+			
+	
+			
+			user.setId(rs.getString("id"));
+			user.setUsername(rs.getString("username"));
+			user.setDocker_image(rs.getString("docker_image"));
+			user.setExpose_port(rs.getString("expose_port"));
+			user.setExpose_url(rs.getString("expose_url"));
+			user.setStatus(rs.getString("status"));
+			user.setTimestamp(rs.getString("Timestamp"));
+			user.setDeploymentName(rs.getString("deployment_name"));
+			user.setServiceName(rs.getString("service_name"));
+			user.setIngressName(rs.getString("ingress_name"));
+			user.setContainer_command(rs.getString("container_command"));
+			user.setArgs(rs.getString("args"));
+			user.setEnviroment_vars(rs.getString("enviroment_vars"));
+			listUser.add(user);
+		}
+		SQLLiteConnectionManager.getInstance().close();
+		return listUser;
+	}
+	
+	
 	public static List<UsersData> ListUserData(String user_name) throws SQLException {
 
 		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
-		String sql = "SELECT id,username,docker_image,expose_port,expose_url,status,Timestamp,deployment_name,service_name,ingress_name,container_command,args,enviroment_vars  FROM users_data WHERE username=?";
+		String sql = "SELECT id,username,docker_image,expose_port,expose_url,status,Timestamp,deployment_name,service_name,ingress_name,container_command,args,enviroment_vars  FROM users_data WHERE username in (?,?) ORDER BY Timestamp DESC ";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, user_name);
+		pstmt.setString(2, "system@localhost.com");
 		ResultSet rs = pstmt.executeQuery();
 
 		List<UsersData> listUser = new ArrayList<>();
@@ -314,13 +358,13 @@ public class SQLLiteDBManager {
 		
 		boolean count = checkUser(users);
 		
-		System.out.println("Count == " + count);
+		//System.out.println("Count == " + count);
 		
 		users.setUsername("D");
 		
         count = checkUser(users);
 		
-		System.out.println("Count == " + count);
+		//System.out.println("Count == " + count);
 		
 		UsersData usersData =  new UsersData();
 		usersData.setUsername("A");
@@ -391,6 +435,31 @@ public class SQLLiteDBManager {
 		
 		System.out.println("Quota--" + checkQuota("A"));
 
+		
+		usersdata = getPurgeRecord();
+		
+		for (Iterator iterator = usersdata.iterator(); iterator.hasNext();) {
+			UsersData usersData2 = (UsersData) iterator.next();
+			
+			System.out.println("Inside Timespatp ");
+			
+			java.util.Date date = new java.util.Date();
+		    Timestamp timestamp1 = new Timestamp(date.getTime());
+		 
+		     // create a calendar and assign it the same time
+		    Calendar cal = Calendar.getInstance();
+		    cal.setTimeInMillis(timestamp1.getTime());
+		 
+		    // add a bunch of seconds to the calendar 
+		    cal.add(Calendar.SECOND, 98765);
+			
+			String timestap = usersData2.getTimestamp();
+			
+			java.sql.Timestamp t1 = java.sql.Timestamp.valueOf(timestap);
+			
+			System.out.println(t1);
+		}
+		
 	}
 
 }

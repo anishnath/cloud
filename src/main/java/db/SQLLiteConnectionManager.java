@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.apache.commons.lang.RandomStringUtils;
+
 public class SQLLiteConnectionManager {
 	
 	private static final String dburl = System.getenv("DBFILE");
@@ -63,7 +65,7 @@ public class SQLLiteConnectionManager {
     
     public static SQLLiteConnectionManager getInstance(String url) {
     	
-    	System.out.println("URL --> " + url);
+    	//System.out.println("URL --> " + url);
     	
         if (instance == null) {
             instance = new SQLLiteConnectionManager(url);
@@ -82,7 +84,7 @@ public class SQLLiteConnectionManager {
     
     
     public void close(){
-		System.out.println("Closing Connection");
+		//System.out.println("Closing Connection");
 		try {
 			connection.close();
 		} catch (SQLException e) {
@@ -92,11 +94,11 @@ public class SQLLiteConnectionManager {
 	}
     
 	
-	public static void createNewDatabase(String url ) {
+	public static void createNewDatabase( ) {
 		 
 		
  
-        try (Connection conn = DriverManager.getConnection(url)) {
+        try (Connection conn = DriverManager.getConnection(dburl)) {
             if (conn != null) {
             	Class.forName("org.sqlite.JDBC");
                 DatabaseMetaData meta = conn.getMetaData();
@@ -112,21 +114,31 @@ public class SQLLiteConnectionManager {
         
         Connection c = null;
         Statement stmt = null;
-        
+        String sql = "";
         try {
            Class.forName("org.sqlite.JDBC");
-           c = DriverManager.getConnection(url);
+           
+           c = DriverManager.getConnection(dburl);
            System.out.println("Opened database successfully");
 
            stmt = c.createStatement();
-           String sql = "CREATE TABLE users (\n" +
+           sql = "CREATE TABLE users (\n" +
                    "    id INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,\n" +
                    "    username NVARCHAR(120)  NULL,\n" +
                    "    password NVARCHAR(120)  NULL,\n" +
                    "    quota INTEGER DEFAULT 3,\n" +
                    "    Timestamp DATETIME DEFAULT CURRENT_TIMESTAMP\n" +
                    ");";
-           stmt.executeUpdate(sql);
+           
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+         }
+        
+        try{
+        	
+           
+           System.out.println(sql);
+          // stmt.executeUpdate(sql);
            
            sql = "CREATE TABLE users_data (\n" +
                    "    id INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,\n" +
@@ -145,21 +157,41 @@ public class SQLLiteConnectionManager {
                    "    FOREIGN KEY(id) REFERENCES users(username)\n" +
                    ");";
            
+           System.out.println(sql);
            stmt.executeUpdate(sql);
            stmt.close();
            c.close();
         } catch ( Exception e ) {
            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-           System.exit(0);
+           
         }
+        
         System.out.println("Table created successfully");
-     
+        
+        System.out.println("Creating Sample Users created successfully");
+        
+        try {
+			Users users = new Users();
+			users.setUsername("system@localhost.com");
+			users.setPassword(RandomStringUtils.randomAlphabetic(10).toLowerCase());
+			
+			boolean isUserexists = SQLLiteDBManager.checkUser(users);
+			
+			if(!isUserexists)
+			{
+				SQLLiteDBManager.insertUser(users);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
     }
 
 	
 	public static void main(String[] args) {
-		createNewDatabase("jdbc:sqlite:/Users/aninath/Downloads/zerocloud/users.db");
+		//createNewDatabase("jdbc:sqlite:/Users/aninath/Downloads/zerocloud/users.db");
+		createNewDatabase();
 	}
 
 }

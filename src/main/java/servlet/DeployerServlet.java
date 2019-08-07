@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
@@ -86,6 +87,22 @@ public class DeployerServlet extends HttpServlet {
 				if (action.equals("list")) {
 
 					List<UsersData> listUser = SQLLiteDBManager.ListUserData(user_name);
+					
+					for (Iterator iterator = listUser.iterator(); iterator.hasNext();) {
+						UsersData usersData = (UsersData) iterator.next();
+						
+							 
+						if(usersData.getExpose_url()!=null && usersData.getExpose_url().length()>1)
+						{
+							String href = "<a href=\"http://"+usersData.getExpose_url()+"\" target=\"_blank\">"+usersData.getExpose_url()+"</a>";
+							//System.out.println("A===>>" + href);
+							usersData.setExpose_url(href);
+						}
+						
+						
+					}
+					
+					
 					JSONROOT.put("Result", "OK");
 					JSONROOT.put("Records", listUser);
 
@@ -113,14 +130,14 @@ public class DeployerServlet extends HttpServlet {
 
 					StringBuilder dockerURL = new StringBuilder().append("https://index.docker.io/v1/repositories/");
 
-					if (!docker_image.contains("gcr.io"))
+					if (!docker_image.contains("gcr.io") && !docker_image.contains("quay.io"))
 
 					{
 
 						if (docker_image.contains(":")) {
 							String[] arr = docker_image.split(":");
 							if (arr.length > 1) {
-								System.out.println(arr.length);
+								//System.out.println(arr.length);
 								dockerURL.append(arr[0]);
 								dockerURL.append("/tags");
 								dockerURL.append("/");
@@ -133,7 +150,7 @@ public class DeployerServlet extends HttpServlet {
 							dockerURL.append("latest");
 						}
 
-						System.out.println(dockerURL.toString());
+						//System.out.println(dockerURL.toString());
 
 						Request requests = new Request.Builder().url(dockerURL.toString()).build();
 
@@ -141,7 +158,7 @@ public class DeployerServlet extends HttpServlet {
 
 						int code = responses.code();
 
-						System.out.println("Content2 Length -->" + code);
+						//System.out.println("Content2 Length -->" + code);
 
 						responses.body().close();
 
@@ -179,8 +196,8 @@ public class DeployerServlet extends HttpServlet {
 					String enviroment_vars = request.getParameter("enviroment_vars");
 					
 					List<String> envList = new ArrayList<String>(5);
-					List<String> commandList =  new ArrayList<>(3);
-					List<String> conatinerArgs = new ArrayList<>(10);
+					List<String> commandList =  new ArrayList<String>(3);
+					List<String> conatinerArgs = new ArrayList<String>(10);
 					
 					if(enviroment_vars!=null && enviroment_vars.length()>0)
 					{
@@ -266,7 +283,7 @@ public class DeployerServlet extends HttpServlet {
 					String expose_port = request.getParameter("expose_port");
 					String id = request.getParameter("id");
 					
-					System.out.println("id-->>" + id);
+					//System.out.println("id-->>" + id);
 					
 					SQLLiteDBManager.updateDeploymentStatus(user_name, id, "DELETED");
 					

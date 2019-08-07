@@ -100,9 +100,15 @@ public class DeployerProvisioning implements DeployerListner {
 		try {
 			UsersData user = SQLLiteDBManager.GetUserData2(userdata.getUsername(), id);
 			
+			System.out.println("user.getDeploymentName() --" + user.getDeploymentName());
+			
+			if(user.getDeploymentName()!=null)
+			{
+			
 			K8Deployer.deleteDeployment(namespace, user.getDeploymentName());
 			
 			SQLLiteDBManager.updateDeploymentStatus(user.getUsername(), user.getId(), "PURGED");
+			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
