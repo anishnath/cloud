@@ -15,6 +15,8 @@ public class DeployerProvisioning implements DeployerListner {
 //	private static String namespace = "thisisatest1";
 	
 	private static final String namespace = System.getenv("NAMESPACE");
+	private static final String dns = System.getenv("DNS");
+	
 
 
 	
@@ -36,7 +38,7 @@ public class DeployerProvisioning implements DeployerListner {
 			String deploymentname = RandomStringUtils.randomAlphabetic(10).toLowerCase();
 			String label = RandomStringUtils.randomAlphabetic(10).toLowerCase();
 
-			String host = RandomStringUtils.randomAlphabetic(10).toLowerCase() + ".minikube";
+			String host = RandomStringUtils.randomAlphabetic(10).toLowerCase() + "."+ dns;
 
 			System.out.println(deploymentname);
 			System.out.println(label);
