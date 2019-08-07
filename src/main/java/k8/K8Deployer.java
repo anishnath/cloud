@@ -64,6 +64,7 @@ public class K8Deployer {
 	private static final String clinetkeydata = System.getenv("CLIENTKEYDATA");
 	private static final String clinetcertData = System.getenv("CLIENTCERTDATA");
 	private static final String namespace = System.getenv("NAMESPACE");
+	private static final String dns = System.getenv("DNS");
 	
 	
 
@@ -106,7 +107,7 @@ public class K8Deployer {
 		String deploymentname = RandomStringUtils.randomAlphabetic(10).toLowerCase();
 		String label = RandomStringUtils.randomAlphabetic(10).toLowerCase();
 
-		String host = RandomStringUtils.randomAlphabetic(10).toLowerCase() + ".minikube";
+		String host = RandomStringUtils.randomAlphabetic(10).toLowerCase() + "."+dns;
 
 		System.out.println(deploymentname);
 		System.out.println(label);
