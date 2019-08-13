@@ -312,6 +312,139 @@ public class SQLLiteDBManager {
 	}
 	
 	
+	public static void inserUserDataSQL(UsersDataSQL userdata) throws SQLException {
+		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
+		String sql = "INSERT INTO users_data_sql (username,dbusername,dbname,password) VALUES(?,?,?,?)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, userdata.getUsername());
+		pstmt.setString(2, userdata.getDbusername());
+		pstmt.setString(3, userdata.getDbname());
+		pstmt.setString(4, userdata.getPassword());
+		pstmt.executeUpdate();
+		SQLLiteConnectionManager.getInstance().close();
+	}
+	
+	
+	public static List<UsersDataSQL> ListUserDataSQL(String user_name) throws SQLException {
+
+		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
+		String sql = "SELECT id,username,dbusername,dbname,password,Timestamp,status  FROM users_data_sql WHERE username in (?) ORDER BY Timestamp DESC ";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, user_name);
+		ResultSet rs = pstmt.executeQuery();
+
+		List<UsersDataSQL> listUser = new ArrayList<>();
+		int count = 0;
+		while (rs.next()) {
+			UsersDataSQL user = new UsersDataSQL();
+			user.setId(rs.getString("id"));
+			user.setUsername(rs.getString("username"));
+			user.setDbusername(rs.getString("dbusername"));
+			user.setDbname(rs.getString("dbname"));
+			user.setPassword(rs.getString("password"));
+			user.setTimestamp(rs.getString("Timestamp"));
+			user.setStatus(rs.getString("status"));
+			listUser.add(user);
+		}
+		SQLLiteConnectionManager.getInstance().close();
+		return listUser;
+	}
+	
+	
+	public static UsersDataSQL GetUserDataLASTRecord(String user_name) throws SQLException {
+
+		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
+		String sql = "SELECT id,username,dbusername,dbname,password,Timestamp,status  FROM users_data_sql WHERE username=? and id = (select max(id) from users_data_sql)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, user_name);
+		ResultSet rs = pstmt.executeQuery();
+
+		UsersDataSQL user = new UsersDataSQL();
+		int count = 0;
+		while (rs.next()) {
+			user.setId(rs.getString("id"));
+			user.setUsername(rs.getString("username"));
+			user.setDbusername(rs.getString("dbusername"));
+			user.setDbname(rs.getString("dbname"));
+			user.setPassword(rs.getString("password"));
+			user.setTimestamp(rs.getString("Timestamp"));
+			user.setStatus(rs.getString("status"));
+			
+		}
+		SQLLiteConnectionManager.getInstance().close();
+		return user;
+	}
+	
+	
+	public static UsersDataSQL GetUserSQLData2(String user_name,String id) throws SQLException {
+
+		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
+		String sql = "SELECT id,username,dbusername,dbname,password,Timestamp,status  FROM users_data_sql WHERE username=? and id = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, user_name);
+		pstmt.setString(2, id);
+		ResultSet rs = pstmt.executeQuery();
+
+		UsersDataSQL user = new UsersDataSQL();
+		int count = 0;
+		while (rs.next()) {
+			user.setId(rs.getString("id"));
+			user.setUsername(rs.getString("username"));
+			user.setDbusername(rs.getString("dbusername"));
+			user.setDbname(rs.getString("dbname"));
+			user.setPassword(rs.getString("password"));
+			user.setTimestamp(rs.getString("Timestamp"));
+			user.setStatus(rs.getString("status"));
+			
+		}
+		SQLLiteConnectionManager.getInstance().close();
+		return user;
+	}
+	
+	public static void deleteFromUserDataSQL(String username, String id) throws SQLException {
+		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
+		String sql = "DELETE FROM users_data_sql WHERE username=? and id =?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, username);
+		pstmt.setString(2, id);
+		pstmt.executeUpdate();
+		SQLLiteConnectionManager.getInstance().close();
+		
+	}
+	
+	
+	public static void updateSQLStatus(String username, String id, String status) throws SQLException {
+		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
+		String sql = "UPDATE users_data_sql SET status=? WHERE username=? and id =?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, status);
+		pstmt.setString(2, username);
+		pstmt.setString(3, id );
+		pstmt.executeUpdate();
+		SQLLiteConnectionManager.getInstance().close();
+		
+	}
+	
+	public static int checkQuotaSQL(String username) throws ClassNotFoundException, SQLException{
+		
+		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
+		String sql	=	"SELECT COUNT(*) as count FROM users_data_sql WHERE username=? and status=?";
+		PreparedStatement pstmt	=	conn.prepareStatement(sql);
+		pstmt.setString(1, username);
+		pstmt.setString(2, "ACTIVE");
+		ResultSet rs	=	pstmt.executeQuery();
+		
+		int count = 0;
+		while(rs.next()){
+			count = rs.getInt("count");
+		}
+		SQLLiteConnectionManager.getInstance().close();
+		return count;
+		
+	}
+	
+	
+	
 	public static void purgeRecord(String id, String username) throws SQLException
 	{
 		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();

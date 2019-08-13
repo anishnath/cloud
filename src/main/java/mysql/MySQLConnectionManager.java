@@ -1,38 +1,44 @@
-package db;
+package mysql;
+
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.apache.commons.lang.RandomStringUtils;
+public class MySQLConnectionManager {
+	
 
-public class SQLLiteConnectionManager {
 	
-	private static final String dburl = System.getenv("DBFILE");
+	private static final String MYSQL_ROOT_DBCONNECT_URL = System.getenv("MYSQL_ROOT_DBCONNECT_URL");
+	private static final String MYSQL_ROOT_PASSWORD = System.getenv("MYSQL_ROOT_PASSWORD");
+	private static final String MYSQL_ROOT_USERNAME = System.getenv("MYSQL_ROOT_USERNAME");
 	
-	private static SQLLiteConnectionManager instance;
+	private static MySQLConnectionManager instance;
     private Connection connection;
-    private String url = "jdbc:sqlite:/opt/zerocloud/users.db";
-    private String username = "root";
-    private String password = "localhost";
+
     
     
-    private SQLLiteConnectionManager()  {
+    private MySQLConnectionManager()  {
         try {
-        	Class.forName("org.sqlite.JDBC");
-            this.connection = DriverManager.getConnection(dburl);
+        	Class.forName("com.mysql.jdbc.Driver");
+        	
+
+        	
+            this.connection = DriverManager.getConnection(MYSQL_ROOT_DBCONNECT_URL,MYSQL_ROOT_USERNAME,MYSQL_ROOT_PASSWORD);
         } catch (ClassNotFoundException ex) {
             System.out.println("Database Connection Creation Failed1 : " + ex.getMessage());
         } catch (SQLException e) {
+        	
+        	e.printStackTrace();
 			// TODO Auto-generated catch block
         	System.out.println("Database Connection Creation Failed2 : " + e.getMessage());
 		}
     }
     
-    private SQLLiteConnectionManager(String url)  {
+    private MySQLConnectionManager(String url)  {
         try {
-        	Class.forName("org.sqlite.JDBC");
+        	Class.forName("com.mysql.jdbc.Driver");
             this.connection = DriverManager.getConnection(url);
         } catch (ClassNotFoundException ex) {
             System.out.println("Database Connection Creation Failed3 : " + ex.getMessage());
@@ -46,13 +52,13 @@ public class SQLLiteConnectionManager {
         return connection;
     }
 
-    public static SQLLiteConnectionManager getInstance()  {
+    public static MySQLConnectionManager getInstance()  {
         if (instance == null) {
-            instance = new SQLLiteConnectionManager();
+            instance = new MySQLConnectionManager();
         } else
 			try {
 				if (instance.getConnection().isClosed()) {
-				    instance = new SQLLiteConnectionManager();
+				    instance = new MySQLConnectionManager();
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -63,16 +69,16 @@ public class SQLLiteConnectionManager {
     }
 	
     
-    public static SQLLiteConnectionManager getInstance(String url) {
+    public static MySQLConnectionManager getInstance(String url) {
     	
     	//System.out.println("URL --> " + url);
     	
         if (instance == null) {
-            instance = new SQLLiteConnectionManager(url);
+            instance = new MySQLConnectionManager(url);
         } else
 			try {
 				if (instance.getConnection().isClosed()) {
-				    instance = new SQLLiteConnectionManager(url);
+				    instance = new MySQLConnectionManager(url);
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -98,9 +104,9 @@ public class SQLLiteConnectionManager {
 		 
 		
  
-        try (Connection conn = DriverManager.getConnection(dburl)) {
+        try (Connection conn = DriverManager.getConnection(MYSQL_ROOT_DBCONNECT_URL,MYSQL_ROOT_USERNAME,MYSQL_ROOT_PASSWORD)) {
             if (conn != null) {
-            	Class.forName("org.sqlite.JDBC");
+            	Class.forName("com.mysql.jdbc.Driver");
                 DatabaseMetaData meta = conn.getMetaData();
                 System.out.println("The driver name is " + meta.getDriverName());
                 System.out.println("A new database has been created.");
@@ -116,9 +122,9 @@ public class SQLLiteConnectionManager {
         Statement stmt = null;
         String sql = "";
         try {
-           Class.forName("org.sqlite.JDBC");
+           Class.forName("com.mysql.jdbc.Driver");
            
-           c = DriverManager.getConnection(dburl);
+           c = DriverManager.getConnection(MYSQL_ROOT_DBCONNECT_URL,MYSQL_ROOT_USERNAME,MYSQL_ROOT_PASSWORD);
            System.out.println("Opened database successfully");
 
            stmt = c.createStatement();
@@ -166,52 +172,11 @@ public class SQLLiteConnectionManager {
            
         }
         
-        try{
-        	
-            
-
-           // stmt.executeUpdate(sql);
-            
-            sql = "CREATE TABLE users_data_sql (\n" +
-                    "    id INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,\n" +
-                    "    username NVARCHAR(120) NOT  NULL,\n" +
-                    "    dbusername NVARCHAR(120) NOT  NULL,\n" +
-                    "    dbname NVARCHAR(50) NOT  NULL,\n" +
-                    "    password  NVARCHAR(40)   NULL,\n" +
-                    "    quota INTEGER DEFAULT 6,\n" +
-                    "    status  NVARCHAR(40)  DEFAULT ACTIVE,\n" +
-                    "    Timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,\n" +
-                    "    FOREIGN KEY(id) REFERENCES users(username)\n" +
-                    ");";
-            
-            System.out.println(sql);
-            stmt.executeUpdate(sql);
-            stmt.close();
-            c.close();
-         } catch ( Exception e ) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            
-         }
-        
         System.out.println("Table created successfully");
         
         System.out.println("Creating Sample Users created successfully");
         
-        try {
-			Users users = new Users();
-			users.setUsername("system@localhost.com");
-			users.setPassword(RandomStringUtils.randomAlphabetic(10).toLowerCase());
-			
-			boolean isUserexists = SQLLiteDBManager.checkUser(users);
-			
-			if(!isUserexists)
-			{
-				SQLLiteDBManager.insertUser(users);
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        
         
     }
 
@@ -220,5 +185,7 @@ public class SQLLiteConnectionManager {
 		//createNewDatabase("jdbc:sqlite:/Users/aninath/Downloads/zerocloud/users.db");
 		createNewDatabase();
 	}
+
+
 
 }

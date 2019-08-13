@@ -35,15 +35,43 @@
 <hr>
     <!-- Sidebar -->
     <div class="bg-light border-right" id="sidebar-wrapper">
-      <div class="sidebar-heading"></div>
+             <div class="sidebar-heading"></div>
+      
+      <div class="list-group list-group-flush">
+         <a href="index.jsp" class="list-group-item list-group-item-action bg-light">Home</a>
+      </div>
+      
+       <div class="list-group list-group-flush">
+        <a href="login.jsp" class="list-group-item list-group-item-action bg-light">Login</a>
+      </div>
+      
+
+      
+      <div class="list-group list-group-flush">
+        
+      </div>
+      
+      <div class="list-group list-group-flush">
+        
+      </div>
+
+     <div class="list-group list-group-flush">
+        <a href="add.jsp" class="list-group-item list-group-item-action bg-light">Container Service</a>
+      </div>
+      
+      <div class="list-group list-group-flush">
+        <a href="sql.jsp" class="list-group-item list-group-item-action bg-light">MySQL Service</a>
+      </div>
+      
+	<div class="list-group list-group-flush">
+        <a href="contactus.jsp" class="list-group-item list-group-item-action bg-light">Contact Me</a>
+      </div>
+      
       <div class="list-group list-group-flush">
         <a href="https://www.linkedin.com/in/anishnath" class="list-group-item list-group-item-action bg-light">Hire Me!!</a>
       </div>
        <div class="list-group list-group-flush">
         <a href="https://8gwifi.org" class="list-group-item list-group-item-action bg-light">Cryptography Playground</a>
-      </div>
-     <div class="list-group list-group-flush">
-        <a href="add.jsp" class="list-group-item list-group-item-action bg-light">Deploy Docker Online</a>
       </div>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -72,8 +100,8 @@
         
         
         <h1 class="mt-4">Welcome to 0cloud0.com</h1>
-        <p>This is the playground to host your docker images online</p>
-        <p>You can use this playground to host your docker image online for sharing and displaying your work, even you can customize the DNS </p>
+        <p>This is the container solution to host your docker images online</p>
+        <p>You can use this container service to host your docker image online even you can customize the DNS </p>
         <p>Right now the Hosting is only for HTTP based docker image, you can deploy other NON HTTP images also though the provisioning of service will not happen, though you can conitnue with other operation of your docker image</p>
       </div>
     </div>

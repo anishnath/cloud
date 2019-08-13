@@ -370,6 +370,12 @@ public class K8Deployer {
 		// System.out.println(containerBuilder);
 		System.out.println(newDeployment);
 		System.out.println(service);
+		
+		if(!image.contains("mysql") || !image.contains("postgress"))
+			
+		{	
+		
+		
 
 		HashMap<String, String> annotations = new HashMap<>();
 		// annotations.put("nginx.ingress.kubernetes.io/rewrite-target", "/$1");
@@ -396,9 +402,11 @@ public class K8Deployer {
 		log("Created Ingress with name ", ingress.getMetadata().getName());
 
 		System.out.println(ns);
+		
+		}
 	}
 
-	private static KubernetesClient getClient() {
+	public static KubernetesClient getClient() {
 
 //		String master = "https://10.64.83.49:6443";
 //		String cacertdata = "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUN5RENDQWJDZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRFNU1EY3pNVEV4TkRZeU1Wb1hEVEk1TURjeU9ERXhORFl5TVZvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBT1p6CnU5Sk8xYUhNSy9kM3cvbzRvOTZiMTJUU09BME5ZSXNFZ2N3bno3bTF1TW1XakhNR0dDZGtGWWFEVGlpVm5rMWcKTFJ6ZGpYd1k0b1hLZkoxVkNXazdGOFNHTnR2U0xHa0pZVUNtcmVNRng5TnNJREdUK0FqK0h0WG41WG5BWEpXUwpVektVVVRBSFZoVzV3UndmbldzY0FZWjN4MFlHY3UvclVVOXVkb0JWWjN5dVE3VzNsWHpSUDJlZ1MvUkF0dDUrCnl6ZWhlWXN4S1hXelVidlhON0U2dWRQbVlnWFFZMUgwR1FKaStmdVpWVXJkVVNnVXQ4cXVuZ2V4dmZrUEU2USsKRnpjTWRtdlpZUFRtMWVEdnZqU0tEOHpLUVliK0VFdVd3U0dPMmlKcVMwRmEzVGF6TGMwR2VqeHkwUGhSOU9FeQo5M0x4NE1BQkxTUjk4Z2k1SjlVQ0F3RUFBYU1qTUNFd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0RRWUpLb1pJaHZjTkFRRUxCUUFEZ2dFQkFHVWR2SmVRbXFXdGpRLzE3ek4rOUhsM0V5S2YKVDVWYVgyYlFiYWg1TVlYNXdjZy9uVWdRVi9EekJCTElKbVhCR3lQZ0d0MHRJSFJwZFowVGRyVGwwUDlia1FDcwpFeS9hUkh2SVc3KzZjdE9YM2dhU0NpZFA0aEJtanZtTU1RTHZxd2xORTk5a2FYRnNoWXNmelZYaFpaM2MrK0VvCmNueWFWdk5kd2dobTMwWUVKaFMraG1JYVJlQ3RZZjllVDJSUmxQOGN3K0V2cUNRbFRNbEQ2clpLMmtkSGNDTHoKQjE5SzcvUFFtOVJMSUd0VnVuOUgzTjNNVUx3aWtwTFpDdGJWcVQ1aldxeUU1cXByd3hLWEs1djlHSWovQWxRUwpzK01uaWFLZllqYmMwSy9UODlsSDhmUlM5MlY2Z0dOR3F6aUpXSDBLaEx2VGdRMURsK0RYT1BOcXJpVT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=";

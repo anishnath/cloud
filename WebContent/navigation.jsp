@@ -1,6 +1,6 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="index.jsp">0cloud0.com - Hosting</a>
+        <a class="navbar-brand" href="login.jsp">0cloud0.com - Hosting</a>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <!-- <li class="nav-item active">
