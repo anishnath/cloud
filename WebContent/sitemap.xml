@@ -13,4 +13,12 @@
     <loc>http://0cloud0.com/add.jsp</loc>
 </url>
 
+<url>
+    <loc>http://0cloud0.com/sql.jsp</loc>
+</url>
+
+<url>
+    <loc>http://mysql.0cloud0.com/sql.jsp</loc>
+</url>
+
 </urlset>
