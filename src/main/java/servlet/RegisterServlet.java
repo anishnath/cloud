@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import db.SQLLiteDBManager;
 import db.Users;
+import k8.K8Deployer;
 
 /**
  * Servlet implementation class RegisterServlet
@@ -81,6 +82,8 @@ public class RegisterServlet extends HttpServlet {
 		
 		 SQLLiteDBManager.insertUser(uses);
 		 
+		 
+		 K8Deployer.createNS(user_name);
 		 
 		 
 		 HttpSession currentSession = req.getSession(); 

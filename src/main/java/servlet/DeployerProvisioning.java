@@ -1,8 +1,10 @@
 package servlet;
 
-import java.sql.SQLException;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.List;
 
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang.RandomStringUtils;
 
 import db.SQLLiteDBManager;
@@ -14,7 +16,7 @@ public class DeployerProvisioning implements DeployerListner {
 	
 //	private static String namespace = "thisisatest1";
 	
-	private static final String namespace = System.getenv("NAMESPACE");
+	
 	private static final String dns = System.getenv("DNS");
 	
 
@@ -45,8 +47,13 @@ public class DeployerProvisioning implements DeployerListner {
 			System.out.println(host);
 			
 			
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			String ns1 = "fixedsalt" + username;
+	        byte[] hashInBytes = md.digest(ns1.getBytes(StandardCharsets.UTF_8));
+	        
+	        String hash = Hex.encodeHexString(hashInBytes).toLowerCase();
 			
-			K8Deployer.deploy(namespace, username, imagename, image, deploymentname, label, commandList, conatinerArgs, envList, host, port);
+			K8Deployer.deploy(hash, username, imagename, image, deploymentname, label, commandList, conatinerArgs, envList, host, port);
 			
 			
 			
@@ -54,7 +61,7 @@ public class DeployerProvisioning implements DeployerListner {
 			
 			Thread.sleep(20*1000);
 			
-			boolean isRunning = K8Deployer.isPodRunning(namespace, username, imagename, image, deploymentname, label, host, port);
+			boolean isRunning = K8Deployer.isPodRunning(hash, username, imagename, image, deploymentname, label, host, port);
 			
 			SQLLiteDBManager.updateDeploymentInfo(deploymentname, host, username, userdata.getId(), "PROVISIONING");
 			
@@ -67,7 +74,7 @@ public class DeployerProvisioning implements DeployerListner {
 				
 				Thread.sleep(20*1000);
 				
-				K8Deployer.isPodRunning(namespace, username, imagename, image, deploymentname, label, host, port);
+				K8Deployer.isPodRunning(hash, username, imagename, image, deploymentname, label, host, port);
 				
 				if(isRunning)
 				{
@@ -105,12 +112,17 @@ public class DeployerProvisioning implements DeployerListner {
 			if(user.getDeploymentName()!=null)
 			{
 			
-			K8Deployer.deleteDeployment(namespace, user.getDeploymentName());
+				MessageDigest md = MessageDigest.getInstance("MD5");
+				String ns1 = "fixedsalt" + user.getUsername();
+		        byte[] hashInBytes = md.digest(ns1.getBytes(StandardCharsets.UTF_8));
+		        
+		        String hash = Hex.encodeHexString(hashInBytes).toLowerCase();
+			K8Deployer.deleteDeployment(hash, user.getDeploymentName());
 			
 			SQLLiteDBManager.updateDeploymentStatus(user.getUsername(), user.getId(), "PURGED");
 			}
 			
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

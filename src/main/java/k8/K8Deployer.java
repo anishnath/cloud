@@ -1,12 +1,17 @@
 package k8;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,7 +68,7 @@ public class K8Deployer {
 	private static final String cacertdata = System.getenv("CACERTDATA");
 	private static final String clinetkeydata = System.getenv("CLIENTKEYDATA");
 	private static final String clinetcertData = System.getenv("CLIENTCERTDATA");
-	private static final String namespace = System.getenv("NAMESPACE");
+	//private static final String namespace = System.getenv("NAMESPACE");
 	private static final String dns = System.getenv("DNS");
 	
 	
@@ -143,6 +148,41 @@ public class K8Deployer {
 		//dumpDeployment(namespace, username, imagename, image, deploymentname, label, host, port);
 
 	}
+	
+	public static void createNS(String username) throws Exception
+	{
+		final KubernetesClient client = getClient();
+
+		
+		MessageDigest md;
+		try {
+			md = MessageDigest.getInstance("MD5");
+			String ns1 = "fixedsalt" + username;
+			
+			
+			
+	        byte[] hashInBytes = md.digest(ns1.getBytes(StandardCharsets.UTF_8));
+	        
+	        String hash = Hex.encodeHexString(hashInBytes).toLowerCase();
+	        
+	        String userNameHash = Hex.encodeHexString(username.getBytes(StandardCharsets.UTF_8)).toLowerCase();
+	        
+			
+			Namespace ns = client.namespaces().withName(hash).get();
+
+			if (ns == null) {
+				ns = new NamespaceBuilder().withNewMetadata().withName(hash).addToLabels("user", userNameHash)
+						.endMetadata().build();
+				client.namespaces().create(ns);
+			}
+			
+			client.close();
+		} catch (Exception e) {
+			throw e;
+		}
+		
+	}
+	
 
 	private static void deleteNS(String namespace) {
 		final KubernetesClient client = getClient();
