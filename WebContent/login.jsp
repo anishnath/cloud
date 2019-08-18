@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@page import="org.apache.commons.codec.binary.Hex"%>
+<%@page import="java.security.MessageDigest"%>
 <html lang="en">
 
 <head>
@@ -19,8 +21,75 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
-<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" href="./style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
+
+<style>
+/* Shared */
+.loginBtn {
+  box-sizing: border-box;
+  position: relative;
+  /* width: 13em;  - apply for fixed size */
+  margin: 0.2em;
+  padding: 0 15px 0 46px;
+  border: none;
+  text-align: left;
+  line-height: 34px;
+  white-space: nowrap;
+  border-radius: 0.2em;
+  font-size: 16px;
+  color: #FFF;
+}
+.loginBtn:before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 100%;
+}
+.loginBtn:focus {
+  outline: none;
+}
+.loginBtn:active {
+  box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
+}
+
+
+/* Facebook */
+.loginBtn--facebook {
+  background-color: #4C69BA;
+  background-image: linear-gradient(#4C69BA, #3B55A0);
+  /*font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;*/
+  text-shadow: 0 -1px 0 #354C8C;
+}
+.loginBtn--facebook:before {
+  border-right: #364e92 1px solid;
+  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_facebook.png') 6px 6px no-repeat;
+}
+.loginBtn--facebook:hover,
+.loginBtn--facebook:focus {
+  background-color: #5B7BD5;
+  background-image: linear-gradient(#5B7BD5, #4864B1);
+}
+
+
+/* Google */
+.loginBtn--google {
+  /*font-family: "Roboto", Roboto, arial, sans-serif;*/
+  background: #DD4B39;
+}
+.loginBtn--google:before {
+  border-right: #BB3F30 1px solid;
+  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_google.png') 6px 6px no-repeat;
+}
+.loginBtn--google:hover,
+.loginBtn--google:focus {
+  background: #E74B37;
+}
+</style>
 
 </head>
 
@@ -43,8 +112,39 @@
 						 <div class="col-md-12 text-center">
 							<h1>Login</h1>
 						 </div>
+						<!--  <button class="loginBtn loginBtn--facebook">
+  Login with Facebook
+</button> -->
+
+<form action="login" method="post" name="login">
+
+<input type="hidden" name="provider"  class="form-control" id="provider" aria-describedby="provider" value="google">
+<button class="loginBtn loginBtn--google">
+  Login with Google
+</button>
+</form>
 					</div>
-                   <form action="LoginServlet" method="post" name="login">
+					
+					<%
+					
+						String system=(String) request.getParameter("admin");
+					
+						if(system!=null && system.length()>0)
+						{
+						MessageDigest md = MessageDigest.getInstance("SHA-256");
+						md.update(system.getBytes());
+						
+						byte[] digest = md.digest();
+						
+						String pass = Hex.encodeHexString(digest);
+						
+						if("8205d8ff6b0433adf52ac63a0eb2dc8e27eb6b9ab309b23fd16935207122fc84".equalsIgnoreCase(pass))
+						{
+						
+					%>
+					
+                   <form action="login" method="post" name="login">
+                   <input type="hidden" name="provider"  class="form-control" id="email" aria-describedby="provider" value="system">
                            <div class="form-group">
                               <label for="exampleInputEmail1">Email address</label>
                               <input type="email" name="email"  class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
@@ -63,6 +163,8 @@
                               <p class="text-center">Don't have account? <a href="#" id="signup">Sign up here</a></p>
                            </div>
                         </form>
+                        
+                        
                  
 				</div>
 			</div>
@@ -107,6 +209,12 @@
                            </div>
                             </div>
                         </form>
+                        
+                        <%
+                        }
+						}
+					
+					%>
                      </div>
 			</div>
 		</div>

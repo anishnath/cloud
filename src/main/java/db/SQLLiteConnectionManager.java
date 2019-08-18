@@ -96,7 +96,12 @@ public class SQLLiteConnectionManager {
 	
 	public static void createNewDatabase( ) {
 		 
-		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
  
         try (Connection conn = DriverManager.getConnection(dburl)) {
             if (conn != null) {
@@ -129,6 +134,9 @@ public class SQLLiteConnectionManager {
                    "    quota INTEGER DEFAULT 3,\n" +
                    "    Timestamp DATETIME DEFAULT CURRENT_TIMESTAMP\n" +
                    ");";
+           stmt.executeUpdate(sql);
+           stmt.close();
+           c.close();
            
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -136,7 +144,7 @@ public class SQLLiteConnectionManager {
         
         try{
         	
-           
+        	stmt = c.createStatement();
            System.out.println(sql);
           // stmt.executeUpdate(sql);
            
@@ -171,7 +179,7 @@ public class SQLLiteConnectionManager {
             
 
            // stmt.executeUpdate(sql);
-            
+        	stmt = c.createStatement();
             sql = "CREATE TABLE users_data_sql (\n" +
                     "    id INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,\n" +
                     "    username NVARCHAR(120) NOT  NULL,\n" +

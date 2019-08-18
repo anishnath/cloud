@@ -32,6 +32,9 @@ public class LoaderServlet extends HttpServlet {
 	private static final long serialVersionUID = 2704666358088618980L;
 
 	public void init(ServletConfig config) {
+		
+		
+		
 		SQLLiteConnectionManager.createNewDatabase();
 		System.out.println("Yes i have Created ");
 
