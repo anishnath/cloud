@@ -144,7 +144,7 @@
 					%>
 					
                    <form action="login" method="post" name="login">
-                   <input type="hidden" name="provider"  class="form-control" id="email" aria-describedby="provider" value="system">
+                   <input type="hidden" name="provider"  class="form-control" id="provider" aria-describedby="provider" value="system">
                            <div class="form-group">
                               <label for="exampleInputEmail1">Email address</label>
                               <input type="email" name="email"  class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
