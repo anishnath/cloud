@@ -421,6 +421,7 @@ public class K8Deployer {
 		// annotations.put("nginx.ingress.kubernetes.io/rewrite-target", "/$1");
 		// annotations.put("nginx.ingress.kubernetes.io/rewrite-target", "/");
 		annotations.put("kubernetes.io/ingress.class", "nginx");
+		annotations.put("nginx.ingress.kubernetes.io/rewrite-target", "/");
 		annotations.put("nginx.ingress.kubernetes.io/force-ssl-redirect", "false");
 		annotations.put("ingress.kubernetes.io/ssl-redirect", "false");
 
