@@ -703,9 +703,21 @@ div.jtable-busy-message {
       
        <div id="dockerContainer"></div>
        
+       <%
+            
+            String username1 = (String)session.getAttribute("user_name");
+            if(username1!=null)
+            {
+            	
+            %>
+       
        <div class="embed-responsive embed-responsive-16by9">
-  <iframe class="embed-responsive-item" src="http://mysql.0cloud0.com" allowfullscreen></iframe>
+  <iframe class="embed-responsive-item" src="https://mysql.0cloud0.com" allowfullscreen></iframe>
 </div>
+
+<%
+            }
+%>
        
 			
       </div>
