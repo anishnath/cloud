@@ -50,6 +50,8 @@ import io.fabric8.kubernetes.api.model.extensions.IngressBackendBuilder;
 import io.fabric8.kubernetes.api.model.extensions.IngressBuilder;
 import io.fabric8.kubernetes.api.model.extensions.IngressRule;
 import io.fabric8.kubernetes.api.model.extensions.IngressRuleBuilder;
+import io.fabric8.kubernetes.api.model.extensions.IngressTLS;
+import io.fabric8.kubernetes.api.model.extensions.IngressTLSBuilder;
 import io.fabric8.kubernetes.client.Callback;
 import io.fabric8.kubernetes.client.Config;
 import io.fabric8.kubernetes.client.ConfigBuilder;
@@ -411,7 +413,7 @@ public class K8Deployer {
 		System.out.println(newDeployment);
 		System.out.println(service);
 		
-		if(!image.contains("mysql") || !image.contains("postgress"))
+		if(!image.contains("mysql") || !image.contains("postgress") || !image.contains("busybox") || !image.contains("mariadb") )
 			
 		{	
 		
@@ -426,6 +428,8 @@ public class K8Deployer {
 		annotations.put("ingress.kubernetes.io/ssl-redirect", "false");
 
 		String path = "/";
+		
+		IngressTLS ingressTLS = new IngressTLSBuilder().withSecretName("0cloud0-wildcard-certs").withHosts(host).build();
 
 		IngressBackend backend = new IngressBackendBuilder().withNewServiceName(deploymentname).withNewServicePort(port)
 				.build();
@@ -439,7 +443,7 @@ public class K8Deployer {
 
 		Ingress ingress = new IngressBuilder().withApiVersion("extensions/v1beta1").withKind("Ingress")
 				.withNewMetadata().withName(deploymentname + "ingress").withAnnotations(annotations).endMetadata()
-				.withNewSpec().withRules(ingressrule).endSpec().build();
+				.withNewSpec().withRules(ingressrule).withTls(ingressTLS).endSpec().build();
 
 		ingress = client.extensions().ingresses().inNamespace(namespace).create(ingress);
 		log("Created Ingress with name ", ingress.getMetadata().getName());
