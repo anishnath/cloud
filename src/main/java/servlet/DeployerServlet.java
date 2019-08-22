@@ -117,6 +117,18 @@ public class DeployerServlet extends HttpServlet {
 
 					String docker_image = request.getParameter("docker_image");
 					String expose_port = request.getParameter("expose_port");
+					
+					int sqlquota = SQLLiteDBManager.checkQuota(user_name);
+					
+					if(sqlquota>3)
+					{
+						JSONROOT.put("Result", "ERROR");
+						JSONROOT.put("Message", "You Have exceeded Deployment Limit, Please Delete esisting deployment to Continue");
+						String error = gson.toJson(JSONROOT);
+						response.getWriter().print(error);
+						return;
+					}
+					
 
 					if (null == docker_image || docker_image.trim().length() == 0) {
 						JSONROOT.put("Result", "ERROR");

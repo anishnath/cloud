@@ -279,20 +279,23 @@ public class SQLLiteDBManager {
 	public static int checkQuota(String username) throws ClassNotFoundException, SQLException{
 		
 		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
-		String sql	=	"SELECT COUNT(*) FROM users_data WHERE username=? and status=?";
+		String sql	=	"SELECT COUNT(*) as count FROM users_data WHERE username=? and status in (?,?)";
 		PreparedStatement pstmt	=	conn.prepareStatement(sql);
 		pstmt.setString(1, username);
-		pstmt.setString(2, "DEPLOYED");
+		pstmt.setString(2, "PROVISIONING");
+		pstmt.setString(3, "DEPLOYED");
 		ResultSet rs	=	pstmt.executeQuery();
 		
 		int count = 0;
 		while(rs.next()){
-			count++;
+			count = rs.getInt("count");
 		}
 		SQLLiteConnectionManager.getInstance().close();
 		return count;
 		
 	}
+	
+	
 
 	public static void inserUserData(UsersData userdata) throws SQLException {
 		
@@ -442,6 +445,9 @@ public class SQLLiteDBManager {
 		return count;
 		
 	}
+	
+	
+	
 	
 	
 	
