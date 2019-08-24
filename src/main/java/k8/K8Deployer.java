@@ -16,6 +16,11 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
+
+import io.fabric8.kubernetes.api.model.BaseKubernetesListFluent.PodItemsNested;
+import io.fabric8.kubernetes.api.model.Container;
+import io.fabric8.kubernetes.api.model.ContainerBuilder;
 import io.fabric8.kubernetes.api.model.ContainerStatus;
 import io.fabric8.kubernetes.api.model.EnvVar;
 
@@ -32,7 +37,10 @@ import io.fabric8.kubernetes.api.model.EnvVar;
 
 import io.fabric8.kubernetes.api.model.Namespace;
 import io.fabric8.kubernetes.api.model.NamespaceBuilder;
+import io.fabric8.kubernetes.api.model.ObjectMeta;
+import io.fabric8.kubernetes.api.model.ObjectMetaBuilder;
 import io.fabric8.kubernetes.api.model.Pod;
+import io.fabric8.kubernetes.api.model.PodBuilder;
 import io.fabric8.kubernetes.api.model.PodList;
 import io.fabric8.kubernetes.api.model.PodStatus;
 import io.fabric8.kubernetes.api.model.Service;
@@ -60,6 +68,7 @@ import io.fabric8.kubernetes.client.KubernetesClient;
 import io.fabric8.kubernetes.client.KubernetesClientException;
 import io.fabric8.kubernetes.client.dsl.ExecWatch;
 import io.fabric8.kubernetes.client.utils.InputStreamPumper;
+import io.kubernetes.client.util.Yaml;
 
 public class K8Deployer {
 	private static final Logger logger = LoggerFactory.getLogger(K8Deployer.class);
@@ -76,6 +85,29 @@ public class K8Deployer {
 	
 
 	public static void main(String[] args) throws Exception {
+		
+		
+		//Playground.getAccessToken("playground");
+		
+		//deletePodsExpired("playground");
+		
+		Playground.launchPython3("playground");
+		
+		//ExecPipesExample.main(null);
+		
+		
+//		for (int i = 0; i < 3; i++) {
+//			
+//			String podName =  RandomStringUtils.randomAlphabetic(20).toLowerCase();
+//			createPod(podName,"nginx","playground");
+//			
+//		}
+		
+		
+		//deletPod("demopod","thisisatest1");
+		
+		System.exit(1);
+		
 		// ApiClient client = Config.fromConfig("config");
 		// client.setVerifyingSsl(false);
 		// Configuration.setDefaultApiClient(client);
@@ -151,6 +183,89 @@ public class K8Deployer {
 
 	}
 	
+	
+	public static void deletePodsExpired(String ns) throws Exception
+	{
+		
+		final KubernetesClient client = getClient();
+		
+		PodList podlist = client.pods().inNamespace(ns).list();
+		
+		if(podlist!=null)
+		{
+			List<Pod> poditems = podlist.getItems();
+			
+			for (Iterator iterator = poditems.iterator(); iterator.hasNext();) {
+				Pod pod = (Pod) iterator.next();
+				
+				String creationTimestamp = pod.getMetadata().getCreationTimestamp();
+				
+				System.out.println("SelfLink on == " + pod.getMetadata().getSelfLink());
+				
+				System.out.println("Created on == " + creationTimestamp);
+				
+				
+			}
+			
+		
+		}
+		
+		client.close();
+		
+	}
+	
+	
+	
+	public static void createPod(String podName, String imageName, String ns) throws Exception
+	{
+		
+		final KubernetesClient client = getClient();
+		
+		ObjectMeta meta = new ObjectMetaBuilder()
+				.withNewName(podName)
+				.build();
+		
+		Container containers = new ContainerBuilder()
+				.withImage(imageName)
+				.withName(podName)
+				.build();
+		
+		Pod pod = new PodBuilder()
+				.withMetadata(meta)
+				.withKind("Pod")
+				.withNewSpec()
+				.withContainers(containers)
+				.endSpec()
+				.build();
+		
+		
+		System.out.println(Yaml.dump(pod.toString()));
+		
+		
+		
+		 pod   = client.pods().inNamespace(ns).create(pod);
+		 
+		 
+		 
+		
+		client.close();
+		
+	}
+	
+	public static void deletPod(String podName,String ns) throws Exception
+	{
+		
+		final KubernetesClient client = getClient();		
+	    client.pods().inNamespace("thisisatest1").withName(podName).delete();
+		
+		client.close();
+		
+		
+	}
+	
+	
+	
+	
 	public static void createNS(String username) throws Exception
 	{
 		final KubernetesClient client = getClient();
@@ -189,6 +304,7 @@ public class K8Deployer {
 	private static void deleteNS(String namespace) {
 		final KubernetesClient client = getClient();
 		client.namespaces().withName(namespace).delete();
+		client.close();
 	}
 
 	private static void getLogs(String namespace, String label)
@@ -425,7 +541,6 @@ public class K8Deployer {
 		annotations.put("kubernetes.io/ingress.class", "nginx");
 		annotations.put("nginx.ingress.kubernetes.io/rewrite-target", "/");
 		annotations.put("nginx.ingress.kubernetes.io/force-ssl-redirect", "false");
-		annotations.put("ingress.kubernetes.io/ssl-redirect", "false");
 
 		String path = "/";
 		
@@ -454,6 +569,10 @@ public class K8Deployer {
 	}
 
 	public static KubernetesClient getClient() {
+		
+		
+		
+		
 
 //		String master = "https://10.64.83.49:6443";
 //		String cacertdata = "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUN5RENDQWJDZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRFNU1EY3pNVEV4TkRZeU1Wb1hEVEk1TURjeU9ERXhORFl5TVZvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBT1p6CnU5Sk8xYUhNSy9kM3cvbzRvOTZiMTJUU09BME5ZSXNFZ2N3bno3bTF1TW1XakhNR0dDZGtGWWFEVGlpVm5rMWcKTFJ6ZGpYd1k0b1hLZkoxVkNXazdGOFNHTnR2U0xHa0pZVUNtcmVNRng5TnNJREdUK0FqK0h0WG41WG5BWEpXUwpVektVVVRBSFZoVzV3UndmbldzY0FZWjN4MFlHY3UvclVVOXVkb0JWWjN5dVE3VzNsWHpSUDJlZ1MvUkF0dDUrCnl6ZWhlWXN4S1hXelVidlhON0U2dWRQbVlnWFFZMUgwR1FKaStmdVpWVXJkVVNnVXQ4cXVuZ2V4dmZrUEU2USsKRnpjTWRtdlpZUFRtMWVEdnZqU0tEOHpLUVliK0VFdVd3U0dPMmlKcVMwRmEzVGF6TGMwR2VqeHkwUGhSOU9FeQo5M0x4NE1BQkxTUjk4Z2k1SjlVQ0F3RUFBYU1qTUNFd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0RRWUpLb1pJaHZjTkFRRUxCUUFEZ2dFQkFHVWR2SmVRbXFXdGpRLzE3ek4rOUhsM0V5S2YKVDVWYVgyYlFiYWg1TVlYNXdjZy9uVWdRVi9EekJCTElKbVhCR3lQZ0d0MHRJSFJwZFowVGRyVGwwUDlia1FDcwpFeS9hUkh2SVc3KzZjdE9YM2dhU0NpZFA0aEJtanZtTU1RTHZxd2xORTk5a2FYRnNoWXNmelZYaFpaM2MrK0VvCmNueWFWdk5kd2dobTMwWUVKaFMraG1JYVJlQ3RZZjllVDJSUmxQOGN3K0V2cUNRbFRNbEQ2clpLMmtkSGNDTHoKQjE5SzcvUFFtOVJMSUd0VnVuOUgzTjNNVUx3aWtwTFpDdGJWcVQ1aldxeUU1cXByd3hLWEs1djlHSWovQWxRUwpzK01uaWFLZllqYmMwSy9UODlsSDhmUlM5MlY2Z0dOR3F6aUpXSDBLaEx2VGdRMURsK0RYT1BOcXJpVT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=";
