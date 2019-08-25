@@ -71,7 +71,7 @@ public class PlaygroundServlet extends HttpServlet {
         	
         	
 			
-			String s = "<div class=\"embed-responsive embed-responsive-16by9\"><iframe class=\"embed-responsive-item\" src=\"http://"+host+"\"></iframe></div>";
+			String s = "<div class=\"embed-responsive embed-responsive-16by9\"><iframe class=\"embed-responsive-item\" src=\"https://"+host+"\"></iframe></div>";
 			
 			System.out.println(host);
 			

@@ -130,7 +130,12 @@ public class Playground {
 		// annotations.put("nginx.ingress.kubernetes.io/rewrite-target", "/");
 		annotations.put("kubernetes.io/ingress.class", "nginx");
 		annotations.put("nginx.ingress.kubernetes.io/rewrite-target", "/");
-		annotations.put("nginx.ingress.kubernetes.io/force-ssl-redirect", "false");
+		annotations.put("nginx.ingress.kubernetes.io/force-ssl-redirect", "\"true\"");
+		annotations.put("nginx.ingress.kubernetes.io/enable-cors", "\"true\"");
+		annotations.put("nginx.ingress.kubernetes.io/cors-allow-origin", "'https://0cloud0.com,http://0cloud0.com'");
+		
+		IngressTLS ingressTLS = new IngressTLSBuilder().withSecretName("0cloud0-wildcard-certs").withHosts(host).build();
+		
 
 		IngressBackend backend = new IngressBackendBuilder().withNewServiceName(podName).withNewServicePort(port)
 				.build();
@@ -144,7 +149,7 @@ public class Playground {
 
 		Ingress ingress = new IngressBuilder().withApiVersion("extensions/v1beta1").withKind("Ingress")
 				.withNewMetadata().withName(podName).withAnnotations(annotations).endMetadata()
-				.withNewSpec().withRules(ingressrule).endSpec().build();
+				.withNewSpec().withRules(ingressrule).withTls(ingressTLS).endSpec().build();
 
 		ingress = client.extensions().ingresses().inNamespace(ns).create(ingress);
 		
