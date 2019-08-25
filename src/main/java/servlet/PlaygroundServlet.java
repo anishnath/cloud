@@ -95,7 +95,7 @@ public class PlaygroundServlet extends HttpServlet {
 					break;
 				}
 				else {
-					Thread.sleep(100);
+					Thread.sleep(10000);
 				}
 			}
 			
@@ -108,7 +108,7 @@ public class PlaygroundServlet extends HttpServlet {
 			}
 			
 			else {
-				String s = "<a href=\"https://"+host+" target=\"_blank\">Go to Python3 Shell</a> ";
+				String s = "<a href=\"https://"+host+"\" target=\"_blank\">Go to Python3 Shell</a> ";
 				out.println(s);
 			}
 			
