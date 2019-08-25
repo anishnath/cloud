@@ -67,8 +67,9 @@ public class PlaygroundServlet extends HttpServlet {
         
         
         try {
-			String host = Playground.launchPython3("playground");
+			//String host = Playground.launchPython3("playground");
         	
+        	String host="bfvfppzpqblotjzhoghu.0cloud0.com/";
         	
 			
 			String s = "<div class=\"embed-responsive embed-responsive-16by9\"><iframe class=\"embed-responsive-item\" src=\"https://"+host+"\"></iframe></div>";
