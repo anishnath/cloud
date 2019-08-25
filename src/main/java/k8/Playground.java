@@ -83,6 +83,7 @@ public class Playground {
 		Container containers = new ContainerBuilder()
 				.withImage(imageName)
 				.withName(podName)
+				.withImagePullPolicy("Always")
 				.withCommand("pyxtermjs")
 				.withArgs(argsList)
 				.addNewPort()
