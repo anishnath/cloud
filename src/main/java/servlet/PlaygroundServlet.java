@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
 import k8.Playground;
 
 /**
@@ -67,16 +71,50 @@ public class PlaygroundServlet extends HttpServlet {
         
         
         try {
-			//String host = Playground.launchPython3("playground");
+			String host = Playground.launchPython3("playground");
         	
-        	String host="bfvfppzpqblotjzhoghu.0cloud0.com/";
-        	
+        	//String host="bfvfppzpqblotjzhoghu.0cloud0.com/";
 			
+			boolean isLive = false;
+			
+			for (int i = 0; i < 4; i++) {
+				OkHttpClient client = new OkHttpClient();
+				Request requests = new Request.Builder().url("https://"+host).build();
+
+				Response responses = client.newCall(requests).execute();
+
+				int code = responses.code();
+
+				System.out.println("Code -- >" + code);
+
+				responses.body().close();
+
+				if (code == 200) {
+					
+					isLive=true;
+					break;
+				}
+				else {
+					Thread.sleep(100);
+				}
+			}
+			
+			
+        	
+			if(isLive)
+			{
 			String s = "<div class=\"embed-responsive embed-responsive-16by9\"><iframe class=\"embed-responsive-item\" src=\"https://"+host+"\"></iframe></div>";
-			
-			System.out.println(host);
-			
 			out.println(s);
+			}
+			
+			else {
+				String s = "<a href=\"https://"+host+" target=\"_blank\">Go to Python3 Shell</a> ";
+				out.println(s);
+			}
+			
+			
+			
+			
 			return;
 			
 			
