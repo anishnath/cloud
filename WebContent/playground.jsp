@@ -48,6 +48,30 @@
 					}
 				});
 			});
+			
+			$('#form1').submit(function(event) {
+				//
+				$('#msg').html('<p>Hang On tight We are building This will take approx 10-20 seconds')
+				$('#output').html('<img src="images/712.GIF"> loading...');
+				$('#python3').prop('disabled', true);
+				$('#mariadb10').prop('disabled', true);
+				event.preventDefault();
+				$.ajax({
+					type : "POST",
+					url : "playground", //this is my servlet
+
+					data : $("#form1").serialize(),
+					success : function(msg) {
+						$('#msg').empty();
+						$('#output').empty();
+						$('#python3').prop('disabled', false);
+						$('#mariadb10').prop('disabled', false);
+						$('#output').append(msg);
+
+					}
+				});
+			});
+			
 		});
 	</script>
   
@@ -159,7 +183,7 @@
       </th>
       <th scope="col">
       
-      <form action="" class="form-horizontal-row" id="form" method="POST">
+      <form action="" class="form-horizontal-row" id="form1" method="POST">
 	      <input type="hidden" name="csrf_token" id="csrf_token" value="<%=sessionId%>">
 	      <input type="hidden" name="action" id="action" value="mariadb10">
 	      <input type="image" class="img-fluid img-thumbnail"  size="4" name="submit_blue" id="mariadb10" value="mariadb10" alt="mariadb10" src="images/playground/mariadb.png">
