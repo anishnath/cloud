@@ -56,11 +56,15 @@ public class PollServlet extends HttpServlet {
 		if(null==host || host.length()==0)
 			return;
 		
-		System.out.println("Host--2.1 " + host);
+		System.out.println("Host--2.1 " + host.trim());
 		System.out.println("Host--DNS " + dns);
 		System.out.println("host.endsWith(dns)"  + host.endsWith(dns));
 		
-		if(host.endsWith(dns))
+		host=host.trim();
+		
+		System.out.println("host.endsWith(dns) After trim"  + host.endsWith(dns));
+		
+		if(host.contains(dns))
 		{
 			System.out.println("Host--3 " + host);
 			String csrf_token = request.getParameter("csrf_token");
