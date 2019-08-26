@@ -67,16 +67,20 @@ public class PollServlet extends HttpServlet {
 //	            return;
 	        }
 			
-	        AsyncContext asyncContext = request.startAsync(); 
+//	        AsyncContext asyncContext = request.startAsync(); 
+//	        
+//	        asyncContext.start(new Runnable() {
+//	            @Override
+//	            public void run () {
+//	                int msg = poll(host);
+//	                out.println(msg);
+//	                asyncContext.complete();
+//	            }
+//	        });
 	        
-	        asyncContext.start(new Runnable() {
-	            @Override
-	            public void run () {
-	                int msg = poll(host);
-	                out.println(msg);
-	                asyncContext.complete();
-	            }
-	        });
+	        int msg = poll(host);
+	        out.println(msg);
+	        
 		}
 		
 	}
