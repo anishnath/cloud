@@ -69,50 +69,19 @@ public class PlaygroundServlet extends HttpServlet {
         System.out.println("sessionID from POST" + sessionID);
         System.out.println("sessionID from FORM" + csrf_token);
         
+        if(!sessionID.equalsIgnoreCase(csrf_token))
+        {
+        	out.println("<font size=\"4\" color=\"red\"> CSRF Token Expired  Login Again to continue</font>");
+            return;
+        }
+        
         
         try {
 			String host = Playground.launchPlaygroundPods("playground",action);
-
 			
-			boolean isLive = false;
+			System.out.println(host);
 			
-			for (int i = 0; i < 4; i++) {
-				OkHttpClient client = new OkHttpClient();
-				Request requests = new Request.Builder().url("https://"+host).build();
-
-				Response responses = client.newCall(requests).execute();
-
-				int code = responses.code();
-
-				System.out.println("Code -- >" + code);
-
-				responses.body().close();
-
-				if (code == 200) {
-					
-					isLive=true;
-					break;
-				}
-				else {
-					Thread.sleep(10000);
-				}
-			}
-			
-			
-        	
-			if(isLive)
-			{
-			String s = "<div class=\"embed-responsive embed-responsive-16by9\"><iframe class=\"embed-responsive-item\" src=\"https://"+host+"\"></iframe></div>";
-			out.println(s);
-			}
-			
-			else {
-				String s = "<a href=\"https://"+host+"\" target=\"_blank\">Go to Python3 Shell</a> ";
-				out.println(s);
-			}
-			
-			
-			
+			out.println(host);
 			
 			return;
 			

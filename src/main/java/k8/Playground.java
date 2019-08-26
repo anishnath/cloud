@@ -121,6 +121,8 @@ public class Playground {
 				.build();
 		
 		 pod   = client.pods().inNamespace(ns).create(pod);
+		 
+		 Thread.sleep(1000);
 		
 		
 		HashMap<String, String> selector = new HashMap<>();

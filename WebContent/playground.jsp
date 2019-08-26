@@ -66,7 +66,52 @@
 						$('#output').empty();
 						$('#python3').prop('disabled', false);
 						$('#mariadb10').prop('disabled', false);
-						$('#output').append(msg);
+						//$('#output').append(msg);
+						
+						alert(msg)
+						
+						var host=msg
+						
+						data = new FormData();
+						
+						
+						$.ajax({
+							<%
+							
+							String sessionid= request.getSession().getId();
+							
+							%>
+							type : "GET",
+							url : "poll", //this is my poll servlet
+							data: {
+								host: host,
+								csrf_token: '<%=sessionid%>'
+							},
+							success : function(msg) {
+								console.log(msg)
+								
+								if(msg==200)
+									{
+									
+									console.log(host)
+									
+									//host='zvkqumuxdyawslvbjjmo.minikube'
+									var html = '<div class="embed-responsive embed-responsive-16by9"><iframe class=embed-responsive-item src=https://'+host+'></iframe></div>';
+									
+									console.log(html)
+									
+									$('#output').append(html)									
+									}
+								else{
+									
+									$('#output').append('<a href="https://'+host+' target=_blank>Your terminal is ready Click to Open</a> ')
+								}
+								
+							},
+							
+							
+						});
+						
 
 					}
 				});
@@ -198,9 +243,11 @@
   </thead>
 </table>
         
+        <!-- <div class="embed-responsive embed-responsive-16by9"><iframe class=embed-responsive-item src=http://zvkqumuxdyawslvbjjmo.minikube></iframe></div> -->
         
 	      
-	      
+<!-- 	      <div class="embed-responsive embed-responsive-16by9"><iframe class=embed-responsive-item src=http://zvkqumuxdyawslvbjjmo.minikube
+></iframe></div> -->
 	      
 	      
 	      
