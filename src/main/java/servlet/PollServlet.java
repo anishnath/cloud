@@ -123,12 +123,21 @@ public class PollServlet extends HttpServlet {
 				System.out.println("Code -- >" + code);
 
 				responses.body().close();
+				
+				
 
 				if (code == 200) {
 					
 					isLive=true;
 					break;
 				}
+				
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					
+				}
+				
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
