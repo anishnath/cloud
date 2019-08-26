@@ -26,51 +26,14 @@
 
 
 
-			$('#genkeypair').click(function (event)
-			{
-				//
-				$('#form').delay(200).submit()
-
-			});
-
-
-			$('#cipherparameternew').change(function(event) {
-				//
-				// event.preventDefault();
-				$('#form').delay(200).submit()
-			});
-
-			$('#plaintext').keyup(function(event) {
-				//
-				// event.preventDefault();
-				$('#form').delay(200).submit()
-			});
-
-			$('#secretkey').keyup(function(event) {
-				//
-				// event.preventDefault();
-				$('#form').delay(200).submit()
-			});
-
-
-			$('#encrypt').click(function(event) {
-				$('#form').delay(200).submit()
-			});
-
-
-			$('#decrypt').click(function(event) {
-
-				var text = $('#output').find('textarea[name="encrypedmessagetextarea"]').val();
-				if ( text != null ) {
-					$("#plaintext").val(text);
-				}
-
-				$('#form').delay(200).submit()
-			});
-
 			$('#form').submit(function(event) {
 				//
+				$('#msg').html('<p>Hang On tight We are building This will take approx 10-20 seconds')
 				$('#output').html('<img src="images/712.GIF"> loading...');
+				$('#python3').prop('disabled', true);
+				$('#mariadb10').prop('disabled', true);
+				var text = $('#action').val()
+				alert(text)
 				event.preventDefault();
 				$.ajax({
 					type : "POST",
@@ -78,8 +41,10 @@
 
 					data : $("#form").serialize(),
 					success : function(msg) {
+						$('#msg').empty();
 						$('#output').empty();
-						
+						$('#python3').prop('disabled', false);
+						$('#mariadb10').prop('disabled', false);
 						$('#output').append(msg);
 
 					}
@@ -157,6 +122,7 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+        
 
         
       </nav>
@@ -179,13 +145,44 @@
         
         %>
         
-        <h1 class="mt-4">Launch your Playground</h1>
-        <form action="" class="form-horizontal" id="form" method="POST">
+        <h2 class="mt-4">Launch your preferred Terminal</h3>
+        
+        <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">
+      
+      <form action="" class="form-horizontal-row" id="form" method="POST">
 	      <input type="hidden" name="csrf_token" id="csrf_token" value="<%=sessionId%>">
 	      <input type="hidden" name="action" id="action" value="python3">
-	      <input type="image" class="img-fluid img-thumbnail"  size="4" name="submit_blue" value="python3" alt="python3" src="images/playground/python3.png">
+	      <input type="image" class="img-fluid img-thumbnail"  size="4" name="submit_blue" id="python3" value="python3" alt="python3" src="images/playground/python3.png">
 	      </form>
+      
+      </th>
+      <th scope="col">
+      
+      <form action="" class="form-horizontal-row" id="form" method="POST">
+	      <input type="hidden" name="csrf_token" id="csrf_token" value="<%=sessionId%>">
+	      <input type="hidden" name="action" id="action" value="python3">
+	      <input type="image" class="img-fluid img-thumbnail"  size="4" name="submit_blue" id="mariadb10" value="mariadb10" alt="mariadb10" src="images/playground/mariadb.png">
+	      </form>
+      
+      </th>
+      
+      
+      
+      
+    </tr>
+  </thead>
+</table>
+        
+        
 	      
+	      
+	      
+	      
+	      
+	      <div id="msg"></div>
 	      <div id="output"></div>
 	      
 

@@ -71,9 +71,8 @@ public class PlaygroundServlet extends HttpServlet {
         
         
         try {
-			String host = Playground.launchPython3("playground");
-        	
-        	//String host="bfvfppzpqblotjzhoghu.0cloud0.com/";
+			String host = Playground.launchPlaygroundPods("playground",action);
+
 			
 			boolean isLive = false;
 			
@@ -120,7 +119,7 @@ public class PlaygroundServlet extends HttpServlet {
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			out.println("<font size=\"4\" color=\"red\"> " +e +" </font>");
 		}
         
         

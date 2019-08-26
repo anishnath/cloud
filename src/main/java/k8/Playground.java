@@ -52,44 +52,62 @@ public class Playground {
 	
 	private static final String dns = System.getenv("DNS");
 	
+	private static Map<String, String> imageMap = new HashMap();
+	
+	static{
+		imageMap.put("python3", "0cloud0/playground:python3");
+		imageMap.put("mariadb10", "0cloud0/playground:mysql");
+	}
+	
+	
 	public static void getSelfLink()
 	{
 		
 	}
 	
-	public static String launchPython3(String ns) throws Exception
+	public static String launchPlaygroundPods(String ns,String image) throws Exception
 	{
 
 		String podName =  RandomStringUtils.randomAlphabetic(20).toLowerCase();
 		int port =5000;
-		String imageName = "0cloud0/playground:python3";
+		String imageName = imageMap.get(image);
 		final KubernetesClient client = K8Deployer.getClient();
-		
-		
-		
-		
-		
-		
+			
 		ObjectMeta meta = new ObjectMetaBuilder()
 				.withNewName(podName)
 				.addToLabels("app", podName)
 				.build();
 		
-		List<String> argsList =   new ArrayList<String>();
-		argsList.add("--command");
-		argsList.add("python3");
+		List<String> argsList =   null;
+		Container containers =null;
+		if(image=="python3")
+		{
+			
+			argsList =   new ArrayList<String>();
+			argsList.add("--command");
+			argsList.add("python3");			
+			containers = new ContainerBuilder()
+					.withImage(imageName)
+					.withName(podName)
+					.withImagePullPolicy("Always")
+					.withCommand("pyxtermjs")
+					.withArgs(argsList)
+					.addNewPort()
+					.withContainerPort(port)
+					.endPort()
+					.build();
+		}
+		else{
+			containers = new ContainerBuilder()
+					.withImage(imageName)
+					.withName(podName)
+					.withImagePullPolicy("Always")
+					.addNewPort()
+					.withContainerPort(port)
+					.endPort()
+					.build();
+		}
 		
-		
-		Container containers = new ContainerBuilder()
-				.withImage(imageName)
-				.withName(podName)
-				.withImagePullPolicy("Always")
-				.withCommand("pyxtermjs")
-				.withArgs(argsList)
-				.addNewPort()
-				.withContainerPort(port)
-				.endPort()
-				.build();
 		
 		Pod pod = new PodBuilder()
 				.withMetadata(meta)
