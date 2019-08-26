@@ -58,6 +58,7 @@ public class PollServlet extends HttpServlet {
 		
 		System.out.println("Host--2.1 " + host);
 		System.out.println("Host--DNS " + dns);
+		System.out.println("host.endsWith(dns)"  + host.endsWith(dns));
 		
 		if(host.endsWith(dns))
 		{
