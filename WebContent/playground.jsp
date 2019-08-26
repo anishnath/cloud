@@ -161,7 +161,7 @@
       
       <form action="" class="form-horizontal-row" id="form" method="POST">
 	      <input type="hidden" name="csrf_token" id="csrf_token" value="<%=sessionId%>">
-	      <input type="hidden" name="action" id="action" value="python3">
+	      <input type="hidden" name="action" id="action" value="mariadb10">
 	      <input type="image" class="img-fluid img-thumbnail"  size="4" name="submit_blue" id="mariadb10" value="mariadb10" alt="mariadb10" src="images/playground/mariadb.png">
 	      </form>
       

@@ -71,6 +71,9 @@ public class Playground {
 		String podName =  RandomStringUtils.randomAlphabetic(20).toLowerCase();
 		int port =5000;
 		String imageName = imageMap.get(image);
+		
+		
+		
 		final KubernetesClient client = K8Deployer.getClient();
 			
 		ObjectMeta meta = new ObjectMetaBuilder()
@@ -80,7 +83,7 @@ public class Playground {
 		
 		List<String> argsList =   null;
 		Container containers =null;
-		if(image=="python3")
+		if(image.equals("python3"))
 		{
 			
 			argsList =   new ArrayList<String>();
