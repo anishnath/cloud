@@ -11,7 +11,7 @@
   
   <%@ include file="analytics.jsp"%>
 
-  <title>Build and manage your Docker environments online</title>
+  <title>Online Terminal Mysql,PHP,Python</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -32,8 +32,6 @@
 				$('#output').html('<img src="images/712.GIF"> loading...');
 				$('#python3').prop('disabled', true);
 				$('#mariadb10').prop('disabled', true);
-				var text = $('#action').val()
-				alert(text)
 				event.preventDefault();
 				$.ajax({
 					type : "POST",
