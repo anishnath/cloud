@@ -91,7 +91,7 @@ public class K8Deployer {
 		
 		//deletePodsExpired("playground");
 		
-		Playground.launchPython3("playground");
+		
 		
 		//ExecPipesExample.main(null);
 		
