@@ -95,12 +95,15 @@ public class PollServlet extends HttpServlet {
 	
 	private int poll (String host) {
 		
+		System.out.println("Inside poll");
 		int code=404;
 		
 		try {
 			boolean isLive = false;
 			
 			for (int i = 0; i < 15; i++) { // Max 15 Try 
+				
+				
 				OkHttpClient client = new OkHttpClient();
 				Request requests = new Request.Builder().url("https://"+host).build();
 
