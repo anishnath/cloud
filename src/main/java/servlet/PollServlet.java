@@ -24,7 +24,7 @@ import com.squareup.okhttp.Response;
 /**
  * Servlet implementation class PollServlet
  */
-@WebServlet(name = "poll", value = "/poll",asyncSupported = true)
+@WebServlet(name = "poll", value = "/poll")
 public class PollServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
