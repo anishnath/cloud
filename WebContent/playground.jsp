@@ -68,7 +68,7 @@
 						$('#mariadb10').prop('disabled', false);
 						//$('#output').append(msg);
 						
-						alert(msg)
+						console.log(msg)
 						
 						var host=msg
 						
