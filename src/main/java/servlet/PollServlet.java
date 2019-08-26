@@ -102,7 +102,7 @@ public class PollServlet extends HttpServlet {
 			
 			for (int i = 0; i < 15; i++) { // Max 15 Try 
 				OkHttpClient client = new OkHttpClient();
-				Request requests = new Request.Builder().url("http://"+host).build();
+				Request requests = new Request.Builder().url("https://"+host).build();
 
 				Response responses = client.newCall(requests).execute();
 
