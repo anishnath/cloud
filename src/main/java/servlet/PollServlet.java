@@ -50,7 +50,7 @@ public class PollServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		String host = request.getParameter("host");
 		
-		System.out.println("Host-- " + host);
+		System.out.println("Host--2 " + host);
 		
 		
 		if(null==host || host.length()==0)
@@ -58,6 +58,7 @@ public class PollServlet extends HttpServlet {
 		
 		if(host.endsWith(dns))
 		{
+			System.out.println("Host--3 " + host);
 			String csrf_token = request.getParameter("csrf_token");
 			HttpSession session = request.getSession();
 	        String sessionID = session.getId();
