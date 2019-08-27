@@ -40,6 +40,10 @@
 				$('#form1').delay(200).submit()
 			});
 			
+			$('#rhel8').click(function(event) {
+				$('#form1').delay(200).submit()
+			});
+			
 			
 
 			$('#form').submit(function(event) {

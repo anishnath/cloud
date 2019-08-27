@@ -80,7 +80,7 @@ public class PlaygroundServlet extends HttpServlet {
         	
         	if(request.getSession().getAttribute(action)!=null)
         	{
-        		String host = (String)request.getSession().getAttribute("action");
+        		String host = (String)request.getSession().getAttribute(action);
         		System.out.println("Host from Session" + host);
         		out.println(host);
         	}
