@@ -14,7 +14,7 @@
   
   <%@ include file="analytics.jsp"%>
 
-  <title>Online Terminal Mysql,PHP,Python,rhel7,rhel8</title>
+  <title>Online Terminal Mysql,PHP,Python,rhel7,rhel8, PHP7</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -41,6 +41,10 @@
 			});
 			
 			$('#rhel8').click(function(event) {
+				$('#form1').delay(200).submit()
+			});
+			
+			$('#php7fpm').click(function(event) {
 				$('#form1').delay(200).submit()
 			});
 			
