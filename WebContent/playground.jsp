@@ -14,7 +14,7 @@
   
   <%@ include file="analytics.jsp"%>
 
-  <title>Online Terminal Mysql,PHP,Python,rhel7,rhel8, PHP7</title>
+  <title>Online Terminal Mysql,PHP,Python,rhel7,rhel8,PHP7,nodejs</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -45,6 +45,11 @@
 			});
 			
 			$('#php7fpm').click(function(event) {
+				$('#form1').delay(200).submit()
+			});
+			
+
+			$('#nodejs').click(function(event) {
 				$('#form1').delay(200).submit()
 			});
 			
@@ -257,7 +262,8 @@
 				<input id="mariadb10" type="radio" name="action" value="mariadb10"><img class="img-fluid rounded" src="images/playground/mariadb.png"  alt="mariadb10">
 				<input id="rhel7" type="radio" name="action" value="rhel7"><img class="img-fluid rounded" src="images/playground/rhel7.png"  alt="rhel7">
 				<input id="rhel8" type="radio" name="action" value="rhel8"><img class="img-fluid rounded" src="images/playground/rhel8.png"  alt="rhel8">
-				<input id="php7fpm" type="radio" name="action" value="php7fpm"><img class="img-fluid rounded" src="images/playground/php7fpm.png"  alt="rhel8">
+				<input id="php7fpm" type="radio" name="action" value="php7fpm"><img class="img-fluid rounded" src="images/playground/php7fpm.png"  alt="php7fpm">
+				<input id="nodejs" type="radio" name="action" value="nodejs"><img class="img-fluid rounded" src="images/playground/nodejs.png"  alt="nodejs">
 			</label>
 		</div>
 	      </form>
