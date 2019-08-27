@@ -77,12 +77,18 @@ public class PlaygroundServlet extends HttpServlet {
         
         
         try {
-			String host = Playground.launchPlaygroundPods("playground",action);
-			
-			System.out.println(host);
-			
-			out.println(host);
-			
+        	
+        	if(request.getSession().getAttribute(action)!=null)
+        	{
+        		String host = (String)request.getSession().getAttribute("action");
+        		System.out.println("Host from Session" + host);
+        		out.println(host);
+        	}
+        	else{
+        		String host = Playground.launchPlaygroundPods("playground",action);
+    			request.getSession().setAttribute(action, host);
+    			out.println(host);
+        	}
 			return;
 			
 			

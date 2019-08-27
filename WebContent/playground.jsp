@@ -63,7 +63,7 @@
 			$('#form1').submit(function(event) {
 				//
 				$('#msg').html('<p>Hang On tight We are building This will take approx 10-20 seconds</p>')
-				$('#output').html('<img src="images/712.GIF"> loading...');
+				$('#output').html('<img class="img-fluid rounded" src="images/712.GIF"> loading...');
 				event.preventDefault();
 
 			
@@ -74,18 +74,13 @@
 
 					data : $("#form1").serialize(),
 					success : function(msg) {
-						$('#msg').empty();
-						$('#output').empty();
+						
+						
 						$('#python3').prop('disabled', false);
 						$('#mariadb10').prop('disabled', false);
 						//$('#output').append(msg);
 						
 						console.log(msg)
-						
-						$('#msg').empty();
-						var tmp='<p><a href=https://'+host+' target=_blank>Your terminal is getting ready here click to open</a></p>'
-						console.log(tmp)
-						$('#msg').append(tmp)
 						
 						var host=msg
 						
