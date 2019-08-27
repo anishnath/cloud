@@ -13,6 +13,8 @@ public static Map<String, String> imageMap = new HashMap();
 		imageMap.put("mariadb10", "0cloud0/playground:mysql");
 		imageMap.put("rhel7", "0cloud0/playground:rhelubi7");
 		imageMap.put("rhel8", "0cloud0/playground:rhelubi8");
+		imageMap.put("php7fpm", "0cloud0/playground:php7");
+		
 	}
 	
 	

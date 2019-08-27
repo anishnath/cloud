@@ -81,8 +81,8 @@
 
 					data : $("#form1").serialize(),
 					success : function(msg) {
-						
-						
+						$('#msg').empty();
+						$('#msg').html('<p>Hang On tight We are still building Try Refreshing the page if Terminal Window doesnt open Automatically with 10-20 Seconds</p>')
 						$('#python3').prop('disabled', false);
 						$('#mariadb10').prop('disabled', false);
 						//$('#output').append(msg);
@@ -253,6 +253,7 @@
 				<input id="mariadb10" type="radio" name="action" value="mariadb10"><img class="img-fluid rounded" src="images/playground/mariadb.png"  alt="mariadb10">
 				<input id="rhel7" type="radio" name="action" value="rhel7"><img class="img-fluid rounded" src="images/playground/rhel7.png"  alt="rhel7">
 				<input id="rhel8" type="radio" name="action" value="rhel8"><img class="img-fluid rounded" src="images/playground/rhel8.png"  alt="rhel8">
+				<input id="php7fpm" type="radio" name="action" value="php7fpm"><img class="img-fluid rounded" src="images/playground/php7fpm.png"  alt="rhel8">
 			</label>
 		</div>
 	      </form>
@@ -278,7 +279,7 @@
 	    		  
 	    		  %>
 	    		  
-	    		  <div class="embed-responsive embed-responsive-16by9"><iframe class=embed-responsive-item src=https://<%=host %>></iframe></div>
+	    		  <div class="embed-responsive embed-responsive-4by3"><iframe class=embed-responsive-item src=https://<%=host %>></iframe></div>
 	    		  
 	    		  <%
 	    		  
