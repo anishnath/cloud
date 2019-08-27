@@ -112,6 +112,11 @@ public class PollServlet extends HttpServlet {
 			
 			for (int i = 0; i < 15; i++) { // Max 15 Try 
 				
+				try {
+					Thread.sleep(10000);
+				} catch (InterruptedException e) {
+					
+				}
 				
 				OkHttpClient client = new OkHttpClient();
 				Request requests = new Request.Builder().url("https://"+host).build();
@@ -132,11 +137,7 @@ public class PollServlet extends HttpServlet {
 					break;
 				}
 				
-				try {
-					Thread.sleep(3000);
-				} catch (InterruptedException e) {
-					
-				}
+				
 				
 			}
 		} catch (IOException e) {

@@ -11,7 +11,7 @@
   
   <%@ include file="analytics.jsp"%>
 
-  <title>Online Terminal Mysql,PHP,Python</title>
+  <title>Online Terminal Mysql,PHP,Python,rhel7,rhel8</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -25,13 +25,24 @@
 		$(document).ready(function() {
 
 
+			$('#python3').click(function(event) {
+				$('#form1').delay(200).submit()
+			});
+			
+			$('#mariadb10').click(function(event) {
+				$('#form1').delay(200).submit()
+			});
+			
+			$('#rhel7').click(function(event) {
+				$('#form1').delay(200).submit()
+			});
+			
+			
 
 			$('#form').submit(function(event) {
 				//
 				$('#msg').html('<p>Hang On tight We are building This will take approx 10-20 seconds')
 				$('#output').html('<img src="images/712.GIF"> loading...');
-				$('#python3').prop('disabled', true);
-				$('#mariadb10').prop('disabled', true);
 				event.preventDefault();
 				$.ajax({
 					type : "POST",
@@ -51,11 +62,12 @@
 			
 			$('#form1').submit(function(event) {
 				//
-				$('#msg').html('<p>Hang On tight We are building This will take approx 10-20 seconds')
+				$('#msg').html('<p>Hang On tight We are building This will take approx 10-20 seconds</p>')
 				$('#output').html('<img src="images/712.GIF"> loading...');
-				$('#python3').prop('disabled', true);
-				$('#mariadb10').prop('disabled', true);
 				event.preventDefault();
+
+			
+				
 				$.ajax({
 					type : "POST",
 					url : "playground", //this is my servlet
@@ -69,6 +81,11 @@
 						//$('#output').append(msg);
 						
 						console.log(msg)
+						
+						$('#msg').empty();
+						var tmp='<p><a href=https://'+host+' target=_blank>Your terminal is getting ready here click to open</a></p>'
+						console.log(tmp)
+						$('#msg').append(tmp)
 						
 						var host=msg
 						
@@ -99,12 +116,16 @@
 									var html = '<div class="embed-responsive embed-responsive-16by9"><iframe class=embed-responsive-item src=https://'+host+'></iframe></div>';
 									
 									console.log(html)
-									
+									$('#msg').empty();
+									$('#output').empty();
 									$('#output').append(html)									
 									}
 								else{
-									
-									$('#output').append('<a href="https://'+host+' target=_blank>Your terminal is ready Click to Open</a> ')
+									var html='<p><a href=https://'+host+' target=_blank>Your terminal is ready Click to Open</a></p>';
+									console.log(html)
+									$('#msg').empty();
+									$('#output').empty();
+									$('#output').append(html)
 								}
 								
 							},
@@ -202,55 +223,33 @@
         </button>
         
         <div id="loading" style="display: none;">
-			<img src="images/712.GIF" alt="" />Loading!
+			<img class="img-fluid rounded" src="images/712.GIF" alt="" />Loading!
 		</div>
         
         <%
         
         String sessionId = request.getSession().getId();
-        System.out.println(sessionId);
         
         %>
         
         <h2 class="mt-4">Launch your preferred Terminal</h3>
-        
-        <table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">
+
       
-      <form action="" class="form-horizontal-row" id="form" method="POST">
+      <form class="form-horizontal-row" id="form1" method="POST">
 	      <input type="hidden" name="csrf_token" id="csrf_token" value="<%=sessionId%>">
-	      <input type="hidden" name="action" id="action" value="python3">
-	      <input type="image" class="img-fluid img-thumbnail"  size="4" name="submit_blue" id="python3" value="python3" alt="python3" src="images/playground/python3.png">
+
+	      
+		
+		<div class="radio">
+			<label>
+				<input id="python3" type="radio" name="action" value="python3"><img class="img-fluid rounded" src="images/playground/python3.png"  alt="python3">
+				<input id="mariadb10" type="radio" name="action" value="mariadb10"><img class="img-fluid rounded" src="images/playground/mariadb.png"  alt="mariadb10">
+				<input id="rhel7" type="radio" name="action" value="rhel7"><img class="img-fluid rounded" src="images/playground/rhel7.png"  alt="rhel7">
+				<input id="rhel8" type="radio" name="action" value="rhel8"><img class="img-fluid rounded" src="images/playground/rhel8.png"  alt="rhel8">
+			</label>
+		</div>
 	      </form>
       
-      </th>
-      <th scope="col">
-      
-      <form action="" class="form-horizontal-row" id="form1" method="POST">
-	      <input type="hidden" name="csrf_token" id="csrf_token" value="<%=sessionId%>">
-	      <input type="hidden" name="action" id="action" value="mariadb10">
-	      <input type="image" class="img-fluid img-thumbnail"  size="4" name="submit_blue" id="mariadb10" value="mariadb10" alt="mariadb10" src="images/playground/mariadb.png">
-	      </form>
-      
-      </th>
-      
-      
-      
-      
-    </tr>
-  </thead>
-</table>
-        
-        <!-- <div class="embed-responsive embed-responsive-16by9"><iframe class=embed-responsive-item src=http://zvkqumuxdyawslvbjjmo.minikube></iframe></div> -->
-        
-	      
-<!-- 	      <div class="embed-responsive embed-responsive-16by9"><iframe class=embed-responsive-item src=http://zvkqumuxdyawslvbjjmo.minikube
-></iframe></div> -->
-	      
-	      
-	      
 	      <div id="msg"></div>
 	      <div id="output"></div>
 	      

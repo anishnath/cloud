@@ -52,12 +52,7 @@ public class Playground {
 	
 	private static final String dns = System.getenv("DNS");
 	
-	private static Map<String, String> imageMap = new HashMap();
-	
-	static{
-		imageMap.put("python3", "0cloud0/playground:python3");
-		imageMap.put("mariadb10", "0cloud0/playground:mysql");
-	}
+
 	
 	
 	public static void getSelfLink()
@@ -70,7 +65,12 @@ public class Playground {
 
 		String podName =  RandomStringUtils.randomAlphabetic(20).toLowerCase();
 		int port =5000;
-		String imageName = imageMap.get(image);
+		String imageName = PlaygroundConstants.imageMap.get(image);
+		
+		if(imageName==null)
+		{
+			return null;
+		}
 		
 		
 		
@@ -100,7 +100,9 @@ public class Playground {
 					.endPort()
 					.build();
 		}
-		else{
+		
+		else if (image.equals("mariadb10"))
+		{
 			containers = new ContainerBuilder()
 					.withImage(imageName)
 					.withName(podName)
@@ -108,7 +110,25 @@ public class Playground {
 					.addNewPort()
 					.withContainerPort(port)
 					.endPort()
+					.build();	
+		}
+		
+		else{
+			
+			argsList =   new ArrayList<String>();
+			argsList.add("--command");
+			argsList.add("bash");			
+			containers = new ContainerBuilder()
+					.withImage(imageName)
+					.withName(podName)
+					.withImagePullPolicy("Always")
+					.withCommand("pyxtermjs")
+					.withArgs(argsList)
+					.addNewPort()
+					.withContainerPort(port)
+					.endPort()
 					.build();
+			
 		}
 		
 		
