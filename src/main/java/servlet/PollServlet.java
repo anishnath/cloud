@@ -104,7 +104,7 @@ public class PollServlet extends HttpServlet {
 	
 	private int poll (String host) {
 		
-		System.out.println("Inside poll");
+		System.out.println("Inside poll with Sleep first 10 Seconds");
 		int code=404;
 		
 		try {
