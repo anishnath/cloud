@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.Map"%>
+<%@page import="k8.PlaygroundConstants"%>
 <html lang="en">
 
 <head>
@@ -113,14 +116,19 @@
 									console.log(html)
 									$('#msg').empty();
 									$('#output').empty();
-									$('#output').append(html)									
+									$('#output').append(html)
+									$('#loop').hide()
 									}
 								else{
-									var html='<p><a href=https://'+host+' target=_blank>Your terminal is ready Click to Open</a></p>';
+									var html1='<p>Kindly refresh the Page or</p>';
+									var html='<p><a href=https://'+host+' target=_blank>Click to Open in a new TAB</a></p>';
 									console.log(html)
+									console.log(html1)
 									$('#msg').empty();
 									$('#output').empty();
 									$('#output').append(html)
+									$('#msg').append(html1)
+									$('#loop').show()
 								}
 								
 							},
@@ -248,6 +256,37 @@
 	      <div id="msg"></div>
 	      <div id="output"></div>
 	      
+	      <div id="loop">
+	      
+	      <%
+	      
+	      Map<String,String> map = PlaygroundConstants.imageMap;
+	      
+	      Iterator it = map.entrySet().iterator();
+	      
+	      for (String key : map.keySet()) {
+	    	  
+	    	  //System.out.println("Key" + key);
+	    	  String host = (String)request.getSession().getAttribute(key);
+	    	  
+	    	  if(host!=null)
+	    	  {
+	    		  
+	    		  %>
+	    		  
+	    		  <div class="embed-responsive embed-responsive-16by9"><iframe class=embed-responsive-item src=https://<%=host %>></iframe></div>
+	    		  
+	    		  <%
+	    		  
+	    	  }
+	    			  
+	    			  
+	    	  
+	      }
+	      
+	      %>
+	      
+	      </div>
 
 	      
       </div>
