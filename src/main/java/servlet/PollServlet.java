@@ -66,12 +66,13 @@ public class PollServlet extends HttpServlet {
 		
 		if(host.contains(dns))
 		{
-			System.out.println("Host--3 " + host);
+			System.out.println("Host " + host);
 			String csrf_token = request.getParameter("csrf_token");
 			HttpSession session = request.getSession();
 	        String sessionID = session.getId();
 	        if(!sessionID.equalsIgnoreCase(csrf_token))
 	        {
+	        	System.out.println("Invalid CSRF ");
 	        	out.println("IVVALID_CSRF");
 	            return;
 	        }
