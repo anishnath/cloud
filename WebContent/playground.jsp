@@ -14,7 +14,7 @@
   
   <%@ include file="analytics.jsp"%>
 
-  <title>Online Terminal Mysql,PHP,Python,rhel7,rhel8,PHP7,nodejs</title>
+  <title>Online Terminal Mysql,PHP,Python,rhel7,rhel8,PHP7,nodejs,Ansible</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -53,6 +53,9 @@
 				$('#form1').delay(200).submit()
 			});
 			
+			$('#ansible').click(function(event) {
+				$('#form1').delay(200).submit()
+			});
 			
 
 			$('#form').submit(function(event) {
@@ -264,6 +267,7 @@
 				<input id="rhel8" type="radio" name="action" value="rhel8"><img class="img-fluid rounded" src="images/playground/rhel8.png"  alt="rhel8">
 				<input id="php7fpm" type="radio" name="action" value="php7fpm"><img class="img-fluid rounded" src="images/playground/php7fpm.png"  alt="php7fpm">
 				<input id="nodejs" type="radio" name="action" value="nodejs"><img class="img-fluid rounded" src="images/playground/nodejs.png"  alt="nodejs">
+				<input id="ansible" type="radio" name="action" value="ansible"><img class="img-fluid rounded" src="images/playground/ansible.png"  alt="ansible">
 			</label>
 		</div>
 	      </form>

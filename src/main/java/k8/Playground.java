@@ -117,7 +117,7 @@ public class Playground {
 			
 			argsList =   new ArrayList<String>();
 			argsList.add("--command");
-			argsList.add("bash");			
+			argsList.add("sh");			
 			containers = new ContainerBuilder()
 					.withImage(imageName)
 					.withName(podName)
