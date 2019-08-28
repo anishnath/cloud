@@ -30,20 +30,12 @@
 
 
 <hr>
-    <!-- Sidebar -->
-    <div class="bg-light border-right" id="sidebar-wrapper">
-      <div class="sidebar-heading"></div>
-      <div class="list-group list-group-flush">
-        <a href="https://www.linkedin.com/in/anishnath" class="list-group-item list-group-item-action bg-light">Hire Me!!</a>
-      </div>
-       <div class="list-group list-group-flush">
-        <a href="https://8gwifi.org" class="list-group-item list-group-item-action bg-light">Cryptography Playground</a>
-      </div>
-     <div class="list-group list-group-flush">
-        <a href="add.jsp" class="list-group-item list-group-item-action bg-light">Deploy Docker Online</a>
-      </div>
-    </div>
-    <!-- /#sidebar-wrapper -->
+
+       <!-- Sidebar -->
+
+<%@ include file="sidebar.jsp"%>
+
+<!-- Sidebar Ends -->
 
     <!-- Page Content -->
     <div id="page-content-wrapper">

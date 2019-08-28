@@ -6,15 +6,19 @@
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
 <url>
-    <loc>http://0cloud0.com/</loc>
+    <loc>https://0cloud0.com/</loc>
 </url>
 
 <url>
-    <loc>http://0cloud0.com/add.jsp</loc>
+    <loc>https://0cloud0.com/add.jsp</loc>
 </url>
 
 <url>
-    <loc>http://0cloud0.com/sql.jsp</loc>
+    <loc>https://0cloud0.com/sql.jsp</loc>
+</url>
+
+<url>
+    <loc>https://0cloud0.com/playground.jsp</loc>
 </url>
 
 <url>
