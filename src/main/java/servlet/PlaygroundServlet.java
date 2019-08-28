@@ -86,6 +86,9 @@ public class PlaygroundServlet extends HttpServlet {
         	}
         	else{
         		String host = Playground.launchPlaygroundPods("playground",action);
+        		
+        		Thread.sleep(5000);
+        		
     			request.getSession().setAttribute(action, host);
     			out.println(host);
         	}

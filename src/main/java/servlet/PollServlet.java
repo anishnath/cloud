@@ -72,8 +72,8 @@ public class PollServlet extends HttpServlet {
 	        String sessionID = session.getId();
 	        if(!sessionID.equalsIgnoreCase(csrf_token))
 	        {
-//	        	out.println("<font size=\"4\" color=\"red\"> CSRF Token Expired  Login Again to continue</font>");
-//	            return;
+	        	out.println("IVVALID_CSRF");
+	            return;
 	        }
 			
 //	        AsyncContext asyncContext = request.startAsync(); 
@@ -112,11 +112,7 @@ public class PollServlet extends HttpServlet {
 			
 			for (int i = 0; i < 15; i++) { // Max 15 Try 
 				
-				try {
-					Thread.sleep(10000);
-				} catch (InterruptedException e) {
-					
-				}
+				
 				
 				OkHttpClient client = new OkHttpClient();
 				Request requests = new Request.Builder().url("https://"+host).build();
@@ -137,8 +133,13 @@ public class PollServlet extends HttpServlet {
 					break;
 				}
 				
-				
-				
+				else{
+					try {
+						Thread.sleep(5000);
+					} catch (InterruptedException e) {
+						
+					}
+				}
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
