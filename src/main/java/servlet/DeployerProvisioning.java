@@ -40,7 +40,7 @@ public class DeployerProvisioning implements DeployerListner {
 			String deploymentname = RandomStringUtils.randomAlphabetic(10).toLowerCase();
 			String label = RandomStringUtils.randomAlphabetic(10).toLowerCase();
 
-			String host = RandomStringUtils.randomAlphabetic(10).toLowerCase() + "."+ dns;
+			String host = deploymentname + "."+ dns;
 
 			System.out.println(deploymentname);
 			System.out.println(label);

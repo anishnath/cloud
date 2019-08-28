@@ -517,9 +517,17 @@ public class K8Deployer {
 		HashMap<String, String> selector = new HashMap<>();
 		selector.put("app", label);
 
-		Service service = new ServiceBuilder().withNewMetadata()
-				.withName(deploymentname).endMetadata().withNewSpec().withPorts(new ServicePortBuilder().withPort(port)
-						.withNewTargetPort().withIntVal(port).endTargetPort().build())
+		Service service = new ServiceBuilder()
+				.withNewMetadata()
+				.withName(deploymentname)
+				.endMetadata()
+				.withNewSpec()
+				.withPorts(new ServicePortBuilder().withPort(port)
+						.withNewTargetPort()
+						.withIntVal(port)
+						.endTargetPort()
+						.build())
+				.withClusterIP("None")
 				.withSelector(selector).endSpec().build();
 
 		service = client.services().inNamespace(namespace).create(service);
@@ -557,7 +565,7 @@ public class K8Deployer {
 		IngressRule ingressrule = new IngressRuleBuilder().withHost(host).withHttp(httpingressrulebuilder).build();
 
 		Ingress ingress = new IngressBuilder().withApiVersion("extensions/v1beta1").withKind("Ingress")
-				.withNewMetadata().withName(deploymentname + "ingress").withAnnotations(annotations).endMetadata()
+				.withNewMetadata().withName(deploymentname).withAnnotations(annotations).endMetadata()
 				.withNewSpec().withRules(ingressrule).withTls(ingressTLS).endSpec().build();
 
 		ingress = client.extensions().ingresses().inNamespace(namespace).create(ingress);
