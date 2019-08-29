@@ -50,6 +50,7 @@ public class SQLLiteDBManager {
 				isUserexists =  true;
 			}
 		}
+		pstmt.close();
 		SQLLiteConnectionManager.getInstance().close();
 		return isUserexists;
 
@@ -74,6 +75,7 @@ public class SQLLiteDBManager {
 			}
 				
 		}
+		pstmt.close();
 		SQLLiteConnectionManager.getInstance().close();
 		return isUserexists;
 
@@ -98,6 +100,7 @@ public class SQLLiteDBManager {
 			user.setTimestamp(rs.getString("Timestamp"));
 			listUser.add(user);
 		}
+		pstmt.close();
 		SQLLiteConnectionManager.getInstance().close();
 		return listUser;
 
@@ -139,6 +142,7 @@ public class SQLLiteDBManager {
 			user.setEnviroment_vars(rs.getString("enviroment_vars"));
 			listUser.add(user);
 		}
+		pstmt.close();
 		SQLLiteConnectionManager.getInstance().close();
 		return listUser;
 	}
@@ -174,6 +178,7 @@ public class SQLLiteDBManager {
 			user.setEnviroment_vars(rs.getString("enviroment_vars"));
 			listUser.add(user);
 		}
+		pstmt.close();
 		SQLLiteConnectionManager.getInstance().close();
 		return listUser;
 	}
@@ -205,6 +210,7 @@ public class SQLLiteDBManager {
 			user.setEnviroment_vars(rs.getString("enviroment_vars"));
 			
 		}
+		pstmt.close();
 		SQLLiteConnectionManager.getInstance().close();
 		return user;
 	}
@@ -237,6 +243,7 @@ public class SQLLiteDBManager {
 			user.setEnviroment_vars(rs.getString("enviroment_vars"));
 			
 		}
+		pstmt.close();
 		SQLLiteConnectionManager.getInstance().close();
 		return user;
 	}
@@ -258,6 +265,7 @@ public class SQLLiteDBManager {
 		pstmt.setString(2, username);
 		pstmt.setString(3, id );
 		pstmt.executeUpdate();
+		pstmt.close();
 		SQLLiteConnectionManager.getInstance().close();
 		
 	}
@@ -272,6 +280,7 @@ public class SQLLiteDBManager {
 		pstmt.setString(4, id);
 		pstmt.setString(5, status);
 		pstmt.executeUpdate();
+		pstmt.close();
 		SQLLiteConnectionManager.getInstance().close();
 		
 	}
@@ -290,6 +299,7 @@ public class SQLLiteDBManager {
 		while(rs.next()){
 			count = rs.getInt("count");
 		}
+		pstmt.close();
 		SQLLiteConnectionManager.getInstance().close();
 		return count;
 		
@@ -311,6 +321,7 @@ public class SQLLiteDBManager {
 		pstmt.setString(6, userdata.getArgs());
 		pstmt.setString(7, userdata.getEnviroment_vars());
 		pstmt.executeUpdate();
+		pstmt.close();
 		SQLLiteConnectionManager.getInstance().close();
 	}
 	
@@ -324,6 +335,7 @@ public class SQLLiteDBManager {
 		pstmt.setString(3, userdata.getDbname());
 		pstmt.setString(4, userdata.getPassword());
 		pstmt.executeUpdate();
+		pstmt.close();
 		SQLLiteConnectionManager.getInstance().close();
 	}
 	
@@ -349,6 +361,7 @@ public class SQLLiteDBManager {
 			user.setStatus(rs.getString("status"));
 			listUser.add(user);
 		}
+		pstmt.close();
 		SQLLiteConnectionManager.getInstance().close();
 		return listUser;
 	}
@@ -374,6 +387,7 @@ public class SQLLiteDBManager {
 			user.setStatus(rs.getString("status"));
 			
 		}
+		pstmt.close();
 		SQLLiteConnectionManager.getInstance().close();
 		return user;
 	}
@@ -400,6 +414,7 @@ public class SQLLiteDBManager {
 			user.setStatus(rs.getString("status"));
 			
 		}
+		pstmt.close();
 		SQLLiteConnectionManager.getInstance().close();
 		return user;
 	}
@@ -411,6 +426,7 @@ public class SQLLiteDBManager {
 		pstmt.setString(1, username);
 		pstmt.setString(2, id);
 		pstmt.executeUpdate();
+		pstmt.close();
 		SQLLiteConnectionManager.getInstance().close();
 		
 	}
@@ -424,6 +440,7 @@ public class SQLLiteDBManager {
 		pstmt.setString(2, username);
 		pstmt.setString(3, id );
 		pstmt.executeUpdate();
+		pstmt.close();
 		SQLLiteConnectionManager.getInstance().close();
 		
 	}
@@ -441,6 +458,7 @@ public class SQLLiteDBManager {
 		while(rs.next()){
 			count = rs.getInt("count");
 		}
+		pstmt.close();
 		SQLLiteConnectionManager.getInstance().close();
 		return count;
 		
@@ -461,6 +479,7 @@ public class SQLLiteDBManager {
 		sql = "DELETE FROM users_data";
 		 pstmt = conn.prepareStatement(sql);
 		pstmt.executeUpdate();
+		pstmt.close();
 		SQLLiteConnectionManager.getInstance().close();
 		
 		
@@ -479,6 +498,7 @@ public class SQLLiteDBManager {
 		sql = "DELETE FROM users_data";
 		 pstmt = conn.prepareStatement(sql);
 		pstmt.executeUpdate();
+		pstmt.close();
 		SQLLiteConnectionManager.getInstance().close();
 		
 		

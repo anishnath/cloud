@@ -97,12 +97,12 @@ public class SQLLiteConnectionManager {
 	public static void createNewDatabase( ) {
 		 
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(10000);
 		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			
 		}
  
+		System.out.println("Successfully Slept for 10 Seconds ");
         try (Connection conn = DriverManager.getConnection(dburl)) {
             if (conn != null) {
             	Class.forName("org.sqlite.JDBC");
@@ -112,7 +112,7 @@ public class SQLLiteConnectionManager {
             }
  
         } catch (Exception e) {
-        	e.printStackTrace();
+        	
             System.out.println(e.getMessage());
         }
         
@@ -125,6 +125,7 @@ public class SQLLiteConnectionManager {
            
            c = DriverManager.getConnection(dburl);
            System.out.println("Opened database successfully");
+           System.out.println("Going to Create users Table");
 
            stmt = c.createStatement();
            sql = "CREATE TABLE users (\n" +
@@ -134,6 +135,9 @@ public class SQLLiteConnectionManager {
                    "    quota INTEGER DEFAULT 3,\n" +
                    "    Timestamp DATETIME DEFAULT CURRENT_TIMESTAMP\n" +
                    ");";
+           
+           System.out.println("SQL Query users " + sql);
+           
            stmt.executeUpdate(sql);
            stmt.close();
            c.close();
@@ -141,12 +145,19 @@ public class SQLLiteConnectionManager {
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
          }
+        finally {
+			try {
+				c.close();
+			} catch (SQLException e) {
+				System.err.println( "Failed to Close Connection while creating user table: " + e.getMessage() );
+			}
+		}
         
         try{
-        	
-        	stmt = c.createStatement();
-           System.out.println(sql);
-          // stmt.executeUpdate(sql);
+       
+        	 c = DriverManager.getConnection(dburl);
+        stmt = c.createStatement();
+
            
            sql = "CREATE TABLE users_data (\n" +
                    "    id INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,\n" +
@@ -165,7 +176,7 @@ public class SQLLiteConnectionManager {
                    "    FOREIGN KEY(id) REFERENCES users(username)\n" +
                    ");";
            
-           System.out.println(sql);
+           System.out.println("SQL Query users_data " + sql);
            stmt.executeUpdate(sql);
            stmt.close();
            c.close();
@@ -173,10 +184,17 @@ public class SQLLiteConnectionManager {
            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
            
         }
+        finally {
+			try {
+				c.close();
+			} catch (SQLException e) {
+				System.err.println( "Failed to Close Connection while creating user table: " + e.getMessage() );
+			}
+		}
         
         try{
         	
-            
+        	 c = DriverManager.getConnection(dburl);
 
            // stmt.executeUpdate(sql);
         	stmt = c.createStatement();
@@ -192,7 +210,7 @@ public class SQLLiteConnectionManager {
                     "    FOREIGN KEY(id) REFERENCES users(username)\n" +
                     ");";
             
-            System.out.println(sql);
+            System.out.println("SQL Query users_data_sql " + sql);
             stmt.executeUpdate(sql);
             stmt.close();
             c.close();

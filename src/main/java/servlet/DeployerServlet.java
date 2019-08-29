@@ -25,11 +25,13 @@ import com.squareup.okhttp.Response;
 
 import db.SQLLiteDBManager;
 import db.UsersData;
+import k8.Stack;
 
 /**
  * Servlet implementation class DeployerServlet
  */
-@WebServlet("/DeployerServlet")
+
+@WebServlet(name = "deploy", value = "/deploy")
 public class DeployerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private HashMap<String, Object> JSONROOT = new HashMap<String, Object>();
@@ -63,6 +65,10 @@ public class DeployerServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String action = request.getParameter("action");
+		
+		JSONROOT.clear();
+		
+		System.out.println("action" +action);
 		
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String user_name = (String)request.getSession().getAttribute("user_name");
@@ -109,11 +115,13 @@ public class DeployerServlet extends HttpServlet {
 					// Convert Java Object to Json
 					String jsonArray = gson.toJson(JSONROOT);
 
+					System.out.println("Here1--");
 					response.getWriter().print(jsonArray);
+					return;
 
 				}
 
-				if (action.equals("create") || action.equals("update")) {
+				else if (action.equals("create") || action.equals("update")) {
 
 					String docker_image = request.getParameter("docker_image");
 					String expose_port = request.getParameter("expose_port");
@@ -289,7 +297,7 @@ public class DeployerServlet extends HttpServlet {
 
 				}
 
-				if (action.equals("delete")) {
+				else if (action.equals("delete")) {
 					
 					String docker_image = request.getParameter("docker_image");
 					String expose_port = request.getParameter("expose_port");
@@ -320,6 +328,41 @@ public class DeployerServlet extends HttpServlet {
 					return;
 
 				}
+				
+				else
+				{
+					
+					int sqlquota = SQLLiteDBManager.checkQuota(user_name);
+					
+					if(sqlquota>3)
+					{
+						JSONROOT.put("Result", "ERROR");
+						JSONROOT.put("Message", "You Have exceeded Deployment Limit, Please Delete esisting deployment to Continue");
+						String error = gson.toJson(JSONROOT);
+						response.getWriter().print(error);
+						return;
+					}
+					
+					
+					if(action.equals("mysql")) {
+					
+					Stack stack = new Stack();
+					stack.launchMySQL(user_name);
+					UsersData  userdata1=  SQLLiteDBManager.GetUserData(user_name);
+					
+					JSONROOT.put("Result", "OK");
+					JSONROOT.put("Record", userdata1);
+
+					// Convert Java Object to Json
+					String jsonArray = gson.toJson(JSONROOT);
+
+					response.getWriter().print(jsonArray);
+					
+					return;
+					
+				}
+				}
+				
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				JSONROOT.put("Result", "ERROR");

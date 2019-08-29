@@ -156,6 +156,7 @@ public class Playground {
 				.withPorts(new ServicePortBuilder().withPort(port)
 						.withNewTargetPort().withIntVal(port).
 						endTargetPort().build())
+				.withClusterIP("None")
 				.withSelector(selector).endSpec().build();
 
 		service = client.services().inNamespace(ns).create(service);
