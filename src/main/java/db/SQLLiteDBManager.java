@@ -178,6 +178,7 @@ public class SQLLiteDBManager {
 			user.setEnviroment_vars(rs.getString("enviroment_vars"));
 			listUser.add(user);
 		}
+		
 		pstmt.close();
 		SQLLiteConnectionManager.getInstance().close();
 		return listUser;
@@ -257,7 +258,7 @@ public class SQLLiteDBManager {
 	 * @param status is NOTDEPLOYED,DEPLOYED,TERMINATED
 	 * @throws SQLException
 	 */
-	public static void updateDeploymentStatus(String username, String id, String status) throws SQLException {
+	public synchronized void updateDeploymentStatus(String username, String id, String status) throws SQLException {
 		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
 		String sql = "UPDATE users_data SET status=? WHERE username=? and id =?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -265,12 +266,13 @@ public class SQLLiteDBManager {
 		pstmt.setString(2, username);
 		pstmt.setString(3, id );
 		pstmt.executeUpdate();
+		pstmt.clearParameters();
 		pstmt.close();
 		SQLLiteConnectionManager.getInstance().close();
 		
 	}
 	
-	public static void updateDeploymentInfo(String deploymentName, String host, String username, String id, String status) throws SQLException {
+	public synchronized static void updateDeploymentInfo(String deploymentName, String host, String username, String id, String status) throws SQLException {
 		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
 		String sql = "UPDATE users_data SET deployment_name=?, expose_url =? WHERE username=? and id =? and status =?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -361,8 +363,8 @@ public class SQLLiteDBManager {
 			user.setStatus(rs.getString("status"));
 			listUser.add(user);
 		}
-		pstmt.close();
-		SQLLiteConnectionManager.getInstance().close();
+		pstmt.clearParameters();
+		//SQLLiteConnectionManager.getInstance().close();
 		return listUser;
 	}
 	
@@ -583,14 +585,14 @@ public class SQLLiteDBManager {
 		}
 		
 		
-		updateDeploymentStatus("A", url1, "TERMINATED");
-		
-		usersdata = ListUserData("A");
-		
-		for (Iterator iterator = usersdata.iterator(); iterator.hasNext();) {
-			UsersData usersData2 = (UsersData) iterator.next();
-			System.out.println(usersData2);
-		}
+//		updateDeploymentStatus("A", url1, "TERMINATED");
+//		
+//		usersdata = ListUserData("A");
+//		
+//		for (Iterator iterator = usersdata.iterator(); iterator.hasNext();) {
+//			UsersData usersData2 = (UsersData) iterator.next();
+//			System.out.println(usersData2);
+//		}
 		
 		System.out.println("Quota--" + checkQuota("A"));
 

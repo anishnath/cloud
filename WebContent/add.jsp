@@ -127,34 +127,7 @@
         });
     	
     	
-		$('#python3').click(function(event) {
-			$('#form1').delay(200).submit()
-		});
 		
-		$('#mariadb10').click(function(event) {
-			$('#form1').delay(200).submit()
-		});
-		
-		$('#rhel7').click(function(event) {
-			$('#form1').delay(200).submit()
-		});
-		
-		$('#rhel8').click(function(event) {
-			$('#form1').delay(200).submit()
-		});
-		
-		$('#php7fpm').click(function(event) {
-			$('#form1').delay(200).submit()
-		});
-		
-
-		$('#nodejs').click(function(event) {
-			$('#form1').delay(200).submit()
-		});
-		
-		$('#ansible').click(function(event) {
-			$('#form1').delay(200).submit()
-		});
 		
 
 		$('#form1').submit(function(event) {
@@ -170,6 +143,7 @@
 				success : function(msg) {
 					$('#dockerContainer').jtable('load');
 					$('#output').empty();
+					$('#msg').empty();
 
 				}
 			});
@@ -248,6 +222,9 @@
         String sessionId = request.getSession().getId();
         
         %>
+        
+          <div id="msg"></div>
+	      <div id="output"></div>
        
           <form class="form-horizontal-row" action="deploy" id="form1" method="post">
 	      <input type="hidden" name="csrf_token" id="csrf_token" value="<%=sessionId%>">
@@ -256,6 +233,9 @@
 		<div class="radio">
 			<label>
 				<input id="mysql" type="radio" name="action" value="mysql"><img class="img-fluid rounded" src="images/playground/mysql.png"  alt="mysql">
+				<input id="wordpress" type="radio" name="action" value="wordpress"><img class="img-fluid rounded" src="images/playground/wordpress.png"  alt="mysql">
+				
+				
 				<input class="btn btn-primary" type="submit" value="Submit">
 			</label>
 		</div>
@@ -268,6 +248,8 @@
        <img class="img-fluid rounded" height="800" src="images/deploy.png"  alt="Referefce ">
        </img>
        </p>>
+       
+       <%@ include file="addcomments.jsp"%>
        
        <div>
        

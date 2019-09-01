@@ -304,8 +304,8 @@ public class DeployerServlet extends HttpServlet {
 					String id = request.getParameter("id");
 					
 					//System.out.println("id-->>" + id);
-					
-					SQLLiteDBManager.updateDeploymentStatus(user_name, id, "DELETED");
+					SQLLiteDBManager dbManager = new SQLLiteDBManager();
+					dbManager.updateDeploymentStatus(user_name, id, "DELETED");
 					
 					UsersData  userdata1=  SQLLiteDBManager.GetUserData(user_name);
 					
@@ -361,6 +361,38 @@ public class DeployerServlet extends HttpServlet {
 					return;
 					
 				}
+					
+					if(action.equals("wordpress")) {
+						
+						DeployerInitiater deployerInitiater = new DeployerInitiater();
+						DeployerListner deployerListner = new DeployerProvisioning();
+						
+						deployerInitiater.registerDeployerListner(deployerListner, user_name);
+						
+						deployerInitiater.performStackProvisioing();
+						
+						UsersData  userdata1=  SQLLiteDBManager.GetUserData(user_name);
+						
+						try{
+						Thread.sleep(10000);
+						}catch(Exception ex) {}
+						
+						System.out.println("Does it Comes Here...");
+						
+						JSONROOT.put("Result", "OK");
+						JSONROOT.put("Record", userdata1);
+
+						// Convert Java Object to Json
+						String jsonArray = gson.toJson(JSONROOT);
+
+						response.getWriter().print(jsonArray);
+						
+						return;
+						
+						
+					}
+					
+					
 				}
 				
 			} catch (Exception ex) {

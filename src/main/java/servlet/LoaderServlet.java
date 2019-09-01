@@ -103,8 +103,8 @@ public class LoaderServlet extends HttpServlet {
 								{
 								
 								K8Deployer.deleteDeployment(namespace, usersData2.getDeploymentName());
-								
-								SQLLiteDBManager.updateDeploymentStatus(usersData2.getUsername(), usersData2.getId(), "PURGED");
+								SQLLiteDBManager dbManager = new SQLLiteDBManager();
+								dbManager.updateDeploymentStatus(usersData2.getUsername(), usersData2.getId(), "PURGED");
 								}
 						    }
 						    

@@ -9,6 +9,7 @@ public class DeployerInitiater {
 	private DeployerListner deployerListner;
 	private UsersData usersData;
 	private String id;
+	private String userName;
 	private List<String> envList;
 	private List<String> commandList;
 	private List<String> conatinerArgs;
@@ -29,6 +30,13 @@ public class DeployerInitiater {
 		this.id =id;
 	}
 	
+	public void registerDeployerListner(DeployerListner mListener,String username)
+	{
+		this.deployerListner = mListener;
+		this.userName = username;
+		
+	}
+	
 
 
 	public void performProvisioing() {
@@ -45,6 +53,26 @@ public class DeployerInitiater {
 
 					// invoke the callback method of class A
 					deployerListner.doProvisioning(usersData,envList,commandList,conatinerArgs);
+				}
+			}
+		}).start();
+	}
+	
+	
+	public void performStackProvisioing() {
+
+		// An Async task always executes in new thread
+		new Thread(new Runnable() {
+			public void run() {
+
+				// perform any operation
+				System.out.println("Performing Stack operation in Asynchronous Task");
+
+				// check if listener is registered.
+				if (deployerListner != null) {
+
+					// invoke the callback method of class A
+					deployerListner.doProvisioningWordPress(userName);
 				}
 			}
 		}).start();

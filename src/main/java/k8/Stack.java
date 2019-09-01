@@ -69,6 +69,17 @@ public class Stack {
 		
 	}
 	
+	public  void launchWordPress(String username) throws Exception
+	{
+		
+		
+		
+		
+		
+		
+	}
+	
+	
 	public static void main(String[] args) throws Exception {
 		
 		Stack stack = new Stack();
