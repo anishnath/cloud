@@ -8,13 +8,13 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Build and manage your Docker environments online">
+  <meta name="description" content="Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible">
   <meta name="google-site-verification" content="bGqQHUWnhNwz3WOXE9hH6cprbhHfSI4q3mdWzLNHQSg" />
   <meta name="author" content="Anish Nath">
   
   <%@ include file="analytics.jsp"%>
 
-  <title>Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,PHP7,nodejs,Ansible</title>
+  <title>Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -44,6 +44,9 @@
 				$('#form1').delay(200).submit()
 			});
 			
+			$('#ubuntu').click(function(event) {
+				$('#form1').delay(200).submit()
+			});
 			
 			
 			$('#rhel8').click(function(event) {
@@ -272,6 +275,7 @@
 				<input id="centos7" type="radio" name="action" value="centos7"><img class="img-fluid rounded" src="images/playground/centos7.png"  alt="centos7">
 				<input id="rhel7" type="radio" name="action" value="rhel7"><img class="img-fluid rounded" src="images/playground/rhel7.png"  alt="rhel7">
 				<input id="rhel8" type="radio" name="action" value="rhel8"><img class="img-fluid rounded" src="images/playground/rhel8.png"  alt="rhel8">
+				<input id="ubuntu" type="radio" name="action" value="ubuntu"><img class="img-fluid rounded" src="images/playground/ubuntu.png"  alt="ubuntu">
 				<input id="php7fpm" type="radio" name="action" value="php7fpm"><img class="img-fluid rounded" src="images/playground/php7fpm.png"  alt="php7fpm">
 				<input id="nodejs" type="radio" name="action" value="nodejs"><img class="img-fluid rounded" src="images/playground/nodejs.png"  alt="nodejs">
 				<input id="ansible" type="radio" name="action" value="ansible"><img class="img-fluid rounded" src="images/playground/ansible.png"  alt="ansible">
