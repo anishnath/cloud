@@ -288,6 +288,8 @@
 	      
 	      <div id="loop">
 	      
+	      
+	      
 	      <%
 	      
 	      Map<String,String> map = PlaygroundConstants.imageMap;
@@ -317,6 +319,9 @@
 	      %>
 	      
 	      </div>
+	      
+	      
+	      <%@ include file="addcomments.jsp"%>
 
 	      
       </div>
