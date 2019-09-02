@@ -269,7 +269,7 @@
 			<label>
 				<input id="python3" type="radio" name="action" value="python3"><img class="img-fluid rounded" src="images/playground/python3.png"  alt="python3">
 				<input id="mariadb10" type="radio" name="action" value="mariadb10"><img class="img-fluid rounded" src="images/playground/mariadb.png"  alt="mariadb10">
-				<input id="centos7" type="radio" name="action" value="centos7"><img class="img-fluid rounded" src="images/playground/rhel7.png"  alt="centos7">
+				<input id="centos7" type="radio" name="action" value="centos7"><img class="img-fluid rounded" src="images/playground/centos7.png"  alt="centos7">
 				<input id="rhel7" type="radio" name="action" value="rhel7"><img class="img-fluid rounded" src="images/playground/rhel7.png"  alt="rhel7">
 				<input id="rhel8" type="radio" name="action" value="rhel8"><img class="img-fluid rounded" src="images/playground/rhel8.png"  alt="rhel8">
 				<input id="php7fpm" type="radio" name="action" value="php7fpm"><img class="img-fluid rounded" src="images/playground/php7fpm.png"  alt="php7fpm">
