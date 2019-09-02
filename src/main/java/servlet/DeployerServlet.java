@@ -128,7 +128,7 @@ public class DeployerServlet extends HttpServlet {
 					
 					int sqlquota = SQLLiteDBManager.checkQuota(user_name);
 					
-					if(sqlquota>3)
+					if(sqlquota>2)
 					{
 						JSONROOT.put("Result", "ERROR");
 						JSONROOT.put("Message", "You Have exceeded Deployment Limit, Please Delete esisting deployment to Continue");
@@ -334,7 +334,7 @@ public class DeployerServlet extends HttpServlet {
 					
 					int sqlquota = SQLLiteDBManager.checkQuota(user_name);
 					
-					if(sqlquota>3)
+					if(sqlquota>2)
 					{
 						JSONROOT.put("Result", "ERROR");
 						JSONROOT.put("Message", "You Have exceeded Deployment Limit, Please Delete esisting deployment to Continue");
