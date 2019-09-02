@@ -14,7 +14,7 @@
   
   <%@ include file="analytics.jsp"%>
 
-  <title>Online Terminal Mysql,PHP,Python,rhel7,rhel8,PHP7,nodejs,Ansible</title>
+  <title>Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,PHP7,nodejs,Ansible</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -39,6 +39,12 @@
 			$('#rhel7').click(function(event) {
 				$('#form1').delay(200).submit()
 			});
+			
+			$('#centos7').click(function(event) {
+				$('#form1').delay(200).submit()
+			});
+			
+			
 			
 			$('#rhel8').click(function(event) {
 				$('#form1').delay(200).submit()
@@ -263,6 +269,7 @@
 			<label>
 				<input id="python3" type="radio" name="action" value="python3"><img class="img-fluid rounded" src="images/playground/python3.png"  alt="python3">
 				<input id="mariadb10" type="radio" name="action" value="mariadb10"><img class="img-fluid rounded" src="images/playground/mariadb.png"  alt="mariadb10">
+				<input id="centos7" type="radio" name="action" value="centos7"><img class="img-fluid rounded" src="images/playground/rhel7.png"  alt="centos7">
 				<input id="rhel7" type="radio" name="action" value="rhel7"><img class="img-fluid rounded" src="images/playground/rhel7.png"  alt="rhel7">
 				<input id="rhel8" type="radio" name="action" value="rhel8"><img class="img-fluid rounded" src="images/playground/rhel8.png"  alt="rhel8">
 				<input id="php7fpm" type="radio" name="action" value="php7fpm"><img class="img-fluid rounded" src="images/playground/php7fpm.png"  alt="php7fpm">

@@ -16,6 +16,7 @@ public static Map<String, String> imageMap = new HashMap();
 		imageMap.put("php7fpm", "0cloud0/playground:php7");
 		imageMap.put("nodejs", "0cloud0/playground:nodejs");
 		imageMap.put("ansible", "0cloud0/playground:ansible");
+		imageMap.put("centos7", "0cloud0/playground:centos7");
 		
 		
 	}
