@@ -262,6 +262,8 @@
         <div id="loading" style="display: none;">
 			<img class="img-fluid rounded" src="images/712.GIF" alt="" />Loading!
 		</div>
+		
+		<div class="sharethis-inline-share-buttons"></div>
         
         <%
         

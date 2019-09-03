@@ -67,6 +67,9 @@
         <p>You can use this container service to host your docker image online even you can customize the DNS </p>
         <p>Right now the Hosting is only for HTTP based docker image, you can deploy other NON HTTP images also though the provisioning of service will not happen, though you can conitnue with other operation of your docker image</p>
       </div>
+      
+      <div class="sharethis-inline-share-buttons"></div>
+      
     </div>
     <!-- /#page-content-wrapper -->
 
