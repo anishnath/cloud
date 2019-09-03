@@ -19,6 +19,8 @@ public static Map<String, String> imageMap = new HashMap();
 		imageMap.put("centos7", "0cloud0/playground:centos7");
 		imageMap.put("ubuntu", "0cloud0/playground:ubuntu18.04");
 		imageMap.put("archlinux", "0cloud0/playground:archlinux");
+		imageMap.put("opensuseleap", "0cloud0/playground:opensuseleap");
+		
 	}
 	
 	
