@@ -7,3 +7,5 @@
 
   gtag('config', 'UA-109251861-2');
 </script>
+
+<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=5d6e307716b81b0012138f59&product=inline-share-buttons' async='async'></script>
