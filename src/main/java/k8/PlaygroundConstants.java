@@ -18,8 +18,7 @@ public static Map<String, String> imageMap = new HashMap();
 		imageMap.put("ansible", "0cloud0/playground:ansible");
 		imageMap.put("centos7", "0cloud0/playground:centos7");
 		imageMap.put("ubuntu", "0cloud0/playground:ubuntu18.04");
-		
-		
+		imageMap.put("archlinux", "0cloud0/playground:archlinux");
 	}
 	
 	
