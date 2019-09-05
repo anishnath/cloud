@@ -112,10 +112,13 @@ public class SQLLiteDBManager {
 		System.out.println("Inside Get Purged Record--");
 
 		Connection conn = SQLLiteConnectionManager.getInstance(url).getConnection();
-		String sql = "SELECT id,username,docker_image,expose_port,expose_url,status,Timestamp,deployment_name,service_name,ingress_name,container_command,args,enviroment_vars  FROM users_data WHERE username not in (?) and status in (?) LIMIT 100 ";
+		String sql = "SELECT id,username,docker_image,expose_port,expose_url,status,Timestamp,deployment_name,service_name,ingress_name,container_command,args,enviroment_vars  FROM users_data WHERE username not in (?,?,?) and status in (?,?) LIMIT 100 ";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, "system@localhost.com");
-		pstmt.setString(2, "DEPLOYED");
+		pstmt.setString(2, "an25081981@gmail.com");
+		pstmt.setString(3, "zarigatongy@gmail.com");
+		pstmt.setString(4, "DEPLOYED");
+		pstmt.setString(5, "PROVISIONING");
 		ResultSet rs = pstmt.executeQuery();
 		
 		System.out.println(sql);

@@ -1,5 +1,7 @@
 package servlet;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -10,6 +12,8 @@ import java.util.concurrent.TimeUnit;
 import javax.servlet.ServletConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
+
+import org.apache.commons.codec.binary.Hex;
 
 import db.SQLLiteConnectionManager;
 import db.SQLLiteDBManager;
@@ -46,10 +50,10 @@ public class LoaderServlet extends HttpServlet {
 
 				while (true) {
 
-					long timeToSleep = 2L;
+					long timeToSleep = 10L;
 
 					// Create a TimeUnit object
-					TimeUnit time = TimeUnit.HOURS;
+					TimeUnit time = TimeUnit.MINUTES;
 
 					System.out.println("Going to sleep for " + timeToSleep + " seconds");
 
@@ -79,7 +83,7 @@ public class LoaderServlet extends HttpServlet {
 							
 							java.sql.Timestamp t2 = java.sql.Timestamp.valueOf(timestap);
 							
-							long milliseconds = t2.getTime() - timestamp1.getTime();
+							long milliseconds =  timestamp1.getTime() - t2.getTime() ;
 						    int seconds = (int) milliseconds / 1000;
 						 
 						    // calculate hours minutes and seconds
@@ -97,14 +101,22 @@ public class LoaderServlet extends HttpServlet {
 						    System.out.println(" Seconds: " + seconds);
 						    
 						    
-						    if(hours>2)
+						    if(minutes>30)
 						    {
 						    	if(usersData2.getDeploymentName()!=null)
 								{
 								
-								K8Deployer.deleteDeployment(namespace, usersData2.getDeploymentName());
-								SQLLiteDBManager dbManager = new SQLLiteDBManager();
-								dbManager.updateDeploymentStatus(usersData2.getUsername(), usersData2.getId(), "PURGED");
+						    		MessageDigest md = MessageDigest.getInstance("MD5");
+									String ns1 = "fixedsalt" + usersData2.getUsername();
+									byte[] hashInBytes = md.digest(ns1.getBytes(StandardCharsets.UTF_8));
+
+									String hash = Hex.encodeHexString(hashInBytes).toLowerCase();
+									
+									System.out.println("Deleting Deployment in NS( " + hash + ")" + " Name: " + usersData2.getDeploymentName());
+						    		
+									K8Deployer.deleteDeployment(hash, usersData2.getDeploymentName());
+									SQLLiteDBManager dbManager = new SQLLiteDBManager();
+									dbManager.updateDeploymentStatus(usersData2.getUsername(), usersData2.getId(), "PURGED");
 								}
 						    }
 						    
@@ -117,7 +129,7 @@ public class LoaderServlet extends HttpServlet {
 
 						System.out.println("Slept for " + timeToSleep + " seconds");
 
-					} catch (InterruptedException | SQLException e) {
+					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
