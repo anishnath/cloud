@@ -425,7 +425,7 @@ public class K8Deployer {
 		
 		
 		Ingress ingress = new IngressBuilder().withApiVersion("extensions/v1beta1").withKind("Ingress")
-				.withNewMetadata().withName(deploymentname + "ingress").endMetadata()
+				.withNewMetadata().withName(deploymentname).endMetadata()
 				.build();
 		
 		client.extensions().ingresses().inNamespace(namespace).delete(ingress);
