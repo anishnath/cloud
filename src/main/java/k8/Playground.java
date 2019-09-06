@@ -461,68 +461,68 @@ public class Playground {
 	}
 	
 	
-	public static void getAccessToken(String ns) throws Exception
-	{
-		KubernetesClient client = K8Deployer.getClient();
-		
-		String secretName = RandomStringUtils.randomAlphabetic(10).toLowerCase();
-		
-		System.out.println(secretName);
-		
-		HashMap<String, String> annotations = new HashMap<>();
-		annotations.put("kubernetes.io/service-account.name", "sa-playground");
-
-		HashMap<String, String> labelmap = new HashMap<>();
-		labelmap.put(secretName, secretName);
-		
-		
-		ObjectMeta metadata =  new ObjectMetaBuilder()
-				.withName(secretName)
-				.withLabels(labelmap)
-				.withNamespace(ns)
-				.withAnnotations(annotations)
-				.build();
-		
-		Secret secret = new SecretBuilder()
-				.withApiVersion("v1")
-				.withKind("Secret")
-				.withMetadata(metadata)
-				.withType("kubernetes.io/service-account-token")
-				.build();
-		
-	   secret = client.secrets().inNamespace(ns).create(secret);
-	   Thread.sleep(1000);
-		
-	   
-	   
-	   SecretList secretlist = client.secrets().inNamespace(ns).withLabel(secretName, secretName).list();
-	   
-	   List<Secret> listsecret = secretlist.getItems();
-	   
-	   if(secretlist!=null)
-	   {
-		   
-		for (Iterator iterator = listsecret.iterator(); iterator.hasNext();) {
-			Secret secret2 = (Secret) iterator.next();
-			   Map<String,String> tokenMap = secret2.getData();
-				
-				Iterator it = tokenMap.entrySet().iterator();
-			    while (it.hasNext()) {
-			        Map.Entry pair = (Map.Entry)it.next();
-			        System.out.println(pair.getKey() + " = " + pair.getValue());
-			        it.remove(); // avoids a ConcurrentModificationException
-			    }
-			
-		}   
-	   
-	
-	   }
-	   
-	   
-	   
-	    
-		
-	}
+//	public static void getAccessToken(String ns) throws Exception
+//	{
+//		KubernetesClient client = K8Deployer.getClient();
+//		
+//		String secretName = RandomStringUtils.randomAlphabetic(10).toLowerCase();
+//		
+//		System.out.println(secretName);
+//		
+//		HashMap<String, String> annotations = new HashMap<>();
+//		annotations.put("kubernetes.io/service-account.name", "sa-playground");
+//
+//		HashMap<String, String> labelmap = new HashMap<>();
+//		labelmap.put(secretName, secretName);
+//		
+//		
+//		ObjectMeta metadata =  new ObjectMetaBuilder()
+//				.withName(secretName)
+//				.withLabels(labelmap)
+//				.withNamespace(ns)
+//				.withAnnotations(annotations)
+//				.build();
+//		
+//		Secret secret = new SecretBuilder()
+//				.withApiVersion("v1")
+//				.withKind("Secret")
+//				.withMetadata(metadata)
+//				.withType("kubernetes.io/service-account-token")
+//				.build();
+//		
+//	   secret = client.secrets().inNamespace(ns).create(secret);
+//	   Thread.sleep(1000);
+//		
+//	   
+//	   
+//	   SecretList secretlist = client.secrets().inNamespace(ns).withLabel(secretName, secretName).list();
+//	   
+//	   List<Secret> listsecret = secretlist.getItems();
+//	   
+//	   if(secretlist!=null)
+//	   {
+//		   
+//		for (Iterator iterator = listsecret.iterator(); iterator.hasNext();) {
+//			Secret secret2 = (Secret) iterator.next();
+//			   Map<String,String> tokenMap = secret2.getData();
+//				
+//				Iterator it = tokenMap.entrySet().iterator();
+//			    while (it.hasNext()) {
+//			        Map.Entry pair = (Map.Entry)it.next();
+//			        System.out.println(pair.getKey() + " = " + pair.getValue());
+//			        it.remove(); // avoids a ConcurrentModificationException
+//			    }
+//			
+//		}   
+//	   
+//	
+//	   }
+//	   
+//	   
+//	   
+//	    
+//		
+//	}
 	
 	
 	
