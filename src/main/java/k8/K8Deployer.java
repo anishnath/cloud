@@ -87,7 +87,19 @@ public class K8Deployer {
 	public static void main(String[] args) throws Exception {
 		
 		
-		//Playground.getAccessToken("playground");
+		//String s = Playground.launchTerminalPods("playground", "kubeexec", null,"kxdbeqnauvyuuenmuxnx");
+		
+		//System.out.println("Host -- " + s);
+		
+		//createNS("hello123");
+		
+		Playground.createRBACforPodExec("lockdown-secrets");
+		
+		Thread.sleep(8000);
+		
+		String token = Playground.getAccessToken1("lockdown-secrets");
+		
+		System.out.println(token);
 		
 		//deletePodsExpired("playground");
 		
@@ -102,6 +114,7 @@ public class K8Deployer {
 //			createPod(podName,"nginx","playground");
 //			
 //		}
+		
 		
 		
 		//deletPod("demopod","thisisatest1");
