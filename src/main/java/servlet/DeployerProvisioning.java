@@ -11,7 +11,9 @@ import org.apache.commons.lang.RandomStringUtils;
 
 import db.SQLLiteDBManager;
 import db.UsersData;
+import db.UsersDataSQL;
 import k8.K8Deployer;
+import mysql.MYSQLDBManager;
 
 public class DeployerProvisioning implements DeployerListner {
 
@@ -124,79 +126,115 @@ public class DeployerProvisioning implements DeployerListner {
 	public void doProvisioningWordPress(String username) {
 
 		System.out.println("Inside doProvisioningWordPress ");
-		UsersData usersData = new UsersData();
-		// final KubernetesClient client = K8Deployer.getClient();
+		
+		
 
 		try {
-			String MYSQL_ROOT_PASSWORD = RandomStringUtils.randomAlphanumeric(14);
-			String MYSQL_DATABASE = "wordpress";
-			String MYSQL_USER = "wordpress";
-			String MYSQL_PASSWORD = RandomStringUtils.randomAlphanumeric(10);
+			
+//			String MYSQL_ROOT_PASSWORD = RandomStringUtils.randomAlphanumeric(14);
+//			String MYSQL_DATABASE = "wordpress";
+//			String MYSQL_USER = "wordpress";
+//			String MYSQL_PASSWORD = RandomStringUtils.randomAlphanumeric(10);
+//
+//			String imageName = "mysql:5.6";
+//			String containerPort = "3306";
+//
+//			StringBuilder envStringBuilder = new StringBuilder();
+//			envStringBuilder.append("MYSQL_ROOT_PASSWORD=" + MYSQL_ROOT_PASSWORD);
+//			envStringBuilder.append("\n");
+//			envStringBuilder.append("MYSQL_DATABASE=" + MYSQL_DATABASE);
+//			envStringBuilder.append("\n");
+//			envStringBuilder.append("MYSQL_USER=" + MYSQL_USER);
+//			envStringBuilder.append("\n");
+//			envStringBuilder.append("MYSQL_PASSWORD=" + MYSQL_PASSWORD);
+//			envStringBuilder.append("\n");
+//
+//			List<String> envList = new ArrayList<String>(5);
+//			List<String> commandList = new ArrayList<String>(3);
+//			List<String> conatinerArgs = new ArrayList<String>(10);
+//
+//			envList.add("MYSQL_ROOT_PASSWORD=" + MYSQL_ROOT_PASSWORD);
+//			envList.add("MYSQL_DATABASE=" + MYSQL_DATABASE);
+//			envList.add("MYSQL_USER=" + MYSQL_USER);
+//			envList.add("MYSQL_PASSWORD=" + MYSQL_PASSWORD);
+//
+//			usersData.setUsername(username);
+//			usersData.setDocker_image(imageName);
+//			usersData.setExpose_port(containerPort);
+//			usersData.setEnviroment_vars(envStringBuilder.toString());
+//
+//			SQLLiteDBManager.inserUserData(usersData);
+//			
+//			System.out.println("Iserted Datat" + usersData.toString());
+			
+			//First We need to Add External Service 
+			
+			/**
+			 * kind: Service
+apiVersion: v1
+metadata:
+  name: mysql
+  namespace: playground
+spec:
+  type: ExternalName
+  externalName: mysql.default.svc.cluster.local
+  ports:
+  - port: 3306
+			 */
+			
+			
+			
+			
+		
+			String dbusername = RandomStringUtils.randomAlphabetic(10).toLowerCase();
+			String dbname = "wordpress_"+RandomStringUtils.randomAlphabetic(10).toLowerCase();
+			String password = RandomStringUtils.randomAscii(16);
+			
+			
+			
+			
+			
+			UsersDataSQL usersDataSQL = new UsersDataSQL();
+			usersDataSQL.setDbname(dbname);
+			usersDataSQL.setDbusername(dbusername);
+			usersDataSQL.setPassword(password);
+			usersDataSQL.setUsername(username);
+			
+			SQLLiteDBManager.inserUserDataSQL(usersDataSQL);
+			
+			MYSQLDBManager.createDB(dbusername, password, dbname);
+			
+			UsersDataSQL  userdata1= SQLLiteDBManager.GetUserDataLASTRecord(username);
+			
 
-			String imageName = "mysql:5.6";
-			String containerPort = "3306";
+
+			System.out.println("Starting Stack WoedPress ");
+			
+
+			String imageName = "wordpress";
+			String containerPort = "80";
+
+			UsersData usersData = new UsersData();
 
 			StringBuilder envStringBuilder = new StringBuilder();
-			envStringBuilder.append("MYSQL_ROOT_PASSWORD=" + MYSQL_ROOT_PASSWORD);
+			envStringBuilder.append("WORDPRESS_DB_HOST=" + "mysql");
 			envStringBuilder.append("\n");
-			envStringBuilder.append("MYSQL_DATABASE=" + MYSQL_DATABASE);
+			envStringBuilder.append("WORDPRESS_DB_USER=" + userdata1.getDbusername());
 			envStringBuilder.append("\n");
-			envStringBuilder.append("MYSQL_USER=" + MYSQL_USER);
+			envStringBuilder.append("WORDPRESS_DB_PASSWORD=" + userdata1.getPassword());
 			envStringBuilder.append("\n");
-			envStringBuilder.append("MYSQL_PASSWORD=" + MYSQL_PASSWORD);
+			envStringBuilder.append("WORDPRESS_DB_NAME=" + userdata1.getDbname());
 			envStringBuilder.append("\n");
-
+			
 			List<String> envList = new ArrayList<String>(5);
 			List<String> commandList = new ArrayList<String>(3);
 			List<String> conatinerArgs = new ArrayList<String>(10);
 
-			envList.add("MYSQL_ROOT_PASSWORD=" + MYSQL_ROOT_PASSWORD);
-			envList.add("MYSQL_DATABASE=" + MYSQL_DATABASE);
-			envList.add("MYSQL_USER=" + MYSQL_USER);
-			envList.add("MYSQL_PASSWORD=" + MYSQL_PASSWORD);
 
-			usersData.setUsername(username);
-			usersData.setDocker_image(imageName);
-			usersData.setExpose_port(containerPort);
-			usersData.setEnviroment_vars(envStringBuilder.toString());
-
-			SQLLiteDBManager.inserUserData(usersData);
-			
-			System.out.println("Iserted Datat" + usersData.toString());
-			
-		
-
-			UsersData userdata1 = SQLLiteDBManager.GetUserData(username);
-
-			String deploymentName = doProvisioning(userdata1, envList, commandList, conatinerArgs);
-
-			System.out.println("Starting Stack WoedPress ");
-			
-			Thread.sleep(3000);
-
-			imageName = "wordpress";
-			containerPort = "80";
-
-			usersData = new UsersData();
-
-			envStringBuilder = new StringBuilder();
-			envStringBuilder.append("WORDPRESS_DB_HOST=" + deploymentName);
-			envStringBuilder.append("\n");
-			envStringBuilder.append("WORDPRESS_DB_USER=" + MYSQL_USER);
-			envStringBuilder.append("\n");
-			envStringBuilder.append("WORDPRESS_DB_PASSWORD=" + MYSQL_PASSWORD);
-			envStringBuilder.append("\n");
-			envStringBuilder.append("WORDPRESS_DB_NAME=" + MYSQL_DATABASE);
-			envStringBuilder.append("\n");
-
-			envList = new ArrayList<String>(5);
-			commandList = new ArrayList<String>(3);
-			conatinerArgs = new ArrayList<String>(10);
-
-			envList.add("WORDPRESS_DB_HOST=" + deploymentName);
-			envList.add("WORDPRESS_DB_USER=" + MYSQL_USER);
-			envList.add("WORDPRESS_DB_PASSWORD=" + MYSQL_PASSWORD);
-			envList.add("WORDPRESS_DB_NAME=" + MYSQL_DATABASE);
+			envList.add("WORDPRESS_DB_HOST=" + "mysql");
+			envList.add("WORDPRESS_DB_USER=" + dbusername);
+			envList.add("WORDPRESS_DB_PASSWORD=" + password);
+			envList.add("WORDPRESS_DB_NAME=" + dbname);
 
 			usersData.setUsername(username);
 			usersData.setDocker_image(imageName);
@@ -205,9 +243,9 @@ public class DeployerProvisioning implements DeployerListner {
 
 			SQLLiteDBManager.inserUserData(usersData);
 
-			userdata1 = SQLLiteDBManager.GetUserData(username);
+			UsersData userdata2 = SQLLiteDBManager.GetUserData(username);
 
-			doProvisioning(userdata1, envList, commandList, conatinerArgs);
+			doProvisioning(userdata2, envList, commandList, conatinerArgs);
 
 		} catch (Exception e) {
 			e.printStackTrace();

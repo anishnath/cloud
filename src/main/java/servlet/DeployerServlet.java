@@ -344,23 +344,23 @@ public class DeployerServlet extends HttpServlet {
 					}
 					
 					
-					if(action.equals("mysql")) {
-					
-					Stack stack = new Stack();
-					stack.launchMySQL(user_name);
-					UsersData  userdata1=  SQLLiteDBManager.GetUserData(user_name);
-					
-					JSONROOT.put("Result", "OK");
-					JSONROOT.put("Record", userdata1);
-
-					// Convert Java Object to Json
-					String jsonArray = gson.toJson(JSONROOT);
-
-					response.getWriter().print(jsonArray);
-					
-					return;
-					
-				}
+//					if(action.equals("mysql")) {
+//					
+//					Stack stack = new Stack();
+//					stack.launchMySQL(user_name);
+//					UsersData  userdata1=  SQLLiteDBManager.GetUserData(user_name);
+//					
+//					JSONROOT.put("Result", "OK");
+//					JSONROOT.put("Record", userdata1);
+//
+//					// Convert Java Object to Json
+//					String jsonArray = gson.toJson(JSONROOT);
+//
+//					response.getWriter().print(jsonArray);
+//					
+//					return;
+//					
+//				}
 					
 					if(action.equals("wordpress")) {
 						
