@@ -492,12 +492,15 @@ ports:
 		
 		client.apps().deployments().inNamespace(namespace).delete(newDeployment);
 		
+		client.services().inNamespace(namespace).withName(deploymentname).delete();
 		
 		Ingress ingress = new IngressBuilder().withApiVersion("extensions/v1beta1").withKind("Ingress")
 				.withNewMetadata().withName(deploymentname).endMetadata()
 				.build();
 		
 		client.extensions().ingresses().inNamespace(namespace).delete(ingress);
+		
+		client.close();
 		
 		
 		
