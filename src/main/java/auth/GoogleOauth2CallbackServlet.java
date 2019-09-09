@@ -18,6 +18,7 @@ import db.SQLLiteDBManager;
 import db.Users;
 import io.fabric8.openshift.api.model.User;
 import k8.K8Deployer;
+import k8.Playground;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -109,8 +110,10 @@ public class GoogleOauth2CallbackServlet extends HttpServlet {
 		if(!count)
 		{
 			SQLLiteDBManager.insertUser(user);
-			K8Deployer.createNS(user_name);
 		}
+		K8Deployer.createNS(user_name);
+		K8Deployer.createMySQLExternalServiceIfNotExist(user_name);
+		Playground.createRBACforPodExec(user_name);
 		
 	} catch (Exception e) {
 		req.setAttribute("error", e.getMessage());
