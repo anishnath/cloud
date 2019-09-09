@@ -3,10 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<title>Deploy Docker Image online </title>
+<title>Deploy Docker Image online nginx wordpress tomcat and many other  </title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="Deploy docker image free hosting, docker playground kubernetes Playground">
+<meta name="description" content="Deploy docker image free hosting, docker playground kubernetes Playground, nginx,wordpress,tomcat,php">
 <meta name="author" content="Anish Nath">
 <link href="css/simple-sidebar.css" rel="stylesheet">
 
@@ -217,7 +217,7 @@
        
        
        <hr>
-       <h4>Launch Stacks </h4>
+       <h4>(or) Launch Stacks </h4>
        
        <%
         
@@ -234,7 +234,9 @@
 	     
 		<div class="radio">
 			<label>
-				<!-- <input id="mysql" type="radio" name="action" value="mysql"><img class="img-fluid rounded" src="images/playground/mysql.png"  alt="mysql"> -->
+				<input id="nginx" type="radio" name="action" value="nginx"><img class="img-fluid rounded" src="images/playground/nginx.png"  alt="nginx"> 
+				<input id="tomcat" type="radio" name="action" value="tomcat"><img class="img-fluid rounded" src="images/playground/tomcat.png"  alt="tomcat"> 
+				<!-- <input id="haproxy" type="radio" name="action" value="haproxy"><img class="img-fluid rounded" src="images/playground/haproxy.png"  alt="tomcat"> -->
 				<input id="wordpress" type="radio" name="action" value="wordpress"><img class="img-fluid rounded" src="images/playground/wordpress.png"  alt="mysql">
 				
 				
