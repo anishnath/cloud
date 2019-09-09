@@ -535,20 +535,24 @@ ports:
 		
 		List<EnvVar> envVarList = new ArrayList<>();
 		
-		for (Iterator iterator = envvar.iterator(); iterator.hasNext();) {
-			String hold = (String) iterator.next();
-			
-			String[] tmp = hold.split("=");
-			
-			EnvVar enVars = new EnvVar();
-			
-			
-			
-			enVars.setName(tmp[0]);
-			enVars.setValue(tmp[1]);
-			
-			envVarList.add(enVars);
-			
+		if(envvar!=null)
+		{
+		
+			for (Iterator iterator = envvar.iterator(); iterator.hasNext();) {
+				String hold = (String) iterator.next();
+				
+				String[] tmp = hold.split("=");
+				
+				EnvVar enVars = new EnvVar();
+				
+				
+				
+				enVars.setName(tmp[0]);
+				enVars.setValue(tmp[1]);
+				
+				envVarList.add(enVars);
+				
+			}
 		}
 		
 		
