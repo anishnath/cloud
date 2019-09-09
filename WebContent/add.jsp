@@ -234,7 +234,7 @@
 	     
 		<div class="radio">
 			<label>
-				<input id="mysql" type="radio" name="action" value="mysql"><img class="img-fluid rounded" src="images/playground/mysql.png"  alt="mysql">
+				<!-- <input id="mysql" type="radio" name="action" value="mysql"><img class="img-fluid rounded" src="images/playground/mysql.png"  alt="mysql"> -->
 				<input id="wordpress" type="radio" name="action" value="wordpress"><img class="img-fluid rounded" src="images/playground/wordpress.png"  alt="mysql">
 				
 				
