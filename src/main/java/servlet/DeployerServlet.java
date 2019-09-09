@@ -362,6 +362,29 @@ public class DeployerServlet extends HttpServlet {
 //					
 //				}
 					
+					if(action.equals("nginx")) {
+						
+						Stack stack = new Stack();
+						stack.launchNginx(user_name);
+						return;
+						
+					}
+					
+					if(action.equals("tomcat")) {
+						
+						Stack stack = new Stack();
+						stack.launchTomcat(user_name);
+						return;
+						
+					}
+					
+					if(action.equals("haproxy")) {
+						Stack stack = new Stack();
+						stack.launchHAPROXY(user_name);
+						return;
+						
+					}
+					
 					if(action.equals("wordpress")) {
 						
 						DeployerInitiater deployerInitiater = new DeployerInitiater();
@@ -371,21 +394,13 @@ public class DeployerServlet extends HttpServlet {
 						
 						deployerInitiater.performStackProvisioing();
 						
-						UsersData  userdata1=  SQLLiteDBManager.GetUserData(user_name);
+						
 						
 						try{
 						Thread.sleep(10000);
 						}catch(Exception ex) {}
 						
-						System.out.println("Does it Comes Here...");
-						
-						JSONROOT.put("Result", "OK");
-						JSONROOT.put("Record", userdata1);
 
-						// Convert Java Object to Json
-						String jsonArray = gson.toJson(JSONROOT);
-
-						response.getWriter().print(jsonArray);
 						
 						return;
 						

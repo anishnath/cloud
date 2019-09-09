@@ -14,6 +14,74 @@ import servlet.DeployerProvisioning;
 
 public class Stack {
 	
+	
+	public void launchNginx(String username) throws Exception
+	{
+		UsersData usersData = new UsersData();
+		String imageName="nginx";
+		String containerPort="80";
+		
+		usersData.setUsername(username);
+		usersData.setDocker_image(imageName);
+		usersData.setExpose_port(containerPort);
+		
+		SQLLiteDBManager.inserUserData(usersData);
+		
+		UsersData  userdata1=  SQLLiteDBManager.GetUserData(username);
+		
+		DeployerInitiater deployerInitiater = new DeployerInitiater();
+		DeployerListner deployerListner = new DeployerProvisioning();
+		
+		deployerInitiater.registerDeployerListner(deployerListner, userdata1,null,null,null);
+		deployerInitiater.performProvisioing();
+		
+	}
+	
+	public void launchHAPROXY(String username) throws Exception
+	{
+		UsersData usersData = new UsersData();
+		String imageName="0cloud0/playground:haproxy";
+		String containerPort="80";
+		
+		usersData.setUsername(username);
+		usersData.setDocker_image(imageName);
+		usersData.setExpose_port(containerPort);
+		
+		SQLLiteDBManager.inserUserData(usersData);
+		
+		UsersData  userdata1=  SQLLiteDBManager.GetUserData(username);
+		
+		DeployerInitiater deployerInitiater = new DeployerInitiater();
+		DeployerListner deployerListner = new DeployerProvisioning();
+		
+		deployerInitiater.registerDeployerListner(deployerListner, userdata1,null,null,null);
+		deployerInitiater.performProvisioing();
+	}
+	
+	
+	
+	public void launchTomcat(String username) throws Exception
+	{
+		UsersData usersData = new UsersData();
+		String imageName="tomcat";
+		String containerPort="8080";
+		
+		usersData.setUsername(username);
+		usersData.setDocker_image(imageName);
+		usersData.setExpose_port(containerPort);
+		
+		SQLLiteDBManager.inserUserData(usersData);
+		
+		UsersData  userdata1=  SQLLiteDBManager.GetUserData(username);
+		
+		DeployerInitiater deployerInitiater = new DeployerInitiater();
+		DeployerListner deployerListner = new DeployerProvisioning();
+		
+		deployerInitiater.registerDeployerListner(deployerListner, userdata1,null,null,null);
+		deployerInitiater.performProvisioing();
+		
+	}
+	
 	public  void launchMySQL(String username) throws Exception
 	{
 	
