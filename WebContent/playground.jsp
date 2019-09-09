@@ -194,46 +194,7 @@
 
 <hr>
     <!-- Sidebar -->
-    <div class="bg-light border-right" id="sidebar-wrapper">
-             <div class="sidebar-heading"></div>
-      
-      <div class="list-group list-group-flush">
-         <a href="index.jsp" class="list-group-item list-group-item-action bg-light">Home</a>
-      </div>
-      
-       <div class="list-group list-group-flush">
-        <a href="login.jsp" class="list-group-item list-group-item-action bg-light">Login</a>
-      </div>
-      
-
-      
-      <div class="list-group list-group-flush">
-        
-      </div>
-      
-      <div class="list-group list-group-flush">
-        
-      </div>
-
-     <div class="list-group list-group-flush">
-        <a href="add.jsp" class="list-group-item list-group-item-action bg-light">Container Service</a>
-      </div>
-      
-      <div class="list-group list-group-flush">
-        <a href="sql.jsp" class="list-group-item list-group-item-action bg-light">MySQL Service</a>
-      </div>
-      
-	<div class="list-group list-group-flush">
-        <a href="contactus.jsp" class="list-group-item list-group-item-action bg-light">Contact Me</a>
-      </div>
-      
-      <div class="list-group list-group-flush">
-        <a href="https://www.linkedin.com/in/anishnath" class="list-group-item list-group-item-action bg-light">Hire Me!!</a>
-      </div>
-       <div class="list-group list-group-flush">
-        <a href="https://8gwifi.org" class="list-group-item list-group-item-action bg-light">Cryptography Playground</a>
-      </div>
-    </div>
+<%@ include file="sidebar.jsp"%>
     <!-- /#sidebar-wrapper -->
 
     <!-- Page Content -->
