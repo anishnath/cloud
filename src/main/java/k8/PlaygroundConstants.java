@@ -25,6 +25,7 @@ public static Map<String, String> imageMap = new HashMap();
 	}
 	
 	public static final String ACCNT_NAME="sa-lockdown5";
+	public static final String MYSQL_SVC_NAME="mysql";
 	
 	
 	

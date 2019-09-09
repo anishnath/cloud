@@ -1,11 +1,14 @@
 package k8;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang.RandomStringUtils;
 
 import com.google.api.client.util.Base64;
@@ -570,9 +573,14 @@ roleRef:
 	 */
 	
 	
-	public static void createRBACforPodExec(String ns) throws Exception
+	public static void createRBACforPodExec(String username) throws Exception
 	{
 
+		MessageDigest md = MessageDigest.getInstance("MD5");
+		String ns1 = "fixedsalt" + username;
+		byte[] hashInBytes = md.digest(ns1.getBytes(StandardCharsets.UTF_8));
+
+		String ns = Hex.encodeHexString(hashInBytes).toLowerCase();
 		
 		ObjectMeta metadata = null;
 		

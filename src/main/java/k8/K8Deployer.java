@@ -197,6 +197,62 @@ public class K8Deployer {
 	}
 	
 	
+	/**
+	 * kind: Service
+apiVersion: v1
+metadata:
+name: mysql
+namespace: playground
+spec:
+type: ExternalName
+externalName: mysql.default.svc.cluster.local
+ports:
+- port: 3306
+	 */
+	public static void createMySQLExternalServiceIfNotExist(String username)
+	{
+		
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			String ns1 = "fixedsalt" + username;
+			byte[] hashInBytes = md.digest(ns1.getBytes(StandardCharsets.UTF_8));
+
+			String ns = Hex.encodeHexString(hashInBytes).toLowerCase();
+
+			
+			final KubernetesClient client = getClient();
+			Service service =client.services().inNamespace(ns).withName(PlaygroundConstants.MYSQL_SVC_NAME).get();
+			
+			if(null == service )
+			{
+				ObjectMeta meta = new ObjectMetaBuilder()
+						.withNewName(PlaygroundConstants.MYSQL_SVC_NAME)
+						.withNamespace(ns)
+						.build();
+				
+				service = new ServiceBuilder()
+							.withMetadata(meta)
+							.withNewSpec()
+							.withType("ExternalName")
+							.withExternalName("mysql.default.svc.cluster.local")
+							.withPorts(new ServicePortBuilder().withPort(3306).build())
+							.endSpec()
+							.build();
+					service = client.services().inNamespace(ns).create(service);
+					log("Created service with name ", service.getMetadata().getName());
+			}
+			
+			client.close();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	
 	public static void deletePodsExpired(String ns) throws Exception
 	{
 		
