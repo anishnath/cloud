@@ -255,7 +255,7 @@
 				<input id="opensuseleap" type="radio" name="action" value="opensuseleap"><img class="img-fluid rounded" src="images/playground/opensuseleap.png"  alt="opensuseleap">
 				<input id="php7fpm" type="radio" name="action" value="php7fpm"><img class="img-fluid rounded" src="images/playground/php7fpm.png"  alt="php7fpm">
 				<input id="nodejs" type="radio" name="action" value="nodejs"><img class="img-fluid rounded" src="images/playground/nodejs.png"  alt="nodejs">
-				<input id="ruby" type="radio" name="action" value="ruby"><img class="img-fluid rounded" src="images/playground/ruby.png"  alt="ruby">
+				<input id="ruby" type="radio" name="action" value="ruby"><img class="img-fluid rounded" src="images/playground/ruby.jpg"  alt="ruby">
 				<input id="ansible" type="radio" name="action" value="ansible"><img class="img-fluid rounded" src="images/playground/ansible.png"  alt="ansible">
 			</label>
 		</div>
