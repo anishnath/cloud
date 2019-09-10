@@ -37,7 +37,7 @@ public class DeployerProvisioning implements DeployerListner {
 
 			int port = Integer.valueOf(userdata.getExpose_port());
 
-			String label = RandomStringUtils.randomAlphabetic(10).toLowerCase();
+			String label = deploymentname;
 
 			String host = deploymentname + "." + dns;
 
@@ -58,8 +58,7 @@ public class DeployerProvisioning implements DeployerListner {
 
 			Thread.sleep(20 * 1000);
 
-			boolean isRunning = K8Deployer.isPodRunning(hash, username, imagename, image, deploymentname, label, host,
-					port);
+			boolean isRunning = K8Deployer.isPodRunning(hash,  label);
 
 			SQLLiteDBManager.updateDeploymentInfo(deploymentname, host, username, userdata.getId(), "PROVISIONING");
 
@@ -72,7 +71,7 @@ public class DeployerProvisioning implements DeployerListner {
 
 					Thread.sleep(20 * 1000);
 
-					K8Deployer.isPodRunning(hash, username, imagename, image, deploymentname, label, host, port);
+					K8Deployer.isPodRunning(hash,  label);
 
 					if (isRunning) {
 						dbManager.updateDeploymentStatus(userdata.getUsername(), userdata.getId(), "DEPLOYED");
