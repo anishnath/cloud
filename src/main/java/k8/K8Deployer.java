@@ -426,6 +426,7 @@ ports:
 			
 			
 		}
+		client.close();
 		return false;
 		
 	}
