@@ -28,6 +28,10 @@ public static Map<String, String> imageMap = new HashMap();
 	public static final String ACCNT_NAME="sa-lockdown5";
 	public static final String MYSQL_SVC_NAME="mysql";
 	
+	public static final int ERROR_POD_NOTRUNNING=900;
+	public static final int ERROR_INVLIAD_DEPLOYMENT=901;
+	public static final int ERROR_INVLIAD_OUATH=902;
+	
 	
 	
 	

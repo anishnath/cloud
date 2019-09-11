@@ -387,8 +387,7 @@ ports:
 	}
 
 	
-	public static boolean isPodRunning(String namespace, String username, String imagename, String image, String deploymentname,
-			String label, String host, int port)
+	public static boolean isPodRunning(String namespace,String label)
 	{
 		
 		final KubernetesClient client = getClient();
@@ -429,6 +428,26 @@ ports:
 		client.close();
 		return false;
 		
+	}
+	
+	public static String getPodName(String namespace,String label)
+	{
+		
+		String podName = null;
+		final KubernetesClient client = getClient();
+		PodList podlist = client.pods().inNamespace(namespace).withLabel("app",label).list();
+		// This should be One 
+		List<Pod> listPods= podlist.getItems();
+		
+		
+		
+		for (Iterator iterator = listPods.iterator(); iterator.hasNext();) {
+			Pod pod = (Pod) iterator.next();
+			podName = pod.getMetadata().getName();
+		}
+		client.close();
+		System.out.println("PodName   " + podName);
+		return podName;
 	}
 	
 	
