@@ -199,8 +199,10 @@
 									 alert("Error Launching the Pods Check Check with Administrator")
 								 }
 								var html = '<div class="embed-responsive embed-responsive-16by9"><iframe class=embed-responsive-item src=https://'+msg+'></iframe></div>';
+								var newTab = '<a href=http://'+msg+' target=_blank>Click here to Open The terminal in New Tab</a>';
 								$('#msg').empty();
 								$('#output').empty();
+								$('#msg').append(newTab)
 								$('#output').append(html)
 								$('#openterminal').prop('disabled', false);
 							},
@@ -323,7 +325,7 @@
        <button id="openterminal" class="btn btn-primary"> Open Terminal</button>
        
         <div id="msg"></div>
-	    <div id="output"></div>
+	    
        
        
        <hr>
@@ -354,6 +356,7 @@
 		</div>
 	      </form>
        
+       <div id="output"></div>
        
        <hr>
        <p> When you add a new deployment please refresh the page to get into the DEPLOYED STATE. This state refer your HTTP application is ready to serve the traffic </p>
