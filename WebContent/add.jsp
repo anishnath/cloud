@@ -199,7 +199,7 @@
 									 alert("Error Launching the Pods Check Check with Administrator")
 								 }
 								var html = '<div class="embed-responsive embed-responsive-16by9"><iframe class=embed-responsive-item src=https://'+msg+'></iframe></div>';
-								var newTab = '<a href=http://'+msg+' target=_blank>Click here to Open The terminal in New Tab</a>';
+								var newTab = '<a href=http://'+msg+' target=_blank>Terminal is ready Now. Click here to Open The terminal in New Tab</a>';
 								$('#msg').empty();
 								$('#output').empty();
 								$('#msg').append(newTab)
@@ -363,7 +363,7 @@
        <p>
        <img class="img-fluid rounded" height="800" src="images/deploy.png"  alt="Referefce ">
        </img>
-       </p>>
+       </p>
        
        <%@ include file="addcomments.jsp"%>
        
@@ -393,7 +393,7 @@ A: No</p>
 </blockquote>
 <blockquote>
 <p class="has-line-data" data-line-start="18" data-line-end="20">Q: Is TLS Supported ?<br>
-A: Working on it</p>
+A: Yes </p>
 </blockquote>
 <blockquote>
 <p class="has-line-data" data-line-start="21" data-line-end="23">Q: How long the Service will be deployed ?<br>
