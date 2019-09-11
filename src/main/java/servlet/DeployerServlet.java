@@ -390,16 +390,16 @@ public class DeployerServlet extends HttpServlet {
 									{
 										existingPod = Playground.launchTerminalPods("playground","kubeexec", envvar, null);
 										System.out.println("Final Host1" + existingPod);
-										String terminalPosName  = existingPod.substring(0,existingPod.lastIndexOf("."));
+										String terminalPosName  = existingPod.substring(0,existingPod.lastIndexOf("."+System.getenv("DNS")));
 										request.getSession().setAttribute("existingPod", terminalPosName);
-										Thread.sleep(7000);
+										Thread.sleep(8000);
 										System.out.println("terminalPosName " +  terminalPosName);
 										response.getWriter().println(existingPod);
 										return;
 									}
 									else {
 										existingPod = Playground.launchTerminalPods("playground", "kubeexec", envvar, existingPod);
-										Thread.sleep(7000);
+										Thread.sleep(8000);
 										response.getWriter().println(existingPod);
 										System.out.println("Final Host2  " + existingPod);
 										return;
