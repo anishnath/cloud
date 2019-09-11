@@ -34,12 +34,31 @@
         
     	$('#dockerContainer').jtable({
             title : 'Your Deployment List',
+            selecting: true, //Enable selecting
+            multiselect: false, //Allow multiple selecting
+            selectingCheckboxes: true,
+            selectOnRowClick: true,
             actions : {
                 listAction : 'deploy?action=list',
                 createAction : 'deploy?action=create',
                 updateAction : 'deploy?action=update',
                 deleteAction : 'deploy?action=delete'
             },
+/*             toolbar: {
+                items: [{
+                    icon: '/images/excel.png',
+                    text: 'Export to Excel',
+                    click: function () {
+                        //perform your custom job...
+                    }
+                },{
+                    icon: '/images/pdf.png',
+                    text: 'Export to Pdf',
+                    click: function () {
+                        //perform your custom job...
+                    }
+                }]
+            }, */
             fields : {
                 id : {
                     title : 'id',
@@ -123,17 +142,103 @@
                     edit : false,
                     create : false
                 },
+            },
+            selectionChanged: function () {
+                //Get all selected rows
+                var $selectedRows = $('#dockerContainer').jtable('selectedRows');
+ 
+                $('#SelectedRowList').empty();
+                if ($selectedRows.length > 0) {
+                    //Show selected rows
+                    $selectedRows.each(function () {
+                        var record = $(this).data('record');
+                       // alert(record.status)
+                       
+                    });
+                } else {
+                   
+                }
             }
+            
         });
     	
     	
+    	$('#openterminal').button().click(function () {
+            var $selectedRows = $('#dockerContainer').jtable('selectedRows');
+            
+            
+            $('#SelectedRowList').empty();
+            
+            if ($selectedRows.length > 0) {
+                $selectedRows.each(function () {
+                    var record = $(this).data('record');
+                    
+                    if (record.status === "DEPLOYED" || record.status ===  "PROVISIONING" ) {
+                    	$('#msg').html('<p>Hang On tight we are opening the Terminal this may take approx 10-20 seconds')
+            			$('#output').html('<img class="img-fluid rounded"  src="images/712.GIF"> loading...');
+                    	$('#openterminal').prop('disabled', true);
+                    	data = new FormData();
+                    	event.preventDefault();
+            			$.ajax({
+							<%
+							
+							String sessionid= request.getSession().getId();
+							
+							%>
+							type : "POST",
+							url : "deploy", //this is my poll servlet
+							data: {
+								id: record.id,
+								action: 'openterminal',
+								csrf_token: '<%=sessionid%>'
+							},
+							dataType: "text",
+							success : function(msg) {
+								console.log(msg)
+								 if (msg === "900" || msg ===  "901"  || msg ===  "902") {
+									 alert("Error Launching the Pods Check Check with Administrator")
+								 }
+								var html = '<div class="embed-responsive embed-responsive-16by9"><iframe class=embed-responsive-item src=https://'+msg+'></iframe></div>';
+								$('#msg').empty();
+								$('#output').empty();
+								$('#output').append(html)
+								$('#openterminal').prop('disabled', false);
+							},
+							error : function(msg) {
+								$('#msg').empty();
+								$('#output').empty();
+								$('#output').append(msg)
+								$('#openterminal').prop('disabled', false);
+								
+							},
+							
+							
+						});
+                    	
+                    	
+                    }
+                    else{
+                    	alert("This deployment is eiter purged or Not Deployed Yet Check the status column")
+                    }
+                    
+                    
+                   
+                });
+            }
+            
+            else {
+                alert("Please select a Deployment")
+            }
+            
+            
+        });
 		
 		
 
 		$('#form1').submit(function(event) {
 			//
 			$('#msg').html('<p>Hang On tight We are building This will take approx 10-20 seconds')
-			$('#output').html('<img src="images/712.GIF"> loading...');
+			$('#output').html('<img class="img-fluid rounded"  src="images/712.GIF"> loading...');
 			event.preventDefault();
 			$.ajax({
 				type : "POST",
@@ -215,6 +320,11 @@
       
        <div id="dockerContainer"></div>
        
+       <button id="openterminal" class="btn btn-primary"> Open Terminal</button>
+       
+        <div id="msg"></div>
+	    <div id="output"></div>
+       
        
        <hr>
        <h4>(or) Launch Stacks </h4>
@@ -225,8 +335,7 @@
         
         %>
         
-          <div id="msg"></div>
-	      <div id="output"></div>
+         
        
           <form class="form-horizontal-row" action="deploy" id="form1" method="post">
 	      <input type="hidden" name="csrf_token" id="csrf_token" value="<%=sessionId%>">

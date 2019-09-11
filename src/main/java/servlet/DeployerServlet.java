@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -17,6 +19,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.binary.Hex;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.OkHttpClient;
@@ -25,6 +29,9 @@ import com.squareup.okhttp.Response;
 
 import db.SQLLiteDBManager;
 import db.UsersData;
+import k8.K8Deployer;
+import k8.Playground;
+import k8.PlaygroundConstants;
 import k8.Stack;
 
 /**
@@ -331,6 +338,94 @@ public class DeployerServlet extends HttpServlet {
 				
 				else
 				{
+					
+					if(action.equals("openterminal")) {
+						
+						System.out.println("ID--> " +request.getParameter("id"));
+						
+						UsersData userdata = SQLLiteDBManager.GetUserData2(user_name, request.getParameter("id"));
+						
+						if(userdata!=null)
+						{
+							
+							String deploymentName = userdata.getDeploymentName();
+							String status = userdata.getStatus();
+							
+							if("DEPLOYED".equals(status) || "PROVISIONING".equals(status))
+							{
+								MessageDigest md = MessageDigest.getInstance("MD5");
+								String ns1 = "fixedsalt" + user_name;
+								byte[] hashInBytes = md.digest(ns1.getBytes(StandardCharsets.UTF_8));
+
+								String hash = Hex.encodeHexString(hashInBytes).toLowerCase();
+								
+								boolean isRunning = K8Deployer.isPodRunning(hash,  deploymentName);
+								
+								if(isRunning){
+									
+									String OAUTH = Playground.getAccessToken1(hash);
+									
+									if(null==OAUTH || OAUTH.length()==0)
+									{
+										response.getWriter().print(PlaygroundConstants.ERROR_INVLIAD_OUATH);
+										return;
+									}
+									
+									String podName = K8Deployer.getPodName(hash,  deploymentName);
+									
+									String existingPod = (String)request.getSession().getAttribute("existingPod");
+									
+									System.out.println("Existing Pod " + existingPod);
+									
+									String master = System.getenv("MASTER");
+									
+									List<String> envvar = new ArrayList<>();
+									envvar.add("OAUTH="+OAUTH);
+									envvar.add("MASTER="+master);
+									envvar.add("POD_NAME="+podName);
+									envvar.add("NAMESPACE="+hash);
+									
+									
+									if(existingPod==null)
+									{
+										existingPod = Playground.launchTerminalPods("playground","kubeexec", envvar, null);
+										System.out.println("Final Host1" + existingPod);
+										String terminalPosName  = existingPod.substring(0,existingPod.lastIndexOf("."));
+										request.getSession().setAttribute("existingPod", terminalPosName);
+										Thread.sleep(7000);
+										System.out.println("terminalPosName " +  terminalPosName);
+										response.getWriter().println(existingPod);
+										return;
+									}
+									else {
+										existingPod = Playground.launchTerminalPods("playground", "kubeexec", envvar, existingPod);
+										Thread.sleep(7000);
+										response.getWriter().println(existingPod);
+										System.out.println("Final Host2  " + existingPod);
+										return;
+										
+									}
+									
+
+									
+									
+									
+								}else {
+									response.getWriter().println(PlaygroundConstants.ERROR_POD_NOTRUNNING);
+								}
+								
+							}
+							
+							
+						}
+						else {
+							response.getWriter().println(PlaygroundConstants.ERROR_INVLIAD_DEPLOYMENT);
+						}
+						
+						return;
+						
+					}
+					
 					
 					int sqlquota = SQLLiteDBManager.checkQuota(user_name);
 					
