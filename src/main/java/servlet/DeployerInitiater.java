@@ -78,6 +78,25 @@ public class DeployerInitiater {
 		}).start();
 	}
 	
+	public void performJoomlaProvisioning() {
+
+		// An Async task always executes in new thread
+		new Thread(new Runnable() {
+			public void run() {
+
+				// perform any operation
+				System.out.println("Performing Joomla operation in Asynchronous Task");
+
+				// check if listener is registered.
+				if (deployerListner != null) {
+
+					// invoke the callback method of class A
+					deployerListner.doProvisioningJoomla(userName);
+				}
+			}
+		}).start();
+	}
+	
 	public void deleteProvisioing() {
 
 		// An Async task always executes in new thread

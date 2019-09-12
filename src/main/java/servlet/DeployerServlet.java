@@ -502,6 +502,28 @@ public class DeployerServlet extends HttpServlet {
 						
 					}
 					
+				if(action.equals("joomla")) {
+						
+						DeployerInitiater deployerInitiater = new DeployerInitiater();
+						DeployerListner deployerListner = new DeployerProvisioning();
+						
+						deployerInitiater.registerDeployerListner(deployerListner, user_name);
+						
+						deployerInitiater.performJoomlaProvisioning();
+						
+						
+						
+						try{
+						Thread.sleep(10000);
+						}catch(Exception ex) {}
+						
+
+						
+						return;
+						
+						
+					}
+					
 					
 				}
 				

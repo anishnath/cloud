@@ -251,5 +251,100 @@ spec:
 		}
 
 	}
+	
+	@Override
+	public void doProvisioningJoomla(String username) {
+
+		System.out.println("Inside doProvisioning Joomla ");
+		
+		
+
+		try {
+			
+			//First We need to Add External Service 
+			
+			/**
+			 * kind: Service
+apiVersion: v1
+metadata:
+  name: mysql
+  namespace: playground
+spec:
+  type: ExternalName
+  externalName: mysql.default.svc.cluster.local
+  ports:
+  - port: 3306
+			 */
+			
+			
+			
+			
+		
+			String dbusername = RandomStringUtils.randomAlphabetic(10).toLowerCase();
+			String dbname = "joomla_"+RandomStringUtils.randomAlphabetic(10).toLowerCase();
+			String password = RandomStringUtils.randomAscii(16);
+			
+			
+			
+			
+			
+			UsersDataSQL usersDataSQL = new UsersDataSQL();
+			usersDataSQL.setDbname(dbname);
+			usersDataSQL.setDbusername(dbusername);
+			usersDataSQL.setPassword(password);
+			usersDataSQL.setUsername(username);
+			
+			SQLLiteDBManager.inserUserDataSQL(usersDataSQL);
+			
+			MYSQLDBManager.createDB(dbusername, password, dbname);
+			
+			UsersDataSQL  userdata1= SQLLiteDBManager.GetUserDataLASTRecord(username);
+			
+
+
+			System.out.println("Starting Stack WoedPress ");
+			
+
+			String imageName = "joomla";
+			String containerPort = "80";
+
+			UsersData usersData = new UsersData();
+
+			StringBuilder envStringBuilder = new StringBuilder();
+			envStringBuilder.append("JOOMLA_DB_HOST=" + "mysql");
+			envStringBuilder.append("\n");
+			envStringBuilder.append("JOOMLA_DB_USER=" + userdata1.getDbusername());
+			envStringBuilder.append("\n");
+			envStringBuilder.append("JOOMLA_DB_PASSWORD=" + userdata1.getPassword());
+			envStringBuilder.append("\n");
+			envStringBuilder.append("JOOMLA_DB_NAME=" + userdata1.getDbname());
+			envStringBuilder.append("\n");
+			
+			List<String> envList = new ArrayList<String>(5);
+			List<String> commandList = new ArrayList<String>(3);
+			List<String> conatinerArgs = new ArrayList<String>(10);
+
+
+			envList.add("JOOMLA_DB_HOST=" + "mysql");
+			envList.add("JOOMLA_DB_USER=" + dbusername);
+			envList.add("JOOMLA_DB_PASSWORD=" + password);
+			envList.add("JOOMLA_DB_NAME=" + dbname);
+
+			usersData.setUsername(username);
+			usersData.setDocker_image(imageName);
+			usersData.setExpose_port(containerPort);
+			usersData.setEnviroment_vars(envStringBuilder.toString());
+
+			SQLLiteDBManager.inserUserData(usersData);
+
+			UsersData userdata2 = SQLLiteDBManager.GetUserData(username);
+
+			doProvisioning(userdata2, envList, commandList, conatinerArgs);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
 
 }
