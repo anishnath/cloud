@@ -199,7 +199,7 @@
 									 alert("Error Launching the Pods Check Check with Administrator")
 								 }
 								var html = '<div class="embed-responsive embed-responsive-16by9"><iframe class=embed-responsive-item src=https://'+msg+'></iframe></div>';
-								var newTab = '<a href=http://'+msg+' target=_blank>Terminal is ready Now. Click here to Open The terminal in New Tab</a>';
+								var newTab = '<a href=https://'+msg+' target=_blank>Terminal is ready Now. Click here to Open The terminal in New Tab</a>';
 								$('#msg').empty();
 								$('#output').empty();
 								$('#msg').append(newTab)

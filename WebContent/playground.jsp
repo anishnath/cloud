@@ -149,11 +149,12 @@
 									
 									//host='zvkqumuxdyawslvbjjmo.minikube'
 									var html = '<div class="embed-responsive embed-responsive-16by9"><iframe class=embed-responsive-item src=https://'+host+'></iframe></div>';
-									
+									var newTab = '<a href=https://'+host+' target=_blank>Terminal is ready Now. Click here to Open in New Tab and share it With Others Realtime</a>';
 									console.log(html)
 									$('#msg').empty();
 									$('#output').empty();
 									$('#output').append(html)
+									$('#msg').append(newTab)
 									$('#loop').hide()
 									}
 								else{
@@ -235,7 +236,7 @@
         
         %>
         
-        <h2 class="mt-4">Launch your preferred Terminal</h3>
+        <h2 class="mt-4">Launch your preferred Terminal and view it Realtime with Others</h2>
 
       
       <form class="form-horizontal-row" id="form1" method="POST">
