@@ -236,7 +236,7 @@
         
         %>
         
-        <h2 class="mt-4">Launch your preferred Terminal and view it Realtime with Others</h2>
+        <h2 class="mt-4">Launch your preferred Terminal and work on it Realtime with Others</h2>
 
       
       <form class="form-horizontal-row" id="form1" method="POST">
