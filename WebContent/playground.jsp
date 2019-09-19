@@ -256,7 +256,6 @@
 		<div class="radio">
 			<label>
 				<input id="python3" type="radio" name="action" value="python3"><img class="img-fluid rounded" src="images/playground/python3.png"  alt="python3 terminal online">
-				<input id="mariadb10" type="radio" name="action" value="mariadb10"><img class="img-fluid rounded" src="images/playground/mariadb.png"  alt="mariadb10 terminal online">
 				<input id="centos7" type="radio" name="action" value="centos7"><img class="img-fluid rounded" src="images/playground/centos.png"  alt="centos7 terminal online">
 				<input id="archlinux" type="radio" name="action" value="archlinux"><img class="img-fluid rounded" src="images/playground/archlinux.png"  alt="archlinux terminal online">
 				<input id="rhel7" type="radio" name="action" value="rhel7"><img class="img-fluid rounded" src="images/playground/rhel7.png"  alt="rhel7 terminal online">
@@ -269,6 +268,7 @@
 				<input id="ansible" type="radio" name="action" value="ansible"><img class="img-fluid rounded" src="images/playground/ansible.png"  alt="ansible terminal online">
 				<input id="lua" type="radio" name="action" value="lua"><img class="img-fluid rounded" src="images/playground/lua.png"  alt="lua terminal online">
 				<input id="go" type="radio" name="action" value="go"><img class="img-fluid rounded" src="images/playground/go.png"  alt="go terminal online">
+				<input id="mariadb10" type="radio" name="action" value="mariadb10"><img class="img-fluid rounded" src="images/playground/mariadb.png"  alt="mariadb10 terminal online">
 			</label>
 		</div>
 	      </form>
