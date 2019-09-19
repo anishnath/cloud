@@ -94,6 +94,9 @@
 			$('#scala').click(function(event) {
 				$('#form1').delay(200).submit()
 			});
+			$('#java').click(function(event) {
+				$('#form1').delay(200).submit()
+			});
 			
 			
 			
@@ -280,7 +283,7 @@
 				<input id="go" type="radio" name="action" value="go"><img class="img-fluid rounded" src="images/playground/go.png"  alt="go terminal online">
 				<input id="rust" type="radio" name="action" value="go"><img class="img-fluid rounded" src="images/playground/rust.png"  alt="rust terminal online">
 				<input id="perl" type="radio" name="action" value="perl"><img class="img-fluid rounded" src="images/playground/perl.png"  alt="perl terminal online">
-				<input id="scala" type="radio" name="action" value="perl"><img class="img-fluid rounded" src="images/playground/java.png"  alt="java terminal online">
+				<input id="java" type="radio" name="action" value="scala"><img class="img-fluid rounded" src="images/playground/java.png"  alt="java terminal online">
 				<input id="scala" type="radio" name="action" value="scala"><img class="img-fluid rounded" src="images/playground/scala.png"  alt="scala terminal online">
 				<input id="mariadb10" type="radio" name="action" value="mariadb10"><img class="img-fluid rounded" src="images/playground/mariadb.png"  alt="mariadb10 terminal online">
 			</label>
