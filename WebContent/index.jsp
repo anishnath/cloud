@@ -87,14 +87,20 @@
       
       <a href="playground">
       
-      <img class="img-fluid rounded" src="images/playground/python3.png"  alt="python3">
-      <img class="img-fluid rounded" src="images/playground/mariadb.png"  alt="mariadb10">
-      
-      <img class="img-fluid rounded" src="images/playground/centos.png"  alt="centos7">
-      <img class="img-fluid rounded" src="images/playground/archlinux.png"  alt="archlinux">
-      <img class="img-fluid rounded" src="images/playground/rhel7.png"  alt="rhel7">
-      <img class="img-fluid rounded" src="images/playground/rhel8.png"  alt="rhel8">
-      <img class="img-fluid rounded" src="images/playground/ubuntu.png"  alt="ubuntu">
+<img class="img-fluid rounded" src="images/playground/python3.png"  alt="python3 terminal online">
+<img class="img-fluid rounded" src="images/playground/centos.png"  alt="centos7 terminal online">
+<img class="img-fluid rounded" src="images/playground/archlinux.png"  alt="archlinux terminal online">
+<img class="img-fluid rounded" src="images/playground/rhel7.png"  alt="rhel7 terminal online">
+<img class="img-fluid rounded" src="images/playground/rhel8.png"  alt="rhel8 terminal online">
+<img class="img-fluid rounded" src="images/playground/ubuntu.png"  alt="ubuntu terminal online">
+<img class="img-fluid rounded" src="images/playground/opensuseleap.png"  alt="opensuseleap terminal online">
+<img class="img-fluid rounded" src="images/playground/php7fpm.png"  alt="php7fpm terminal online">
+<img class="img-fluid rounded" src="images/playground/nodejs.png"  alt="nodejs terminal online">
+<img class="img-fluid rounded" src="images/playground/ruby.jpg"  alt="ruby terminal online">
+<img class="img-fluid rounded" src="images/playground/ansible.png"  alt="ansible terminal online">
+<img class="img-fluid rounded" src="images/playground/lua.png"  alt="lua terminal online">
+<img class="img-fluid rounded" src="images/playground/go.png"  alt="go terminal online">
+<img class="img-fluid rounded" src="images/playground/mariadb.png"  alt="mariadb10 terminal online">
       </a>
       
     <h3 class="mt-4">MySQL Service</h3>
