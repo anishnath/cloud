@@ -8,13 +8,13 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby">
+  <meta name="description" content="Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby,lua">
   <meta name="google-site-verification" content="bGqQHUWnhNwz3WOXE9hH6cprbhHfSI4q3mdWzLNHQSg" />
   <meta name="author" content="Anish Nath">
   
   <%@ include file="analytics.jsp"%>
 
-  <title>Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse</title>
+  <title>Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby,lua</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -74,6 +74,10 @@
 				$('#form1').delay(200).submit()
 			});
 			$('#ruby').click(function(event) {
+				$('#form1').delay(200).submit()
+			});
+			
+			$('#lua').click(function(event) {
 				$('#form1').delay(200).submit()
 			});
 			
@@ -246,18 +250,19 @@
 		
 		<div class="radio">
 			<label>
-				<input id="python3" type="radio" name="action" value="python3"><img class="img-fluid rounded" src="images/playground/python3.png"  alt="python3">
-				<input id="mariadb10" type="radio" name="action" value="mariadb10"><img class="img-fluid rounded" src="images/playground/mariadb.png"  alt="mariadb10">
-				<input id="centos7" type="radio" name="action" value="centos7"><img class="img-fluid rounded" src="images/playground/centos.png"  alt="centos7">
-				<input id="archlinux" type="radio" name="action" value="archlinux"><img class="img-fluid rounded" src="images/playground/archlinux.png"  alt="archlinux">
-				<input id="rhel7" type="radio" name="action" value="rhel7"><img class="img-fluid rounded" src="images/playground/rhel7.png"  alt="rhel7">
-				<input id="rhel8" type="radio" name="action" value="rhel8"><img class="img-fluid rounded" src="images/playground/rhel8.png"  alt="rhel8">
-				<input id="ubuntu" type="radio" name="action" value="ubuntu"><img class="img-fluid rounded" src="images/playground/ubuntu.png"  alt="ubuntu">
-				<input id="opensuseleap" type="radio" name="action" value="opensuseleap"><img class="img-fluid rounded" src="images/playground/opensuseleap.png"  alt="opensuseleap">
-				<input id="php7fpm" type="radio" name="action" value="php7fpm"><img class="img-fluid rounded" src="images/playground/php7fpm.png"  alt="php7fpm">
-				<input id="nodejs" type="radio" name="action" value="nodejs"><img class="img-fluid rounded" src="images/playground/nodejs.png"  alt="nodejs">
-				<input id="ruby" type="radio" name="action" value="ruby"><img class="img-fluid rounded" src="images/playground/ruby.jpg"  alt="ruby">
-				<input id="ansible" type="radio" name="action" value="ansible"><img class="img-fluid rounded" src="images/playground/ansible.png"  alt="ansible">
+				<input id="python3" type="radio" name="action" value="python3"><img class="img-fluid rounded" src="images/playground/python3.png"  alt="python3 terminal online">
+				<input id="mariadb10" type="radio" name="action" value="mariadb10"><img class="img-fluid rounded" src="images/playground/mariadb.png"  alt="mariadb10 terminal online">
+				<input id="centos7" type="radio" name="action" value="centos7"><img class="img-fluid rounded" src="images/playground/centos.png"  alt="centos7 terminal online">
+				<input id="archlinux" type="radio" name="action" value="archlinux"><img class="img-fluid rounded" src="images/playground/archlinux.png"  alt="archlinux terminal online">
+				<input id="rhel7" type="radio" name="action" value="rhel7"><img class="img-fluid rounded" src="images/playground/rhel7.png"  alt="rhel7 terminal online">
+				<input id="rhel8" type="radio" name="action" value="rhel8"><img class="img-fluid rounded" src="images/playground/rhel8.png"  alt="rhel8 terminal online">
+				<input id="ubuntu" type="radio" name="action" value="ubuntu"><img class="img-fluid rounded" src="images/playground/ubuntu.png"  alt="ubuntu terminal online">
+				<input id="opensuseleap" type="radio" name="action" value="opensuseleap"><img class="img-fluid rounded" src="images/playground/opensuseleap.png"  alt="opensuseleap terminal online">
+				<input id="php7fpm" type="radio" name="action" value="php7fpm"><img class="img-fluid rounded" src="images/playground/php7fpm.png"  alt="php7fpm terminal online">
+				<input id="nodejs" type="radio" name="action" value="nodejs"><img class="img-fluid rounded" src="images/playground/nodejs.png"  alt="nodejs terminal online">
+				<input id="ruby" type="radio" name="action" value="ruby"><img class="img-fluid rounded" src="images/playground/ruby.jpg"  alt="ruby terminal online">
+				<input id="ansible" type="radio" name="action" value="ansible"><img class="img-fluid rounded" src="images/playground/ansible.png"  alt="ansible terminal online">
+				<input id="lua" type="radio" name="action" value="lua"><img class="img-fluid rounded" src="images/playground/lua.png"  alt="lua terminal online">
 			</label>
 		</div>
 	      </form>
