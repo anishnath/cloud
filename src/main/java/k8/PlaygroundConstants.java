@@ -22,6 +22,7 @@ public static Map<String, String> imageMap = new HashMap();
 		imageMap.put("opensuseleap", "0cloud0/playground:opensuseleap");
 		imageMap.put("kubeexec", "0cloud0/playground:kubeexec");
 		imageMap.put("ruby", "0cloud0/playground:ruby");
+		imageMap.put("lua", "0cloud0/playground:lua");
 		
 	}
 	
