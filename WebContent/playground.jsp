@@ -8,13 +8,14 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby,lua,go">
+  <meta name="description" content="Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby,lua,go,rust">
+  <meta name="keywords" content="Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby,lua,go,rust">
   <meta name="google-site-verification" content="bGqQHUWnhNwz3WOXE9hH6cprbhHfSI4q3mdWzLNHQSg" />
   <meta name="author" content="Anish Nath">
   
   <%@ include file="analytics.jsp"%>
 
-  <title>Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby,lua,go</title>
+  <title>Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby,lua,go,rust</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -82,6 +83,9 @@
 			});
 			
 			$('#go').click(function(event) {
+				$('#form1').delay(200).submit()
+			});
+			$('#rust').click(function(event) {
 				$('#form1').delay(200).submit()
 			});
 			
@@ -268,6 +272,7 @@
 				<input id="ansible" type="radio" name="action" value="ansible"><img class="img-fluid rounded" src="images/playground/ansible.png"  alt="ansible terminal online">
 				<input id="lua" type="radio" name="action" value="lua"><img class="img-fluid rounded" src="images/playground/lua.png"  alt="lua terminal online">
 				<input id="go" type="radio" name="action" value="go"><img class="img-fluid rounded" src="images/playground/go.png"  alt="go terminal online">
+				<input id="rust" type="radio" name="action" value="go"><img class="img-fluid rounded" src="images/playground/rust.png"  alt="rust terminal online">
 				<input id="mariadb10" type="radio" name="action" value="mariadb10"><img class="img-fluid rounded" src="images/playground/mariadb.png"  alt="mariadb10 terminal online">
 			</label>
 		</div>
