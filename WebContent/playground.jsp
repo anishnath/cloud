@@ -276,7 +276,7 @@
 				<input id="lua" type="radio" name="action" value="lua"><img class="img-fluid rounded" src="images/playground/lua.png"  alt="lua terminal online">
 				<input id="go" type="radio" name="action" value="go"><img class="img-fluid rounded" src="images/playground/go.png"  alt="go terminal online">
 				<input id="rust" type="radio" name="action" value="go"><img class="img-fluid rounded" src="images/playground/rust.png"  alt="rust terminal online">
-				<input id="perl" type="radio" name="action" value=""perl""><img class="img-fluid rounded" src="images/playground/"perl".png"  alt=""perl" terminal online">
+				<input id="perl" type="radio" name="action" value="perl"><img class="img-fluid rounded" src="images/playground/perl.png"  alt="perl terminal online">
 				<input id="mariadb10" type="radio" name="action" value="mariadb10"><img class="img-fluid rounded" src="images/playground/mariadb.png"  alt="mariadb10 terminal online">
 			</label>
 		</div>
