@@ -15,7 +15,7 @@
   
   <%@ include file="analytics.jsp"%>
 
-  <title>Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby,lua,go,rust</title>
+  <title>Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby,lua,go,rust,perl</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -86,6 +86,9 @@
 				$('#form1').delay(200).submit()
 			});
 			$('#rust').click(function(event) {
+				$('#form1').delay(200).submit()
+			});
+			$('#perl').click(function(event) {
 				$('#form1').delay(200).submit()
 			});
 			
@@ -273,6 +276,7 @@
 				<input id="lua" type="radio" name="action" value="lua"><img class="img-fluid rounded" src="images/playground/lua.png"  alt="lua terminal online">
 				<input id="go" type="radio" name="action" value="go"><img class="img-fluid rounded" src="images/playground/go.png"  alt="go terminal online">
 				<input id="rust" type="radio" name="action" value="go"><img class="img-fluid rounded" src="images/playground/rust.png"  alt="rust terminal online">
+				<input id="perl" type="radio" name="action" value=""perl""><img class="img-fluid rounded" src="images/playground/"perl".png"  alt=""perl" terminal online">
 				<input id="mariadb10" type="radio" name="action" value="mariadb10"><img class="img-fluid rounded" src="images/playground/mariadb.png"  alt="mariadb10 terminal online">
 			</label>
 		</div>
