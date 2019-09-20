@@ -5,13 +5,14 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Host your Docker image online nginx,wordpress,jenkins,drupal,haproxy and many otehrs">
+  <meta name="description" content="Host test your Docker image online nginx,wordpress,jenkins,drupal,haproxy and many otehrs">
+  <meta name="keywords" content="Host test your Docker image online nginx,wordpress,jenkins,drupal,haproxy and many others">
   <meta name="google-site-verification" content="bGqQHUWnhNwz3WOXE9hH6cprbhHfSI4q3mdWzLNHQSg" />
   <meta name="author" content="Anish Nath">
   
   <%@ include file="analytics.jsp"%>
 
-  <title>Host your Docker image online </title>
+  <title>Host your Docker image online nginx,wordpress,jenkins,drupal,haproxy and many others</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -83,7 +84,7 @@
 							
    </a>
   <h3 class="mt-4">Terminal Service</h3>
-  <p>Launch you prefer terminal </p>
+  <p>Launch your desire Terminal and share the screen terminal Realtime with Others </p>
       
       <a href="playground">
       
