@@ -322,7 +322,20 @@
       
        <div id="dockerContainer"></div>
        
+       <%
+            
+            String usernameX = (String)session.getAttribute("user_name");
+            if(usernameX!=null)
+            {
+            	
+            %>
        <button id="openterminal" class="btn btn-primary"> Open Terminal</button>
+       
+         <%
+         
+            }
+         %>
+       
        
         <div id="msg"></div>
 	    
