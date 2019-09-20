@@ -358,7 +358,7 @@ public class Playground {
 					.build();
 		}
 		
-		else if (image.equals("mariadb10"))
+		else if (image.equals("mariadb10") || image.equals("openldap"))
 		{
 			containers = new ContainerBuilder()
 					.withImage(imageName)
