@@ -8,8 +8,8 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby,lua,go,rust,scala">
-  <meta name="keywords" content="Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby,lua,go,rust,scala">
+  <meta name="description" content="Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby,lua,go,rust,scala,openldap">
+  <meta name="keywords" content="Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby,lua,go,rust,scala,openldap">
   <meta name="google-site-verification" content="bGqQHUWnhNwz3WOXE9hH6cprbhHfSI4q3mdWzLNHQSg" />
   <meta name="author" content="Anish Nath">
   
@@ -95,6 +95,9 @@
 				$('#form1').delay(200).submit()
 			});
 			$('#java').click(function(event) {
+				$('#form1').delay(200).submit()
+			});
+			$('#openldap').click(function(event) {
 				$('#form1').delay(200).submit()
 			});
 			
@@ -285,6 +288,7 @@
 				<input id="perl" type="radio" name="action" value="perl"><img class="img-fluid rounded" src="images/playground/perl.png"  alt="perl terminal online">
 				<input id="java" type="radio" name="action" value="scala"><img class="img-fluid rounded" src="images/playground/java.png"  alt="java terminal online">
 				<input id="scala" type="radio" name="action" value="scala"><img class="img-fluid rounded" src="images/playground/scala.png"  alt="scala terminal online">
+				<input id="openldap" type="radio" name="action" value="openldap"><img class="img-fluid rounded" src="images/playground/openldap.png"  alt="openldap terminal online">
 				<input id="mariadb10" type="radio" name="action" value="mariadb10"><img class="img-fluid rounded" src="images/playground/mariadb.png"  alt="mariadb10 terminal online">
 			</label>
 		</div>

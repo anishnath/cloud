@@ -27,6 +27,7 @@ public static Map<String, String> imageMap = new HashMap();
 		imageMap.put("rust", "0cloud0/playground:rust");
 		imageMap.put("perl", "0cloud0/playground:perl");
 		imageMap.put("scala", "0cloud0/playground:scala");
+		imageMap.put("openldap", "0cloud0/playground:openldap");
 		
 	}
 	
