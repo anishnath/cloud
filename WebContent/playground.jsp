@@ -8,14 +8,14 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby,lua,go,rust,scala,openldap">
-  <meta name="keywords" content="Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby,lua,go,rust,scala,openldap">
+  <meta name="description" content="Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby,lua,go,rust,scala,openldap,debian10">
+  <meta name="keywords" content="Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby,lua,go,rust,scala,openldap,debian10">
   <meta name="google-site-verification" content="bGqQHUWnhNwz3WOXE9hH6cprbhHfSI4q3mdWzLNHQSg" />
   <meta name="author" content="Anish Nath">
   
   <%@ include file="analytics.jsp"%>
 
-  <title>Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby,lua,go,rust,perl,scala</title>
+  <title>Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby,lua,go,rust,perl,scala,debian10</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -98,6 +98,9 @@
 				$('#form1').delay(200).submit()
 			});
 			$('#openldap').click(function(event) {
+				$('#form1').delay(200).submit()
+			});
+			$('#debian').click(function(event) {
 				$('#form1').delay(200).submit()
 			});
 			
@@ -277,6 +280,7 @@
 				<input id="rhel7" type="radio" name="action" value="rhel7"><img class="img-fluid rounded" src="images/playground/rhel7.png"  alt="rhel7 terminal online">
 				<input id="rhel8" type="radio" name="action" value="rhel8"><img class="img-fluid rounded" src="images/playground/rhel8.png"  alt="rhel8 terminal online">
 				<input id="ubuntu" type="radio" name="action" value="ubuntu"><img class="img-fluid rounded" src="images/playground/ubuntu.png"  alt="ubuntu terminal online">
+				<input id="debian" type="radio" name="action" value="debian"><img class="img-fluid rounded" src="images/playground/debian.png"  alt="debian10 terminal online">
 				<input id="opensuseleap" type="radio" name="action" value="opensuseleap"><img class="img-fluid rounded" src="images/playground/opensuseleap.png"  alt="opensuseleap terminal online">
 				<input id="php7fpm" type="radio" name="action" value="php7fpm"><img class="img-fluid rounded" src="images/playground/php7fpm.png"  alt="php7fpm terminal online">
 				<input id="nodejs" type="radio" name="action" value="nodejs"><img class="img-fluid rounded" src="images/playground/nodejs.png"  alt="nodejs terminal online">
