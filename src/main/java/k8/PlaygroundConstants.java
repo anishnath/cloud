@@ -30,6 +30,7 @@ public static Map<String, String> imageMap = new HashMap();
 		imageMap.put("openldap", "0cloud0/playground:openldap");
 		imageMap.put("debian", "0cloud0/playground:debian");
 		imageMap.put("fedora", "0cloud0/playground:fedora");
+		imageMap.put("centos8", "0cloud0/playground:centos8");
 		
 	}
 	

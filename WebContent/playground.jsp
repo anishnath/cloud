@@ -8,14 +8,14 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby,lua,go,rust,scala,openldap,debian10,fedora">
-  <meta name="keywords" content="Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby,lua,go,rust,scala,openldap,debian10,fedora">
+  <meta name="description" content="Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby,lua,go,rust,scala,openldap,debian10,fedora,centos8">
+  <meta name="keywords" content="Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby,lua,go,rust,scala,openldap,debian10,fedora,centos8">
   <meta name="google-site-verification" content="bGqQHUWnhNwz3WOXE9hH6cprbhHfSI4q3mdWzLNHQSg" />
   <meta name="author" content="Anish Nath">
   
   <%@ include file="analytics.jsp"%>
 
-  <title>Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby,lua,go,rust,perl,scala,debian10,fedora</title>
+  <title>Online Terminal Mysql,PHP,Python,centos7,rhel7,rhel8,ubuntu 18.04,PHP7,nodejs,Ansible,archlinux,opensuse,ruby,lua,go,rust,perl,scala,debian10,fedora,centos8</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -104,6 +104,9 @@
 				$('#form1').delay(200).submit()
 			});
 			$('#fedora').click(function(event) {
+				$('#form1').delay(200).submit()
+			});
+			$('#centos8').click(function(event) {
 				$('#form1').delay(200).submit()
 			});
 			
@@ -280,6 +283,7 @@
 				<input id="python3" type="radio" name="action" value="python3"><img class="img-fluid rounded" src="images/playground/python3.png"  alt="python3 terminal online">
 				<input id="archlinux" type="radio" name="action" value="archlinux"><img class="img-fluid rounded" src="images/playground/archlinux.png"  alt="archlinux terminal online">
 				<input id="centos7" type="radio" name="action" value="centos7"><img class="img-fluid rounded" src="images/playground/centos.png"  alt="centos7 terminal online">
+				<input id="centos8" type="radio" name="action" value="centos8"><img class="img-fluid rounded" src="images/playground/centos8.png"  alt="centos8 vm online">
 				<input id="fedora" type="radio" name="action" value="fedora"><img class="img-fluid rounded" src="images/playground/fedora.png"  alt="fedora30 terminal online">
 				<input id="rhel7" type="radio" name="action" value="rhel7"><img class="img-fluid rounded" src="images/playground/rhel7.png"  alt="rhel7 terminal online">
 				<input id="rhel8" type="radio" name="action" value="rhel8"><img class="img-fluid rounded" src="images/playground/rhel8.png"  alt="rhel8 terminal online">
