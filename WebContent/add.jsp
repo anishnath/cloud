@@ -313,6 +313,7 @@
       <div class="sharethis-inline-share-buttons"></div>
       
       <h2 class="mt-4">Container Service</h2>
+      <p>Container Service is a place to experiment, debug, and show off your http based docker creations.</p>
       
 
       <div class="container-fluid">
